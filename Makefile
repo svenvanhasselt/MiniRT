@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/09 18:14:26 by yizhang       ########   odam.nl          #
+#    Updated: 2023/10/09 18:22:42 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,8 +18,7 @@ LINK = -Iinclude -lglfw
 SRC_DIR = src
 SRC = main.c
 OBJ_DIR = obj
-OBJ = $(addprefix $(OBJDIR)/, $(notdir $(SRC:.c=.o)))
-
+OBJ = $(addprefix /, $(notdir $(SRC:.c=.o)))
 
 # color 
 BOLD		= \033[1m
@@ -42,7 +41,7 @@ $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
 	@$(CC) $(FLAG) -c -o $@ $<
 
 clean:
-	@rm -rf $(OBJ)
+	@rm -rf $(OBJ_DIR)/$(OBJ)
 	@echo "$(BLOD) $(CYAN) Clean objects Done $(RSET)"
 
 fclean: clean
