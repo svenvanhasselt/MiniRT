@@ -1,22 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   errors.c                                           :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
+/*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 12:54:12 by svan-has      ########   odam.nl         */
+/*   Created: 2023/10/10 12:09:59 by svan-has      #+#    #+#                 */
+/*   Updated: 2023/10/10 12:21:04 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-#define MINIRT_H
-
-#include "lib/mlx42/include/MLX42/MLX42.h"
 #include <stdio.h>
+#include <stdlib.h>
 
-void    parse_input(int argc, char **argv);
-void    error_exit(void);
-
-#endif
+void    error_exit(void)
+{
+    printf("Error\n");
+    exit (1);
+}

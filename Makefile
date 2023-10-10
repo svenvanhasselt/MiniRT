@@ -6,20 +6,23 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/10 11:09:48 by svan-has      ########   odam.nl          #
+#    Updated: 2023/10/10 13:10:54 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = gcc
 FLAG = -Wall -Werror -Wextra
-MLX = mlx42/build/libmlx42.a
-LINK := -Iinclude -lglfw
+LIBFT := lib/libft
+LIBMLX	:= lib/mlx42
+LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
+LINK := -I include -lglfw -I $(LIBFT)/includes -I $(LIBMLX)/include/MLX42/
 SRC_DIR := src
 OBJ_DIR := obj
 SRC := \
 	main.c \
-	test.c \
+	parsing.c \
+	errors.c \
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -34,22 +37,27 @@ INDIGO		= \033[38;2;75;0;130m
 CORAL		= \033[38;2;255;127;80m
 RESET		= \033[0m
 
-all: $(NAME)
+all: libft $(NAME)
+
+libft:
+	@$(MAKE) -C $(LIBFT)
 
 $(NAME): $(OBJ)
-		$(CC) $(FLAG) $(OBJ) $(MLX) $(LINK) -o $(NAME)
-		@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
+	@$(CC) $(FLAG) $(OBJ) $(MLX) $(LIBS) $(LINK) -o $(NAME)
+	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(FLAG) -c -o $@ $<
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAG) -c -o $@ $<
 
 clean:
 	@rm -rf $(OBJ_DIR)/$(OBJ)
+	@$(MAKE) -C $(LIBFT) clean
 	@echo "$(BLOD) $(CYAN) Clean objects Done $(RSET)"
 
 fclean: clean
 	@rm -rf $(NAME)
+	@$(MAKE) -C $(LIBFT) fclean
 	@echo "$(BLOD) $(CYAN) Clean MiniRT Done $(RSET)"
 
 re:fclean all
