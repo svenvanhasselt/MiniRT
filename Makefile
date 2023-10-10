@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/10 13:05:53 by yizhang       ########   odam.nl          #
+#    Updated: 2023/10/10 13:09:05 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,11 +48,11 @@ $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
 
 clean:
 	@rm -rf $(OBJ_DIR)/$(OBJ)
+	@rm -rf $(MLXDIR)
 	@echo "$(BLOD) $(CYAN) Clean objects Done $(RSET)"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@rm -rf $(MLXDIR)
 	@echo "$(BLOD) $(CYAN) Clean MiniRT Done $(RSET)"
 
 re:fclean all
