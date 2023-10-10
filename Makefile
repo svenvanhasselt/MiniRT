@@ -1,40 +1,60 @@
-NAME := minirt
-CC := cc
-CFLAGS := -Wall -Wextra -Werror
-LIBFT	:= ./library/libft
-HEADERS := -I $(LIBFT)/includes -I includes
-LIB	:= $(LIBFT)/libft.a
-SRC_DIR := source
-OBJ_DIR := object
+# **************************************************************************** #
+#                                                                              #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: yizhang <yizhang@student.codam.nl>           +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
+#    Updated: 2023/10/10 11:09:48 by svan-has      ########   odam.nl          #
+#                                                                              #
+# **************************************************************************** #
+
+NAME = MiniRT
+CC = gcc
+FLAG = -Wall -Werror -Wextra
+MLX = mlx42/build/libmlx42.a
+LINK := -Iinclude -lglfw
+SRC_DIR := src
+OBJ_DIR := obj
 SRC := \
-		main.c\
-		
+	main.c \
+	test.c \
+
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
-DIR_DUP = mkdir -p $(@D)
-RM := rm -rf
 
-all: libft $(NAME)
+# color 
+BOLD		= \033[1m
+ITALIC		= \033[3m
+UNDER 		= \033[4m
+CYAN		= \033[36;1m
+GREEN		= \033[32;1m
+INDIGO		= \033[38;2;75;0;130m
+CORAL		= \033[38;2;255;127;80m
+RESET		= \033[0m
 
-libft:
-	@$(MAKE) -C $(LIBFT)
+all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(CFLAGS) $(OBJ) $(LIB) $(HEADERS) -o $(NAME) $(READLINEFLAGS)
-	$(info MiniRT Compiled)
+		$(CC) $(FLAG) $(OBJ) $(MLX) $(LINK) -o $(NAME)
+		@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
-$(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
-	@$(DIR_DUP)
-	@$(CC) $(CFLAGS) -c -o $@ $^ $(HEADERS) 
+$(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(FLAG) -c -o $@ $<
 
 clean:
-	@$(RM) $(OBJ_DIR)
-	@$(MAKE) -C $(LIBFT) clean
+	@rm -rf $(OBJ_DIR)/$(OBJ)
+	@echo "$(BLOD) $(CYAN) Clean objects Done $(RSET)"
 
 fclean: clean
-	@$(RM) $(NAME)
-	@$(MAKE) -C $(LIBFT) fclean
+	@rm -rf $(NAME)
+	@echo "$(BLOD) $(CYAN) Clean MiniRT Done $(RSET)"
 
-re: fclean all
+re:fclean all
 
-.PHONY: all libft clean fclean re
+.PHONY: clean fclean re
+	
+	
+	
