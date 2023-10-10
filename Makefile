@@ -6,20 +6,21 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/10 11:01:40 by svan-has      ########   odam.nl          #
+#    Updated: 2023/10/10 13:05:53 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = gcc
 FLAG = -Wall -Werror -Wextra
+MLXDIR = mlx42/build
 MLX = mlx42/build/libmlx42.a
 LINK := -Iinclude -lglfw
 SRC_DIR := src
 OBJ_DIR := obj
 SRC := \
 	main.c \
-	test.c \
+	color.c \
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -37,12 +38,13 @@ RESET		= \033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ)
-		$(CC) $(FLAG) $(OBJ) $(MLX) $(LINK) -o $(NAME)
+		@cd	mlx42 && cmake -B build && cmake --build build -j4
+		@$(CC) $(FLAG) $(OBJ) $(MLX) $(LINK) -o $(NAME)
 		@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
-	mkdir -p $(OBJ_DIR)
-	$(CC) $(FLAG) -c -o $@ $<
+	@mkdir -p $(OBJ_DIR)
+	@$(CC) $(FLAG) -c -o $@ $<
 
 clean:
 	@rm -rf $(OBJ_DIR)/$(OBJ)
@@ -50,6 +52,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME)
+	@rm -rf $(MLXDIR)
 	@echo "$(BLOD) $(CYAN) Clean MiniRT Done $(RSET)"
 
 re:fclean all

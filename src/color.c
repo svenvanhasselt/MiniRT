@@ -1,36 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   color.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 11:21:38 by yizhang       ########   odam.nl         */
+/*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
+/*   Updated: 2023/10/10 12:10:38 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-#define MINIRT_H
+#include "../minirt.h"
 
-#include "mlx42/include/MLX42/MLX42.h"
-#include <stdio.h>
-#include <string.h>
-
-typedef struct s_vec
+//0x  FF FF FF
+//Hex RR GG BB
+int get_rgba(int r, int g, int b, int a)
 {
-	double	x;
-	double	y;
-	double	z;
-
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-int get_rgba(int r, int g, int b, int a);
-#endif
+    return (r << 24 | g << 16 | b << 8 | a);
+}
