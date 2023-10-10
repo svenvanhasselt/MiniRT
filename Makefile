@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/09 18:22:42 by yizhang       ########   odam.nl          #
+#    Updated: 2023/10/10 11:01:40 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,11 +14,15 @@ NAME = MiniRT
 CC = gcc
 FLAG = -Wall -Werror -Wextra
 MLX = mlx42/build/libmlx42.a
-LINK = -Iinclude -lglfw
-SRC_DIR = src
-SRC = main.c
-OBJ_DIR = obj
-OBJ = $(addprefix /, $(notdir $(SRC:.c=.o)))
+LINK := -Iinclude -lglfw
+SRC_DIR := src
+OBJ_DIR := obj
+SRC := \
+	main.c \
+	test.c \
+
+SRC := $(SRC:%=$(SRC_DIR)/%)
+OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 
 # color 
 BOLD		= \033[1m
@@ -32,13 +36,13 @@ RESET		= \033[0m
 
 all: $(NAME)
 
-$(NAME):$(OBJ_DIR)/$(OBJ)
-		@$(CC) $(FLAG) $(OBJ_DIR)/$(OBJ) $(MLX) $(LINK) -o $(NAME)
+$(NAME): $(OBJ)
+		$(CC) $(FLAG) $(OBJ) $(MLX) $(LINK) -o $(NAME)
 		@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
-	@$(CC) $(FLAG) -c -o $@ $<
+	mkdir -p $(OBJ_DIR)
+	$(CC) $(FLAG) -c -o $@ $<
 
 clean:
 	@rm -rf $(OBJ_DIR)/$(OBJ)
