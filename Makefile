@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/10 13:09:05 by yizhang       ########   odam.nl          #
+#    Updated: 2023/10/10 13:35:51 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ CC = gcc
 FLAG = -Wall -Werror -Wextra
 MLXDIR = mlx42/build
 MLX = mlx42/build/libmlx42.a
+LIBFT = libft/libft.a 
 LINK := -Iinclude -lglfw
 SRC_DIR := src
 OBJ_DIR := obj
@@ -39,7 +40,8 @@ all: $(NAME)
 
 $(NAME): $(OBJ)
 		@cd	mlx42 && cmake -B build && cmake --build build -j4
-		@$(CC) $(FLAG) $(OBJ) $(MLX) $(LINK) -o $(NAME)
+		@cd libft && make
+		@$(CC) $(FLAG) $(OBJ) $(MLX) $(LIBFT) $(LINK) -o $(NAME)
 		@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c

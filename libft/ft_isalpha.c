@@ -1,37 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   ft_isalpha.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:46:50 by yizhang       ########   odam.nl         */
+/*   Created: 2022/10/06 16:44:47 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/10/31 09:10:21 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "libft.h"
 
-# include "mlx42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include <stdio.h>
-
-typedef struct s_vec
+int	ft_isalpha(int c)
 {
-	double	x;
-	double	y;
-	double	z;
-
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-uint32_t get_rgba(double r, double g, double b, double a);
-
-#endif
+	if ((c >= 65 && c <= 90) || (c >= 97 && c <= 122))
+		return (1);
+	else
+		return (0);
+}

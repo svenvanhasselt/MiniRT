@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   ft_strmapi.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:46:50 by yizhang       ########   odam.nl         */
+/*   Created: 2022/10/21 16:22:58 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/10/31 09:22:50 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "libft.h"
 
-# include "mlx42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include <stdio.h>
-
-typedef struct s_vec
+char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 {
-	double	x;
-	double	y;
-	double	z;
+	size_t	i;
+	size_t	len;
+	char	*ret;
 
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-uint32_t get_rgba(double r, double g, double b, double a);
-
-#endif
+	i = 0;
+	len = ft_strlen(s);
+	if (!s || !f)
+		return (NULL);
+	ret = ft_calloc (len + 1, sizeof(char));
+	if (!ret)
+		return (NULL);
+	else
+	{
+		while (i < len)
+		{
+			ret[i] = f(i, s[i]);
+			i++;
+		}
+		ret[i] = '\0';
+	}
+	return (ret);
+}

@@ -1,37 +1,32 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   ft_memcpy.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:46:50 by yizhang       ########   odam.nl         */
+/*   Created: 2022/11/04 18:26:29 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/11/04 18:26:29 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "libft.h"
 
-# include "mlx42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include <stdio.h>
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{	
+	size_t		i;
+	char		*tmp_dst;
+	const char	*tmp_src;
 
-typedef struct s_vec
-{
-	double	x;
-	double	y;
-	double	z;
-
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-uint32_t get_rgba(double r, double g, double b, double a);
-
-#endif
+	i = 0;
+	tmp_dst = (char *)dst;
+	tmp_src = (char *)src;
+	if (!dst && !src)
+		return (NULL);
+	while (i < n)
+	{
+		tmp_dst[i] = tmp_src[i];
+		i++;
+	}
+	return (dst);
+}

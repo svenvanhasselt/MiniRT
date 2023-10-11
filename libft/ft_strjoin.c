@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   ft_strjoin.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:46:50 by yizhang       ########   odam.nl         */
+/*   Created: 2022/10/17 14:27:29 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/10/31 09:20:10 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "libft.h"
 
-# include "mlx42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include <stdio.h>
-
-typedef struct s_vec
+char	*ft_strjoin(char const *s1, char const *s2)
 {
-	double	x;
-	double	y;
-	double	z;
+	int		i;
+	int		len;
+	char	*s3;
 
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-uint32_t get_rgba(double r, double g, double b, double a);
-
-#endif
+	i = 0;
+	len = 0;
+	s3 = malloc((ft_strlen(s1)+ft_strlen(s2) + 1) * sizeof(char));
+	if (!s3)
+		return (s3);
+	while (s1[i])
+	{
+		s3[len] = s1[i];
+		i++;
+		len++;
+	}
+	i = 0;
+	while (s2[i])
+	{
+		s3[len] = s2[i];
+		i++;
+		len++;
+	}
+	s3[len] = '\0';
+	return (s3);
+}

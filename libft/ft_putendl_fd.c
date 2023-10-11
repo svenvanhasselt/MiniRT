@@ -1,37 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   ft_putendl_fd.c                                    :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:46:50 by yizhang       ########   odam.nl         */
+/*   Created: 2022/10/21 16:24:35 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/10/31 09:36:57 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "libft.h"
 
-# include "mlx42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include <stdio.h>
-
-typedef struct s_vec
+void	ft_putendl_fd(char *s, int fd)
 {
-	double	x;
-	double	y;
-	double	z;
-
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-uint32_t get_rgba(double r, double g, double b, double a);
-
-#endif
+	write(fd, s, ft_strlen(s));
+	write(fd, "\n", 1);
+}

@@ -1,37 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   ft_strnstr.c                                       :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:46:50 by yizhang       ########   odam.nl         */
+/*   Created: 2022/10/05 18:21:57 by yizhang       #+#    #+#                 */
+/*   Updated: 2022/10/31 09:23:31 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "libft.h"
 
-# include "mlx42/include/MLX42/MLX42.h"
-# include "libft/libft.h"
-# include <stdio.h>
-
-typedef struct s_vec
+char	*ft_strnstr(const char *haystack, const char *needle, size_t len)
 {
-	double	x;
-	double	y;
-	double	z;
+	char	*hay;
+	char	*n;
 
-}t_vec;
-
-typedef struct s_color
-{
-	double	r;
-	double	g;
-	double	b;
-}t_color;
-
-uint32_t get_rgba(double r, double g, double b, double a);
-
-#endif
+	hay = (char *)haystack;
+	n = (char *)needle;
+	if (*n == 0)
+		return (hay);
+	while (*hay && len)
+	{
+		if (ft_strlen(needle) > len)
+			return (NULL);
+		if (ft_strncmp(hay, n, ft_strlen(needle)) == 0)
+			return (hay);
+		hay++;
+		len--;
+	}
+	return (NULL);
+}
