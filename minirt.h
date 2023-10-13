@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 12:54:12 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/10 16:27:59 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,5 +18,6 @@
 
 void    parse_input(int argc, char **argv);
 void    error_exit(void);
+void    *null_check(void *check);
 
 #endif

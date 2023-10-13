@@ -6,13 +6,13 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/10 13:10:54 by svan-has      ########   odam.nl          #
+#    Updated: 2023/10/11 14:37:17 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
-CC = gcc
-FLAG = -Wall -Werror -Wextra
+CC = cc
+FLAG = -Wall -Werror -Wextra #-g -fsanitize=address
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
