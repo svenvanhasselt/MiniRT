@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/11 14:37:17 by svan-has      ########   odam.nl          #
+#    Updated: 2023/10/16 12:23:28 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,7 @@ SRC := \
 	main.c \
 	parsing.c \
 	errors.c \
+	color.c \
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -37,13 +38,12 @@ INDIGO		= \033[38;2;75;0;130m
 CORAL		= \033[38;2;255;127;80m
 RESET		= \033[0m
 
-all: libft $(NAME)
-
-libft:
-	@$(MAKE) -C $(LIBFT)
+all: $(NAME)
 
 $(NAME): $(OBJ)
-	@$(CC) $(FLAG) $(OBJ) $(MLX) $(LIBS) $(LINK) -o $(NAME)
+	@$(MAKE) -C $(LIBFT)
+	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
+	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -o $(NAME)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
@@ -51,8 +51,9 @@ $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
 	@$(CC) $(FLAG) -c -o $@ $<
 
 clean:
-	@rm -rf $(OBJ_DIR)/$(OBJ)
+	@rm -rf $(OBJ_DIR)
 	@$(MAKE) -C $(LIBFT) clean
+	@rm -rf $(LIBMLX)/build
 	@echo "$(BLOD) $(CYAN) Clean objects Done $(RSET)"
 
 fclean: clean

@@ -1,23 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   minirt.h                                           :+:    :+:            */
+/*   color.c                                            :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/16 11:16:39 by svan-has      ########   odam.nl         */
+/*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
+/*   Updated: 2023/10/10 13:50:03 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINIRT_H
-# define MINIRT_H
+#include "../minirt.h"
 
-#include "lib/mlx42/include/MLX42/MLX42.h"
-#include <stdio.h>
+//0x  FF FF FF
+//Hex RR GG BB
 
-void    parse_input(int argc, char **argv);
-void    error_exit(void);
-void    *null_check(void *check);
+uint32_t get_rgba(double r, double g, double b, double a)
+{
+    char    *hex;
 
-#endif
+    (void)a;
+    (void)g;
+    (void)b;
+    (void)r;
+    hex = "0xFFFFFFFF";
+    return (*(uint32_t*)hex);
+}

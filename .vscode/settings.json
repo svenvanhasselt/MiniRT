@@ -1,5 +1,10 @@
 {
     "files.associations": {
+<<<<<<< HEAD
         "mlx42.h": "c"
+=======
+        "minirt.h": "c",
+        "random": "c"
+>>>>>>> main
     }
 }
