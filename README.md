@@ -1,6 +1,6 @@
 <h1 align="center">  MiniRT </h1>
 
-<h2 align="center">This project is an introduction to the beautiful world of Raytracing.</h2>
+<h2 align="center">This project is an introduction to the beautiful world of Raytracing</h2>
 <br>
 <p align="center">
 <p align="center">
@@ -33,3 +33,4 @@ make fclean
 ## Resources
 * [Everything You Need to Know About VECTORS](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
 * [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+* [Ray tracing from scratch](https://www.youtube.com/watch?v=JN5yUrJPThI&list=PL3WoIG-PLjSt54LvzY2SuBQDl-cXa11Tm)
