@@ -31,5 +31,5 @@ make fclean
 ```
 
 ## Resources
-* [Everything You Need to Know About VECTORS](https://www.cs.purdue.edu/homes/grr/SystemsProgrammingBook/Book/Chapter5-WritingYourOwnShell.pdf](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
-* [Ray Tracing in One Weekend](https://pubs.opengroup.org/onlinepubs/009695399/utilities/xcu_chap02.html](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+* [Everything You Need to Know About VECTORS](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
+* [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
