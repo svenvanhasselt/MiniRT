@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/06 12:06:03 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/08/14 15:12:58 by psadeghi      ########   odam.nl         */
+/*   Updated: 2023/10/18 16:42:40 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ void		*ft_memchr(const void *s, int c, size_t n);
 int			ft_memcmp(const void *s1, const void *s2, size_t n);
 char		*ft_strnstr(const char *haystack, const char *needle, size_t len);
 int			ft_atoi(const char *str);
+float		ft_atof(const char *str);
 void		*ft_calloc(size_t nitems, size_t size);
 char		*ft_strdup(const char *s1);
 char		*ft_substr(char const *s, unsigned int start, size_t len);

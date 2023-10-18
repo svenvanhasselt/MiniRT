@@ -6,11 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/16 11:13:41 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/18 12:10:54 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
+#include <stdlib.h>
 
 //open window
 //give some color
@@ -18,12 +19,26 @@
 //vector?
 //
 
+
+t_data *init(int argc, char **argv)
+{
+	t_data	*data;
+	char	**split_file;
+
+	data = null_check(malloc (1 * sizeof(t_data)));
+	data->object_num = 0;
+	parse_input(argc, argv, &split_file, data);
+	
+
+	return (data);
+}
 int main(int argc, char **argv)
 {
 	mlx_t* mlx;
 	mlx_image_t *img;
+	t_data	*data;
 
-	parse_input(argc, argv);
+	data = init(argc, argv);
 
 	mlx = mlx_init(1600, 800, "MiniRT", true);
 	img = mlx_new_image(mlx, 1600, 800);
