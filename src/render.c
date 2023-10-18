@@ -6,25 +6,18 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 11:52:48 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/18 13:33:11 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-/* void	render(mlx_image_t *img)
+double hit_sphere(t_vec center, float radius, t_ray r) 
 {
-	for(int j = 0; j < 1600; j++)
-	{
-		for(int i = 0; i < 800; i++)
-		{
-			if (hit_object())
-				mlx_put_pixel(img, j, i, 0xFFFFFFFF);//print white
-			else
-				mlx_put_pixel(img, j, i, 0xFFFFFFFF);//other color
-		}
-			
-	}
+	t_vec oc = sub(r.orig, center);
+	double a = dot(r.dir, r.dir);
+	double b = 2.0 * dot(oc, r.dir);
+	double c = dot(oc, oc) - radius*radius;
+	double discriminant = b*b - 4*a*c;
+    return (discriminant);
 }
-
-hit_object() */

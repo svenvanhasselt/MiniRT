@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 11:50:10 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/18 13:30:38 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ typedef struct s_pixel
 {
     t_ray   ray;
     uint32_t col;
-    int     x;
-    int     y;
+    int     u;
+    int     v;
 }t_pixel;
 
 void    parse_input(int argc, char **argv);
@@ -56,5 +56,14 @@ void    *null_check(void *check);
 
 //yizhang
 t_vec set_vec(double x, double y, double z);
+
+//vec
+t_vec	add(t_vec v1, t_vec v2);
+t_vec	sub(t_vec v1, t_vec v2);
+double	dot(t_vec v1, t_vec v2);
+t_vec	cross(t_vec v1, t_vec v2);
+
+//render
+double hit_sphere(t_vec center, float radius, t_ray r);
 
 #endif
