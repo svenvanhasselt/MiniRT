@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/17 18:41:01 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/18 10:02:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,8 @@ typedef struct s_camera
 void    parse_input(int argc, char **argv);
 void    error_exit(void);
 void    *null_check(void *check);
+
+//yizhang
+t_vec set_vec(double x, double y, double z);
 
 #endif
