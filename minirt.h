@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 10:02:14 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/18 11:50:10 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,14 @@ typedef struct s_camera
     t_vec   position;
     double  ratio;
 }t_camera;
+
+typedef struct s_pixel
+{
+    t_ray   ray;
+    uint32_t col;
+    int     x;
+    int     y;
+}t_pixel;
 
 void    parse_input(int argc, char **argv);
 void    error_exit(void);

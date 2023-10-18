@@ -6,13 +6,13 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/17 17:50:22 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/18 11:52:48 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-void	render(mlx_image_t *img)
+/* void	render(mlx_image_t *img)
 {
 	for(int j = 0; j < 1600; j++)
 	{
@@ -27,4 +27,4 @@ void	render(mlx_image_t *img)
 	}
 }
 
-hit_object()
+hit_object() */
