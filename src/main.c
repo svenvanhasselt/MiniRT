@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 13:35:47 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/18 14:02:01 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ int main(void)
 {
 	mlx_t* mlx;
 	mlx_image_t *img;
-	double focal_length = 60.0;
-	int viewport_heigh = 160;
-	int viewport_weith = 80;
+	double focal_length = 300.0;
+	int viewport_heigh = 300;
+	int viewport_weith = 150;
 	
 	t_vec camera = set_vec(0,0,0);
 	t_vec center = set_vec(0,0,20);
@@ -60,6 +60,7 @@ int main(void)
 
 	//creat all ray
 	//initial all pixel with black
+	//if hit sphere than pixel should be white
 	int v = 0;
 	for(int j = 0; j < viewport_heigh; j++)
 	{
