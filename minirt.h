@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 13:30:38 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/20 10:23:06 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define MINIRT_H
 
 #include "lib/mlx42/include/MLX42/MLX42.h"
+#include <stdlib.h>
 #include <stdio.h>
 
 typedef struct s_color

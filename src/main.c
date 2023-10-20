@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 14:02:01 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/20 10:34:11 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,28 @@ int main(void)
 {
 	mlx_t* mlx;
 	mlx_image_t *img;
-	double focal_length = 300.0;
-	int viewport_heigh = 300;
-	int viewport_weith = 150;
+	double focal_length = 100.0;
+	int viewport_heigh = 1600;
+	int viewport_weith = 800;
 	
 	t_vec camera = set_vec(0,0,0);
 	t_vec center = set_vec(0,0,20);
-	t_vec viewport[viewport_heigh * viewport_weith]; 
-	t_ray all_ray[viewport_heigh * viewport_weith];
-	t_pixel all_pix[viewport_heigh * viewport_weith];
+	
+	t_vec *viewport;
+	t_ray *all_ray;
+	t_pixel *all_pix;
+	viewport = malloc ((viewport_heigh * viewport_weith) * sizeof(t_vec));
+	all_ray = malloc ((viewport_heigh * viewport_weith) * sizeof(t_ray));
+	all_pix = malloc ((viewport_heigh * viewport_weith) * sizeof(t_pixel));
 	//parse_input(argc, argv);
 
 	mlx = mlx_init(viewport_heigh, viewport_weith, "MiniRT", true);
 	img = mlx_new_image(mlx, viewport_heigh, viewport_weith);
 	mlx_image_to_window(mlx, img, 0, 0);
 
-	//creat all ray
-	//initial all pixel with black
-	//if hit sphere than pixel should be white
+	// creat all ray
+	// initial all pixel with black
+	// if hit sphere than pixel should be white
 	int v = 0;
 	for(int j = 0; j < viewport_heigh; j++)
 	{
@@ -72,6 +76,8 @@ int main(void)
 				all_pix[v] = set_pixel(all_ray[v], j, i, 0xFFFFFFFF);
 			else
 				all_pix[v] = set_pixel(all_ray[v], j, i, 0x000000FF);
+			if(v >= viewport_heigh * viewport_weith-2)
+				break;
 			v++;
 		}
 	}

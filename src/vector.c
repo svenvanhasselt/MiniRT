@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 12:57:37 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 13:16:13 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/20 12:14:16 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,4 +42,37 @@ t_vec	cross(t_vec v1, t_vec v2)
 	new.y = v1.z * v2.x - v1.x * v2.z;
 	new.z = v1.x * v2.y - v1.y * v2.x;
 	return (new);
+}
+
+	
+	//1. The equation for a sphere of radius r:
+	//	x^2+y^2+z^2 = r^2
+	//if a given point P(x,y,z)
+	
+	//on the sphere, then x2+y2+z2 = r2
+	//inside the sphere, then x2+y2+z2 < r2
+	//outside the sphere, then x2+y2+z2 > r2
+
+	//2. If we want to allow the sphere center to be at an arbitrary point (Cx,Cy,Cz);
+	//	(Px−Cx)^2+(Py−Cy)^2+(Pz−Cz)^2 = r^2
+
+	//3.The vector from center C to P is (P - C)
+	//	(P−C)⋅(P−C) = (x−Cx)^2+(y−Cy)^2+(z−Cz)^2
+
+	//4. (P−C)⋅(P−C) = r^2
+	//	sub(P, C)*sub(P, C)-> Multipliction of Vectors - dot product and cross product.
+	
+	//if our ray P(t)=A+tb
+ 	//ever hits the sphere anywhere. If it does hit the sphere, there is some t
+	//for which P(t)satisfies the sphere equation.
+	//(P(t)−C)⋅(P(t)−C)=r2
+	
+double hit_sphere(t_vec center, float radius, t_ray r) 
+{
+	t_vec oc = sub(r.orig, center);
+	double a = dot(r.dir, r.dir);
+	double b = 2.0 * dot(oc, r.dir);
+	double c = dot(oc, oc) - radius*radius;
+	double discriminant = b*b - 4*a*c;
+    return (discriminant);
 }
