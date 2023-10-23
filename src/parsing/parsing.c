@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 12:06:04 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/10/18 16:33:54 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/23 17:20:40 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,21 +30,33 @@ void    error_check(int argc, char **argv)
 void    process_split_line(char **split_file, t_data *data)
 {
     int     i;
-    char    **split_line;
+    char    ***split_line;
 
     (void)data;
     split_line = NULL;
+    i = 0;
+    while (split_file[i])
+        i++;
+    split_line = null_check(malloc ((i) * sizeof(char **)));
     if (line_check_object(split_file[0]))
     {
         i = 1;
         while (split_file[i])
         {
-            split_line = null_check(ft_split(split_file[i], ','));
-            parse_sphere(split_line, data);
-            free_split(split_line);
+            split_line[i - 1] = null_check(ft_split(split_file[i], ','));
             i++;
         }
+          split_line[i - 1] = NULL;
     }
+    parse_sphere(split_line, data, 0);
+    // i = 0;
+    // while (split_line[i])
+    // {
+    //     // free_split(split_line[i]);
+    //     i++;
+    // }
+    // free(split_line);
+    // free_split(split_file);
 }
 
 char   **process_file(char *file, t_data *data)

@@ -6,11 +6,12 @@
 /*   By: svan-has <svan-has@student.42.fr>            +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2022/10/11 14:39:01 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/10/18 16:42:52 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/23 14:41:47 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include "stdio.h"
 
 float	ft_atof(const char *str)
 {

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 16:33:00 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/23 16:37:46 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,8 @@ bool    line_check_object(char *line);
 void    replace_char(char **string, char a, char b);
 void    count_objects(char *file, t_data *data);
 void    free_split(char **split);
-void    parse_sphere(char **split_line, t_data *data);
+void    parse_sphere(char ***split_line, t_data *data, int i);
+char    *input_check(char *string);
 
 /* Errors & Checks */
 void    error_exit(void);
