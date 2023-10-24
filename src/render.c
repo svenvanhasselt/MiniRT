@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 10:46:55 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 12:11:19 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ double hit_sphere(t_vec center, float radius, t_ray r)
 }
 
 //next step: find the nearest root that lies in the acceptable range
-	find_nearest()
+	nearest()
 {
 		
 }

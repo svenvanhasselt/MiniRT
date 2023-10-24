@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/20 10:23:06 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 11:38:57 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,13 @@ typedef struct s_pixel
     int     u;
     int     v;
 }t_pixel;
+
+typedef struct s_light
+{
+	t_vec	point;
+	t_color	color;
+	double	ratio;
+}t_light;
 
 void    parse_input(int argc, char **argv);
 void    error_exit(void);

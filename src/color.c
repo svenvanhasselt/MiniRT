@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/10 13:50:03 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 12:20:03 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,7 @@
 //0x  FF FF FF
 //Hex RR GG BB
 
-uint32_t get_rgba(double r, double g, double b, double a)
+uint32_t get_rgba(int r, int g, int b, int a)
 {
-    char    *hex;
-
-    (void)a;
-    (void)g;
-    (void)b;
-    (void)r;
-    hex = "0xFFFFFFFF";
-    return (*(uint32_t*)hex);
+   return (r << 24 | g << 16 | b << 8 | a);
 }
