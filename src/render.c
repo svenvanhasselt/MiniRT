@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 12:11:19 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 13:30:33 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,9 @@ double hit_sphere(t_vec center, float radius, t_ray r)
 	double b = 2.0 * dot(oc, r.dir);
 	double c = dot(oc, oc) - radius*radius;
 	double discriminant = b*b - 4*a*c;
-    return (discriminant);
-}
-
-//next step: find the nearest root that lies in the acceptable range
-	nearest()
-{
-		
+	if (discriminant < 0)
+		return (-1);
+	else
+    	return (1);
+	//returns the value of at the nearer intersection point using the quadratic formula.
 }

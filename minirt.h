@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 11:38:57 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 13:29:34 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,14 @@
 #include "lib/mlx42/include/MLX42/MLX42.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <math.h>//for sqrt()
+
+typedef enum e_num
+{
+	sphere,
+	plane,
+	cylinder,
+}t_enum;
 
 typedef struct s_color
 {
@@ -43,6 +51,14 @@ typedef struct s_camera
     double  ratio;
 }t_camera;
 
+/* typedef struct s_object
+{
+	int		type;
+	t_vec	center;
+	t_color	color;
+	double	r;
+}t_object;
+ */
 typedef struct s_pixel
 {
     t_ray   ray;
@@ -73,5 +89,7 @@ t_vec	cross(t_vec v1, t_vec v2);
 
 //render
 double hit_sphere(t_vec center, float radius, t_ray r);
+//color
+uint32_t get_rgba(int r, int g, int b, int a);
 
 #endif

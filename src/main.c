@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 12:21:18 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 13:31:29 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ t_pixel set_pixel(t_ray ray, int u, int v, uint32_t col)
 
 int main(void)
 {
+	//what is FOV and 3d normalized orientation vector in vector?
+	//how to caculate the focal_len?
 	mlx_t* mlx;
 	mlx_image_t *img;
 	double focal_length = 100.0;
@@ -49,6 +51,7 @@ int main(void)
 	
 	t_vec camera = set_vec(0,0,0);
 	t_vec center = set_vec(0,0,20);
+	t_vec center2 = set_vec(10,0,20);
 	
 	t_vec *viewport;
 	t_ray *all_ray;
@@ -72,8 +75,10 @@ int main(void)
 		{
 			viewport[v] = set_vec(-viewport_heigh/2+j, viewport_weith/2-i, focal_length);
 			all_ray[v] = set_ray(camera, viewport[v]);
-			if (hit_sphere(center, 5, all_ray[v]) > 0)
-				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(255, 255, 255, 255));//account the lenth 
+			if (hit_sphere(center2, 12.6/2, all_ray[v]) > 0)
+				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(10, 255, 255, 255));//account the lenth 
+			else if (hit_sphere(center, 12.6/2, all_ray[v]) > 0)
+				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(10, 0, 255, 255));//account the lenth 
 			else
 				all_pix[v] = set_pixel(all_ray[v], j, i, 0x000000FF);
 			if(v >= viewport_heigh * viewport_weith-2)
