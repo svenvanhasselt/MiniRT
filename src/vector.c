@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 12:57:37 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/20 12:14:16 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 09:45:40 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,10 +63,23 @@ t_vec	cross(t_vec v1, t_vec v2)
 	//	sub(P, C)*sub(P, C)-> Multipliction of Vectors - dot product and cross product.
 	
 	//if our ray P(t)=A+tb
- 	//ever hits the sphere anywhere. If it does hit the sphere, there is some t
-	//for which P(t)satisfies the sphere equation.
-	//(P(t)−C)⋅(P(t)−C)=r2
-	
+ 	//ever hits the sphere anywhere.
+	//	(P(t)−C)⋅(P(t)−C)=r^2
+	//	((A+tb)−C)⋅((A+tb)−C)=r^2
+	//	t2b⋅b + 2tb⋅(A−C) + (A−C)⋅(A−C)−r^2=0
+
+	//A = b*b 
+	//B = b⋅(A−C)
+	//C = (A−C)⋅(A−C)−r^2
+	//quadratic equation : at^2 + bt + c = 0
+	//{t1,t2} = (-b±√(b²-4ac))/(2a) 
+	//The discriminant is the part of the quadratic formula underneath the square root symbol: b²-4ac
+	//If  b2−4ac<0
+	//then there are no real roots for the quadratic equation.
+	//If  b2−4ac=0
+	//then the quadratic equation has two real, identical roots.
+	//If  b2−4ac>0
+	//then the quadratic equation has two real, distinct roots
 double hit_sphere(t_vec center, float radius, t_ray r) 
 {
 	t_vec oc = sub(r.orig, center);

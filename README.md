@@ -35,3 +35,5 @@ make fclean
 * [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
 * [Ray tracing from scratch](https://www.youtube.com/watch?v=JN5yUrJPThI&list=PL3WoIG-PLjSt54LvzY2SuBQDl-cXa11Tm)
 * [Basic Raytracing](https://www.gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html)
+* [How To Solve Quadratic Equations Using The Quadratic Formula](https://www.youtube.com/watch?v=IlNAJl36-10)
+* [A Complete Guide to the Discriminant of Quadratic](https://mathsathome.com/the-discriminant-quadratic/)
