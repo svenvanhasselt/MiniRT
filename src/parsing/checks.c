@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/23 14:57:54 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/10/23 16:38:52 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/24 17:52:09 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char    *input_check(char *string)
     dot = false;
     while (string[i])
     {
-        if (ft_isdigit(string[i]))
+        if (ft_isdigit(string[i]) || string[i] == '-')
             i++;
         else if (!dot && string[i] == '.')
         {
@@ -30,7 +30,7 @@ char    *input_check(char *string)
             dot = true;
         }
         else
-            error_exit();
+            error_exit("Wrong formatting of data");
     }
     return (string);
 }

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/18 12:10:54 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/24 17:22:31 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,11 @@
 //sending rays into the scene
 //vector?
 //
-
+void	free_data(t_data *data)
+{
+	free(data->objects);
+	free(data);
+}
 
 t_data *init(int argc, char **argv)
 {
@@ -28,8 +32,6 @@ t_data *init(int argc, char **argv)
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
-	
-
 	return (data);
 }
 int main(int argc, char **argv)
@@ -53,5 +55,6 @@ int main(int argc, char **argv)
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, img);
 	mlx_terminate(mlx);
+	free_data(data);
 	return 0;
 }

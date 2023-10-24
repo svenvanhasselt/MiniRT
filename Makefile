@@ -6,13 +6,13 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/23 16:36:31 by svan-has      ########   odam.nl          #
+#    Updated: 2023/10/24 17:23:04 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -Wall -Werror -Wextra -g -fsanitize=address
+FLAG = -g -fsanitize=address #-Wall -Werror -Wextra
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
@@ -24,8 +24,9 @@ SRC := \
 	main.c \
 	parsing/parsing.c \
 	parsing/tools.c \
-	parsing/sphere.c \
+	parsing/objects.c \
 	parsing/checks.c \
+	parsing/data.c \
 	errors.c \
 	color.c \
 
