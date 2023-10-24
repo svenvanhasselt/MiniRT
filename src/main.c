@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/20 10:34:11 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 11:12:29 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,7 @@ int main(void)
 			viewport[v] = set_vec(-viewport_heigh/2+j, viewport_weith/2-i, focal_length);
 			all_ray[v] = set_ray(camera, viewport[v]);
 			if (hit_sphere(center, 5, all_ray[v]) > 0)
-				all_pix[v] = set_pixel(all_ray[v], j, i, 0xFFFFFFFF);
+				all_pix[v] = set_pixel(all_ray[v], j, i, 0xFFFFFFFF);//account the lenth 
 			else
 				all_pix[v] = set_pixel(all_ray[v], j, i, 0x000000FF);
 			if(v >= viewport_heigh * viewport_weith-2)
@@ -81,7 +81,9 @@ int main(void)
 			v++;
 		}
 	}
-
+	//Front faces versus back faces
+	//A List of Hittable Objects
+	
 	//print image with color
 	for(int j = 0; j < viewport_heigh*viewport_weith; j++)
 	{
