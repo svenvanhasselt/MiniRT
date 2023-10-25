@@ -6,11 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 13:30:33 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/25 13:04:05 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
+#include <math.h>
 
 	//1. The equation for a sphere of radius r:
 	//	x^2+y^2+z^2 = r^2
@@ -30,6 +31,7 @@
 	//	sub(P, C)*sub(P, C)-> Multipliction of Vectors - dot product and cross product.
 	
 	//if our ray P(t)=A+tb
+	
  	//ever hits the sphere anywhere.
 	//	(P(t)−C)⋅(P(t)−C)=r^2
 	//	((A+tb)−C)⋅((A+tb)−C)=r^2
@@ -58,6 +60,18 @@ double hit_sphere(t_vec center, float radius, t_ray r)
 	if (discriminant < 0)
 		return (-1);
 	else
-    	return (1);
-	//returns the value of at the nearer intersection point using the quadratic formula.
+    	return ((-b -sqrt(discriminant)) / (2 * a));//
+}
+
+//Find Intersection Point:
+//t value, plug it back into the ray equation to find the intersection point:
+//	P = O + t*D
+//P:intersection
+//O:origin
+//D:deriction
+//find the nearest root that lies in the acceptable range
+t_vec find_nearst(double discriminant, t_ray ray)
+{
+	t_vec	interse;
+	set_vec(ray)
 }

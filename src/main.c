@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 13:31:29 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/25 11:12:40 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ int main(void)
 	mlx_t* mlx;
 	mlx_image_t *img;
 	double focal_length = 100.0;
-	int viewport_heigh = 1600;
+	int viewport_high = 1600;
 	int viewport_weith = 800;
 	
 	t_vec camera = set_vec(0,0,0);
@@ -56,24 +56,24 @@ int main(void)
 	t_vec *viewport;
 	t_ray *all_ray;
 	t_pixel *all_pix;
-	viewport = malloc ((viewport_heigh * viewport_weith) * sizeof(t_vec));
-	all_ray = malloc ((viewport_heigh * viewport_weith) * sizeof(t_ray));
-	all_pix = malloc ((viewport_heigh * viewport_weith) * sizeof(t_pixel));
+	viewport = malloc ((viewport_high * viewport_weith) * sizeof(t_vec));
+	all_ray = malloc ((viewport_high * viewport_weith) * sizeof(t_ray));
+	all_pix = malloc ((viewport_high * viewport_weith) * sizeof(t_pixel));
 	//parse_input(argc, argv);
 
-	mlx = mlx_init(viewport_heigh, viewport_weith, "MiniRT", true);
-	img = mlx_new_image(mlx, viewport_heigh, viewport_weith);
+	mlx = mlx_init(viewport_high, viewport_weith, "MiniRT", true);
+	img = mlx_new_image(mlx, viewport_high, viewport_weith);
 	mlx_image_to_window(mlx, img, 0, 0);
 
 	// creat all ray
 	// initial all pixel with black
-	// if hit sphere than pixel should be white
+	// if hit sphere than pixel should be other color
 	int v = 0;
-	for(int j = 0; j < viewport_heigh; j++)
+	for(int j = 0; j < viewport_high; j++)
 	{
 		for(int i = 0; i <viewport_weith; i++)
 		{
-			viewport[v] = set_vec(-viewport_heigh/2+j, viewport_weith/2-i, focal_length);
+			viewport[v] = set_vec(-viewport_high/2+j, viewport_weith/2-i, focal_length);
 			all_ray[v] = set_ray(camera, viewport[v]);
 			if (hit_sphere(center2, 12.6/2, all_ray[v]) > 0)
 				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(10, 255, 255, 255));//account the lenth 
@@ -81,7 +81,7 @@ int main(void)
 				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(10, 0, 255, 255));//account the lenth 
 			else
 				all_pix[v] = set_pixel(all_ray[v], j, i, 0x000000FF);
-			if(v >= viewport_heigh * viewport_weith-2)
+			if(v >= viewport_high * viewport_weith-2)
 				break;
 			v++;
 		}
@@ -90,7 +90,7 @@ int main(void)
 	//A List of Hittable Objects
 	
 	//print image with color
-	for(int j = 0; j < viewport_heigh*viewport_weith; j++)
+	for(int j = 0; j < viewport_high*viewport_weith; j++)
 	{
 		mlx_put_pixel(img, all_pix[j].u, all_pix[j].v, all_pix[j].col);
 	}

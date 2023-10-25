@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 13:29:34 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/24 16:45:12 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <math.h>//for sqrt()
+
+#define MINT 0.2
+#define MAXT 40//dont know how to define
 
 typedef enum e_num
 {
