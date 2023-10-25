@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 17:47:30 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/25 14:04:14 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ typedef struct s_data
 void    parse_input(int argc, char **argv, char ***split_file, t_data *data);
 bool    line_check_data(char *line);
 bool    line_check_object(char *line);
+void    check_object_data(char *string,  char ***split_line, t_data *data, int obj_index);
+void    error_check(int argc, char **argv);
 void    replace_char(char **string, char a, char b);
 void    count_objects(char *file, t_data *data);
 void    free_split(char **split);

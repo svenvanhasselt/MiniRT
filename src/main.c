@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/24 17:22:31 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/10/25 14:09:14 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ int main(int argc, char **argv)
 	t_data	*data;
 
 	data = init(argc, argv);
-
 	mlx = mlx_init(1600, 800, "MiniRT", true);
 	img = mlx_new_image(mlx, 1600, 800);
 	//print image with color
