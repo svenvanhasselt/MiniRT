@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/25 13:04:05 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/25 15:16:39 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,12 @@ double hit_sphere(t_vec center, float radius, t_ray r)
 	if (discriminant < 0)
 		return (-1);
 	else
-    	return ((-b -sqrt(discriminant)) / (2 * a));//
+    	return ((-b -sqrt(discriminant)) / (2 * a));
+	//The intersection of the ray and the sphere results in a quadratic equation of the form:
+	//a*t^2 + b*t + c = 0
+	//This quadratic equation can have two solutions
+	//-b -sqrt(discriminant)
+	// indicating that we are solving for the smaller of the two possible values.
 }
 
 //Find Intersection Point:
@@ -69,9 +74,23 @@ double hit_sphere(t_vec center, float radius, t_ray r)
 //P:intersection
 //O:origin
 //D:deriction
-//find the nearest root that lies in the acceptable range
-t_vec find_nearst(double discriminant, t_ray ray)
+t_vec find_nearst(double t, t_ray ray)
 {
 	t_vec	interse;
-	set_vec(ray)
+	interse.x = ray.orig.x + t * ray.dir.x;
+	interse.y = ray.orig.y + t * ray.dir.y;
+	interse.z = ray.orig.z + t * ray.dir.z;
+	return (interse);
+}
+//
+t_color ray_color(t_ray r, double t)
+{
+    if (t > 0.0) {
+        t_vec n = unit_vector(sub(find_nearst(t, r), set_vec(0,0,-1)));
+        return set_col(0.5 * (n.x + 1), 0.5 * (n.y + 1), 0.5 * (n.z + 1));
+    }
+
+    t_vec unit_direction = unit_vector(r.dir);
+    double  a = 0.5 * (unit_direction.y + 1.0);
+    return (set_col((1.0 - a) + a * 0.5, (1.0 - a) + a * 0.7, (1.0 - a) + a * 1.0));
 }
