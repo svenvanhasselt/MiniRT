@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/26 14:10:01 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/26 14:52:19 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+#include <stdbool.h>//bool
 
 #define MINT 0.2
 #define MAXT 40//dont know how to define
@@ -55,7 +56,7 @@ typedef struct s_camera
     float  ratio;
 }t_camera;
 
-typedef struct s_object
+typedef struct s_obj
 {
     int     type;
     float   x;
@@ -70,7 +71,7 @@ typedef struct s_object
     float   vec_z;
     float   cyl_diameter;
     float   cyl_height;
-}   t_object;
+}   t_obj;
 
 typedef struct s_pixel
 {
