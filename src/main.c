@@ -6,13 +6,13 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/25 15:16:11 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/26 14:19:23 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
-t_vec set_vec(double x, double y, double z)
+t_vec set_vec(float x, float y, float z)
 {
 	t_vec new;
 	new.x = x;
@@ -21,7 +21,7 @@ t_vec set_vec(double x, double y, double z)
 	return (new);	
 }
 
-t_color set_col(double r, double g, double b)
+t_color set_col(float r, float g, float b)
 {
 	t_color new;
 	new.r = r;
@@ -54,7 +54,7 @@ int main(void)
 	//how to caculate the focal_len?
 	mlx_t* mlx;
 	mlx_image_t *img;
-	double focal_length = 500;
+	float focal_length = 500;
 	int viewport_high = 1600;
 	int viewport_weith = 800;
 	
@@ -76,7 +76,7 @@ int main(void)
 
 	// creat all ray
 	// initial all pixel with black
-	// if hit sphere than pixel should be other color
+	// if hit a ray sphere, than pixel should be other color
 	int v = 0;
 	for(int j = 0; j < viewport_high; j++)
 	{
@@ -84,23 +84,14 @@ int main(void)
 		{
 			viewport[v] = set_vec(-viewport_high/2+j, viewport_weith/2-i, focal_length);
 			all_ray[v] = set_ray(camera, viewport[v]);
-			double t = hit_sphere(center, 12.6/2, all_ray[v]);
-			if (t > 0)
-			{
-				t_color color = ray_color(all_ray[v],t);
-				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(color.r * 255, color.g *255, color.b *255, 255));//account the lenth 
-			}
-			else
-				all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(0, 0, 0, 255));
+			float t = hit_sphere(center, 12.6/2, all_ray[v]);//creat a object arr;
+			t_color color = ray_color(all_ray[v],t);//compute the norm of object and color
+			all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
 			if(v >= viewport_high * viewport_weith-2)
 				break;
-			//else if (hit_sphere(center, 12.6/2, all_ray[v]) > 0)
-			//	all_pix[v] = set_pixel(all_ray[v], j, i, get_rgba(10, 0, 255, 255));//account the lenth 
 			v++;
 		}
 	}
-	//Front faces versus back faces
-	//A List of Hittable Objects
 	
 	//print image with color
 	for(int j = 0; j < viewport_high*viewport_weith; j++)

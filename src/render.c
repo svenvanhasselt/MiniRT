@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/25 15:16:39 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/26 14:35:16 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,17 +50,18 @@
 	//If  b2−4ac>0
 	//then the quadratic equation has two real, distinct roots
 	
-double hit_sphere(t_vec center, float radius, t_ray r) 
+float hit_sphere(t_vec center, float radius, t_ray r) 
 {
 	t_vec oc = sub(r.orig, center);
-	double a = dot(r.dir, r.dir);
-	double b = 2.0 * dot(oc, r.dir);
-	double c = dot(oc, oc) - radius*radius;
-	double discriminant = b*b - 4*a*c;
-	if (discriminant < 0)
+	float a = dot(r.dir, r.dir);
+	float b = 2.0 * dot(oc, r.dir);
+	float c = dot(oc, oc) - radius*radius;
+	float discriminant = b*b - 4*a*c;
+	float	t = (-b/2 -sqrt(discriminant)) / a;
+	if (discriminant < 0 /* || (t <= MINT || t >= MAXT) */)
 		return (-1);
 	else
-    	return ((-b -sqrt(discriminant)) / (2 * a));
+    	return (t);
 	//The intersection of the ray and the sphere results in a quadratic equation of the form:
 	//a*t^2 + b*t + c = 0
 	//This quadratic equation can have two solutions
@@ -68,13 +69,14 @@ double hit_sphere(t_vec center, float radius, t_ray r)
 	// indicating that we are solving for the smaller of the two possible values.
 }
 
-//Find Intersection Point:
+//Find Intersection Point vector:
 //t value, plug it back into the ray equation to find the intersection point:
 //	P = O + t*D
 //P:intersection
 //O:origin
 //D:deriction
-t_vec find_nearst(double t, t_ray ray)
+//reverse inference to derive value
+t_vec t_to_vec(float t, t_ray ray)
 {
 	t_vec	interse;
 	interse.x = ray.orig.x + t * ray.dir.x;
@@ -83,14 +85,14 @@ t_vec find_nearst(double t, t_ray ray)
 	return (interse);
 }
 //
-t_color ray_color(t_ray r, double t)
+t_color ray_color(t_ray r, float t)
 {
-    if (t > 0.0) {
-        t_vec n = unit_vector(sub(find_nearst(t, r), set_vec(0,0,-1)));
-        return set_col(0.5 * (n.x + 1), 0.5 * (n.y + 1), 0.5 * (n.z + 1));
-    }
-
-    t_vec unit_direction = unit_vector(r.dir);
-    double  a = 0.5 * (unit_direction.y + 1.0);
-    return (set_col((1.0 - a) + a * 0.5, (1.0 - a) + a * 0.7, (1.0 - a) + a * 1.0));
+	if (t > 0.0)
+	{					//the close point on the sphere, and the center of sphere
+		t_vec n = unit_vector(sub(t_to_vec(t, r), set_vec(0,0,-1)));
+		return set_col(0.5 * (n.x + 1), 0.5 * (n.y + 1), 0.5 * (n.z + 1));//color range base on the unit_vector
+	}
+	t_vec unit_direction = unit_vector(r.dir);
+	float  a = 0.5 * (unit_direction.y + 1.0);
+	return (set_col((1.0 - a) + a * 0.5, (1.0 - a) + a * 0.7, (1.0 - a) + a * 1.0));
 }
