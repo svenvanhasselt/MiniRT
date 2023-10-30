@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 12:57:37 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/26 14:11:24 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/30 10:15:18 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,20 @@ t_vec unit_vector(t_vec v)
     t_vec ret;
 	ret = set_vec(v.x / len, v.y / len, v.z / len);
     return ret;
+}
+
+//Find Intersection Point vector:
+//t value, plug it back into the ray equation to find the intersection point:
+//	P = O + t*D
+//P:intersection
+//O:origin
+//D:deriction
+//reverse inference to derive value
+t_vec t_to_vec(float t, t_ray ray)
+{
+	t_vec	interse;
+	interse.x = ray.orig.x + t * ray.dir.x;
+	interse.y = ray.orig.y + t * ray.dir.y;
+	interse.z = ray.orig.z + t * ray.dir.z;
+	return (interse);
 }
