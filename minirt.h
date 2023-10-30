@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 10:47:39 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/30 12:23:03 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_obj
 	int		type;
 	t_vec	center;
 	t_color	color;
+	t_vec	norm;
 	float	vec_x;
 	float	vec_y;
 	float	vec_z;
