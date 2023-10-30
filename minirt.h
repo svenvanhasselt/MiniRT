@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 10:17:43 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/30 10:47:39 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 # define MINIRT_H
 
 #include "lib/mlx42/include/MLX42/MLX42.h"
-#include <stdlib.h>
+#include <stdbool.h>//bool
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
-#include <stdbool.h>//bool
 
 #define MINT 0.2
 #define MAXT 40//dont know how to define
@@ -106,6 +105,7 @@ t_vec		t_to_vec(float disc, t_ray ray);
 bool		hit_object(t_ray ray, t_obj *obj);
 float		hit_sphere(t_vec center, float radius, t_ray r);
 t_color		ray_color(t_ray r, float t, t_vec oc);
+t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 
 //color
 uint32_t	get_rgba(int r, int g, int b, int a);

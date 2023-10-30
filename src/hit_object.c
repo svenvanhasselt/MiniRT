@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 10:25:19 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/10/30 11:05:26 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,3 +85,13 @@ float hit_sphere(t_vec center, float radius, t_ray r)
 	//-b -sqrt(discriminant)
 	// indicating that we are solving for the smaller of the two possible values.
 }
+
+t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outside of sphere
+{
+	if (dot(ray_dir, face) > 0.0)//ray hit inside of sphere
+		return (set_vec(-face.x, -face.y, -face.z));// face = -face
+	else
+		return (face)
+}
+
+random_vec()
