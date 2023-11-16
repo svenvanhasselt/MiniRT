@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/25 13:51:55 by svan-has      ########   odam.nl          #
+#    Updated: 2023/11/16 15:48:22 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRC := \
 	parsing/checks.c \
 	parsing/data.c \
 	parsing/errors.c \
+	rendering/render.c \
 	errors.c \
 	color.c \
 
