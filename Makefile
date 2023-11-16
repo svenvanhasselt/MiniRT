@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/11/16 15:48:22 by svan-has      ########   odam.nl          #
+#    Updated: 2023/11/16 15:54:51 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,9 @@ SRC := \
 	rendering/render.c \
 	errors.c \
 	color.c \
+	render.c\
+	vector.c\
+	hit_object.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -50,7 +53,7 @@ all: $(NAME)
 $(NAME): $(OBJ)
 	@$(MAKE) -C $(LIBFT)
 	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
-	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -o $(NAME)
+	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -lm -o $(NAME)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c

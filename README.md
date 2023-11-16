@@ -1,6 +1,6 @@
 <h1 align="center">  MiniRT </h1>
 
-<h2 align="center">This project is an introduction to the beautiful world of Raytracing.</h2>
+<h2 align="center">This project is an introduction to the beautiful world of Raytracing</h2>
 <br>
 <p align="center">
 <p align="center">
@@ -33,3 +33,8 @@ make fclean
 ## Resources
 * [Everything You Need to Know About VECTORS](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
 * [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
+* [Ray tracing from scratch](https://www.youtube.com/watch?v=JN5yUrJPThI&list=PL3WoIG-PLjSt54LvzY2SuBQDl-cXa11Tm)
+* [Basic Raytracing](https://www.gabrielgambetta.com/computer-graphics-from-scratch/02-basic-raytracing.html)
+* [How To Solve Quadratic Equations Using The Quadratic Formula](https://www.youtube.com/watch?v=IlNAJl36-10)
+* [A Complete Guide to the Discriminant of Quadratic](https://mathsathome.com/the-discriminant-quadratic/)
+* [How a vector is reflected at a surface](http://www.sunshine2k.de/articles/coding/vectorreflection/vectorreflection.html#:~:text=Reflection%20in%20a%20nutshell%3A&text=The%20formula%20w%20%3D%20v%20%2D%202,not%20a%20point%20in%20space)
