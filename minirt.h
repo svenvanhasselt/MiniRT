@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/16 15:55:15 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/16 16:03:43 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ typedef struct s_amb_light
     int     b;
 } t_alight;
 
-typedef struct s_camera
+typedef struct s_camera_s
 {
     float   x;
     float   y;
@@ -60,9 +60,9 @@ typedef struct s_camera
     float   ov_y;
     float   ov_z;
     float   fov;
-}   t_camera;
+}   t_camera_s;
 
-typedef struct s_light
+typedef struct s_light_s
 {
     float   x;
     float   y;
@@ -71,14 +71,14 @@ typedef struct s_light
     float   r;
     float   g;
     float   b;
-} t_light;
+} t_light_s;
 
 typedef struct s_data
 {
     t_object    *objects;
     t_alight    amb_light;
-    t_light     light;
-    t_camera    camera;
+    t_light_s     light;
+    t_camera_s    camera;
     int         object_num;
 }   t_data;
 
@@ -106,13 +106,6 @@ void    error_exit(char *message);
 void    *null_check(void *check);
 #define MINT 0.2
 #define MAXT 40//dont know how to define
-
-typedef enum e_num
-{
-	sphere,
-	plane,
-	cylinder,
-}t_enum;
 
 typedef struct s_color
 {
@@ -169,10 +162,6 @@ typedef struct s_light
 	t_color	color;
 	float	ratio;
 }t_light;
-
-void		parse_input(int argc, char **argv);
-void		error_exit(void);
-void		*null_check(void *check);
 
 //yizhang
 t_vec		set_vec(float x, float y, float z);

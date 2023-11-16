@@ -1,1 +1,4 @@
-bool hit_sphere()
+bool hit_sphere_s()
+{
+    
+}
