@@ -6,15 +6,28 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2023/11/14 13:44:47 by svan-has      ########   odam.nl         */
-=======
-/*   Updated: 2023/10/30 09:30:34 by yizhang       ########   odam.nl         */
->>>>>>> yizhang
+/*   Updated: 2023/11/17 11:05:34 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
+
+void	free_data(t_data *data)
+{
+	free(data->objects);
+	free(data);
+}
+
+t_data *init(int argc, char **argv)
+{
+	t_data	*data;
+	char	**split_file;
+
+	data = null_check(malloc (1 * sizeof(t_data)));
+	data->object_num = 0;
+	parse_input(argc, argv, &split_file, data);
+	return (data);
+}
 
 t_vec set_vec(float x, float y, float z)
 {
@@ -52,12 +65,14 @@ t_pixel set_pixel(t_ray ray, int u, int v, uint32_t col)
 	return(new);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
 	//what is FOV and 3d normalized orientation vector in vector?
 	//how to caculate the focal_len?
 	mlx_t* mlx;
 	mlx_image_t *img;
+	t_data	*data;
+	
 	float focal_length = 500;
 	int viewport_high = 1600;
 	int viewport_weith = 800;
@@ -74,6 +89,7 @@ int main(void)
 	all_pix = malloc ((viewport_high * viewport_weith) * sizeof(t_pixel));
 	//parse_input(argc, argv);
 
+	data = init(argc, argv);
 	mlx = mlx_init(viewport_high, viewport_weith, "MiniRT", true);
 	img = mlx_new_image(mlx, viewport_high, viewport_weith);
 	mlx_image_to_window(mlx, img, 0, 0);
@@ -118,5 +134,6 @@ int main(void)
 	mlx_loop(mlx);
 	mlx_delete_image(mlx, img);
 	mlx_terminate(mlx);
+	free_data(data);
 	return 0;
 }

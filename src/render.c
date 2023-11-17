@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 11:43:18 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/17 10:56:47 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_color ray_color(t_ray r, float t, t_vec oc)
 	//return (set_col((1.0 - a) + a * 0.5, (1.0 - a) + a * 0.7, (1.0 - a) + a * 1.0));
 }
 
-t_vec random_unit_vec()
-{
-	return 
-}
+// t_vec random_unit_vec()
+// {
+// 	return 
+// }
