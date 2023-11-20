@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/17 13:23:44 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/20 11:02:32 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,10 +78,7 @@ float hit_sphere(t_vec center, float radius, t_ray r)
 	if (discriminant < 0 /* || (t <= MINT || t >= MAXT) */)
 		return (-1);
 	else
-	{
-		printf("%f\n", center.x);
     	return (t);
-	}
 	//The intersection of the ray and the sphere results in a quadratic equation of the form:
 	//a*t^2 + b*t + c = 0
 	//This quadratic equation can have two solutions
