@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/20 11:03:52 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/23 14:22:33 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ int main(int argc, char **argv)
 	int viewport_high = 1600;
 	int viewport_weith = 800;
 	
-	t_vec camera = set_vec(0,0,0);
+	t_vec camera = set_vec(4,0.5,-8);
 	t_vec center = set_vec(0,0,20);
 	t_vec center2 = set_vec(10,0,20);
 	
@@ -135,5 +135,8 @@ int main(int argc, char **argv)
 	mlx_delete_image(mlx, img);
 	mlx_terminate(mlx);
 	free_data(data);
+	free(viewport);
+	free(all_ray);
+	free(all_pix);
 	return 0;
 }

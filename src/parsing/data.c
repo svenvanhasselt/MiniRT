@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 13:54:09 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/10/25 14:12:46 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/23 14:21:23 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ void	parse_amb_light(char ***split_line, t_data *data)
 	data->amb_light.r = string_to_float(split_line[1][0]);
 	data->amb_light.g = string_to_float(split_line[1][1]);
 	data->amb_light.b = string_to_float(split_line[1][2]);
-	printf("ambient: %f\n", data->amb_light.ambient);
 }
 
 void	parse_camera(char ***split_line, t_data *data)
