@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/16 16:03:43 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/23 15:18:31 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ typedef struct s_light
 //yizhang
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);
+t_ray       set_ray(t_vec orig, t_vec dir);
 
 //vec
 t_vec		add(t_vec v1, t_vec v2);
