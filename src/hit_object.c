@@ -6,30 +6,45 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 11:05:26 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/23 16:02:43 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
 //make a object list
-bool	hit_object(t_ray ray, t_obj *obj)
+bool	hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix)
 {
-	while(obj)
+	int i;
+	int t;
+	i = 0;
+	while(i < 2)
 	{
-		if (obj->type == sphere && hit_sphere(obj->center, obj->sph_diameter/2, ray) > 0.0)
+		if (obj[i].type == sphere)
+		{
+			t = hit_sphere(obj[i].vec, obj[i].sph_diameter/2, ray);
+			give_color(ray, t, weith, high, pix, obj[i]);
+		}
+		else if (obj[i].type == plane /* && hit_plane */)
 			return (true);
-		else if (obj->type == plane /* && hit_plane */)
+		else if (obj[i].type == cylinder /* && hit_cylinder */)
 			return (true);
-		else if (obj->type == cylinder /* && hit_cylinder */)
-			return (true);
-		if (!obj->next)
-			return (false);
-		obj = obj->next;
+		i++;
 	}
 	return (false);
 }
 
+void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj)
+{
+	if (t > 0.0)
+	{
+		t_color color = ray_color(ray,t,obj.vec);//compute the norm of object and color
+		pix = set_pixel(ray, high, weith, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
+	}
+	else
+		pix = set_pixel(ray, high, weith, get_rgba(0, 0, 0, 255));
+	
+}
 	//1. The equation for a sphere of radius r:
 	//	x^2+y^2+z^2 = r^2
 	//if a given point P(x,y,z)
@@ -91,7 +106,5 @@ t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outs
 	if (dot(ray_dir, face) > 0.0)//ray hit inside of sphere
 		return (set_vec(-face.x, -face.y, -face.z));// face = -face
 	else
-		return (face)
+		return (face);
 }
-
-random_vec()

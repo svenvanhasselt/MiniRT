@@ -6,27 +6,34 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/10/30 10:15:45 by yizhang       ########   odam.nl          #
+#    Updated: 2023/11/23 16:08:31 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -Wall -Werror -Wextra #-g -fsanitize=address
+FLAG = -g -fsanitize=address -Wall -Werror -Wextra
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 LINK := -I include -lglfw -I $(LIBFT)/includes -I $(LIBMLX)/include/MLX42/
 SRC_DIR := src
 OBJ_DIR := obj
+DIR_DUP = mkdir -p $(@D)
 SRC := \
 	main.c \
-	parsing.c \
+	parsing/parsing.c \
+	parsing/tools.c \
+	parsing/objects.c \
+	parsing/checks.c \
+	parsing/data.c \
+	parsing/errors.c \
 	errors.c \
 	color.c \
 	render.c\
 	vector.c\
 	hit_object.c\
+	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
@@ -50,7 +57,7 @@ $(NAME): $(OBJ)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
-	@mkdir -p $(OBJ_DIR)
+	@$(DIR_DUP)
 	@$(CC) $(FLAG) -c -o $@ $<
 
 clean:

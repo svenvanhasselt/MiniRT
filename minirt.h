@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 12:23:03 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/23 16:08:39 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,6 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
-
-#define MINT 0.2
-#define MAXT 40//dont know how to define
-
-typedef enum e_num
-{
-	sphere,
-	plane,
-	cylinder,
-}t_enum;
 
 typedef struct s_color
 {
@@ -55,10 +45,10 @@ typedef struct s_camera
 	float	ratio;
 }t_camera;
 
-typedef struct s_obj
+typedef struct s_object
 {
 	int		type;
-	t_vec	center;
+	t_vec	vec;
 	t_color	color;
 	t_vec	norm;
 	float	vec_x;
@@ -67,8 +57,7 @@ typedef struct s_obj
 	float	sph_diameter;
 	float	cyl_diameter;
 	float	cyl_height;
-	struct	s_obj	*next;
-}t_obj;
+}t_object;
 
 typedef struct s_pixel
 {
@@ -85,13 +74,77 @@ typedef struct s_light
 	float	ratio;
 }t_light;
 
-void		parse_input(int argc, char **argv);
-void		error_exit(void);
-void		*null_check(void *check);
+enum   t_type
+{
+    sphere,
+    plane,
+    cylinder,
+};
+
+typedef struct s_amb_light
+{
+    float   ambient;
+    t_color color;
+} t_alight;
+
+typedef struct s_camera_s
+{
+    t_vec   vec;
+    float   ov_x;
+    float   ov_y;
+    float   ov_z;
+    float   fov;
+}   t_camera_s;
+
+typedef struct s_light_s
+{
+    t_vec   vec;
+    float   brightness;
+    t_color color;
+} t_light_s;
+
+typedef struct s_data
+{
+    t_object    *objects;
+    t_alight    amb_light;
+    t_light_s     light;
+    t_camera_s    camera;
+	mlx_t		* mlx;
+	mlx_image_t *img;
+    int         object_num;
+	int 		viewport_high;
+	int 		viewport_weith;
+	t_vec 		*viewport;
+	t_ray 		*all_ray;
+	t_pixel	 	*all_pix;
+}   t_data;
+
+/*  Parsing */
+void    parse_input(int argc, char **argv, char ***split_file, t_data *data);
+bool    line_check_data(char *line);
+bool    line_check_object(char *line);
+void    check_object_data(char *string,  char ***split_line, t_data *data, int obj_index);
+void    error_check(int argc, char **argv);
+void    replace_char(char **string, char a, char b);
+void    count_objects(char *file, t_data *data);
+void    free_split(char **split);
+char    *input_check(char *string);
+int     line_check(char ***split_line);
+float   string_to_float(char *string);
+void    parse_sphere(char ***split_line, t_data *data, int i);
+void    parse_plane(char ***split_line, t_data *data, int i);
+void    parse_cylinder(char ***split_line, t_data *data, int i);
+void    parse_amb_light(char ***split_line, t_data *data);
+void    parse_camera(char ***split_line, t_data *data);
+void    parse_light(char ***split_line, t_data *data);
+
+/* Errors & Checks */
+void    error_exit(char *message);
+void    *null_check(void *check);
+#define MINT 0.2
+#define MAXT 40//dont know how to define
 
 //yizhang
-t_vec		set_vec(float x, float y, float z);
-t_color		set_col(float r, float g, float b);
 
 //vec
 t_vec		add(t_vec v1, t_vec v2);
@@ -103,12 +156,17 @@ t_vec		unit_vector(t_vec v);
 t_vec		t_to_vec(float disc, t_ray ray);
 
 //render && hit
-bool		hit_object(t_ray ray, t_obj *obj);
 float		hit_sphere(t_vec center, float radius, t_ray r);
 t_color		ray_color(t_ray r, float t, t_vec oc);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
-
+t_vec set_vec(float x, float y, float z);
+t_color set_col(float r, float g, float b);
+t_ray set_ray(t_vec orig, t_vec dir);
+t_pixel set_pixel(t_ray ray, int u, int v, uint32_t col);
 //color
 uint32_t	get_rgba(int r, int g, int b, int a);
+
+bool	hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix);
+void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj);
 
 #endif
