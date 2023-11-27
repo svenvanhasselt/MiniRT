@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 09:25:20 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 12:00:47 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@
 //If  b2−4ac>0
 //then the quadratic equation has two real, distinct roots
 
-float hit_sphere(t_vec center, float radius, t_ray r) 
+float		hit_sphere(t_vec center, float radius, t_ray r)
 {
 	t_vec oc = sub(r.orig, center);
 	float a = dot(r.dir, r.dir);

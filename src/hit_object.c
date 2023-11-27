@@ -6,33 +6,33 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 09:24:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 12:01:53 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
 //make a object list
-bool	hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix)
-{
-	int i;
-	float t;
-	i = 0;
-	while(obj[i])
-	{
-		if (obj[i].type == sphere)
-		{
-			t = hit_sphere(obj[i].vec, obj[i].sph_diameter/2, ray);
-			give_color(ray, t, weith, high, pix, obj[i]);
-		}
-		else if (obj[i].type == plane /* && hit_plane */)
-			return (true);
-		else if (obj[i].type == cylinder /* && hit_cylinder */)
-			return (true);
-		i++;
-	}
-	return (false);
-}
+// bool	hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix)
+// {
+// 	int i;
+// 	float t;
+// 	i = 0;
+// 	while(obj[i])
+// 	{
+// 		if (obj[i].type == sphere)
+// 		{
+// 			t = hit_sphere(obj[i].vec, obj[i].sph_diameter/2, ray);
+// 			give_color(ray, t, weith, high, pix, obj[i]);
+// 		}
+// 		else if (obj[i].type == plane /* && hit_plane */)
+// 			return (true);
+// 		else if (obj[i].type == cylinder /* && hit_cylinder */)
+// 			return (true);
+// 		i++;
+// 	}
+// 	return (false);
+// }
 
 void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj)
 {
