@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 16:57:11 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/27 17:37:42 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ t_vec		t_to_vec(float disc, t_ray ray);
 //render && hit
 bool		hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix);
 float		hit_sphere(t_vec center, float radius, t_ray r);
-t_color		ray_color(t_ray r, float t, t_vec oc);
+t_color		ray_color(t_ray r, float t, t_vec oc, t_object object, t_light_s light);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);

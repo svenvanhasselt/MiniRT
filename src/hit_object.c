@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 14:36:04 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/27 17:38:56 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@
 // 	return (false);
 // }
 
-void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj)
-{
-	if (t > 0.0)
-	{
-		t_color color = ray_color(ray,t,obj.vec);//compute the norm of object and color
-		pix = set_pixel(ray, high, weith, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
-	}
-	else
-		pix = set_pixel(ray, high, weith, get_rgba(0, 0, 0, 255));
+// void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj)
+// {
+// 	if (t > 0.0)
+// 	{
+// 		t_color color = ray_color(ray,t,obj.vec, obj);//compute the norm of object and color
+// 		pix = set_pixel(ray, high, weith, get_rgba(color.r, color.g, color.b, 255));
+// 	}
+// 	else
+// 		pix = set_pixel(ray, high, weith, get_rgba(0, 0, 0, 255));
 	
-}
+// }
 
 t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outside of sphere
 {

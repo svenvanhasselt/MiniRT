@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 17:12:41 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/27 18:02:21 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,25 +62,20 @@ t_vec	calc_intersection_point(t_ray r, float t)
 	intersection_point.z = r.orig.z + t * r.dir.z;
 	return (intersection_point);
 }
-t_color ray_color(t_ray r, float t, t_vec oc)
+t_color ray_color(t_ray r, float t, t_vec oc, t_object object, t_light_s light)
 {
 	
 	t_vec	surf_norm;
-	t_vec	light_pos = {10, 2, -3};
-	float	diffuse_intensity = 1.0;
+	float	diffuse_intensity = 1.00;
 	float	diffuse_shading;
 	t_vec	intersection_point;
-	// t_vec center = set_vec(0,0,20); // TEMP!
+
 
 	intersection_point = calc_intersection_point(r, t);
 	surf_norm = calc_surface_normal(intersection_point, oc);
-	diffuse_shading = calc_diffuse(light_pos, surf_norm, intersection_point, diffuse_intensity);
-	
-	
-						//the close point on the sphere, and the center of sphere
-		
-		t_vec u = oc;
-		return set_col((u.x * diffuse_shading*0.05), (u.y * diffuse_shading*0.05), (u.z * diffuse_shading*0.05));//color range base on the unit_vector
+	diffuse_shading = calc_diffuse(light.vec, surf_norm, intersection_point, diffuse_intensity);
+	t_color col = set_col((object.color.r * diffuse_shading * 0.05), (object.color.g * diffuse_shading * 0.05), (object.color.b * diffuse_shading * 0.05));
+	return (col);
 	
 	// {					//the close point on the sphere, and the center of sphere
 	// 	t_vec u = unit_vector(sub(t_to_vec(t, r), oc));
