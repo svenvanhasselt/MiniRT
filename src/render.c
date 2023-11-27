@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 11:47:18 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/27 14:39:10 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_color ray_color(t_ray r, float t, t_vec oc)
 	float	diffuse_intensity = 1.0;
 	float	diffuse_shading;
 	t_vec	intersection_point;
-	t_vec center = set_vec(0,0,20); // TEMP!
+	// t_vec center = set_vec(0,0,20); // TEMP!
 
 	intersection_point = calc_intersection_point(r, t);
 	surf_norm = calc_surface_normal(intersection_point, oc);
