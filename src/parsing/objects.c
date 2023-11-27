@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:28:44 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/11/23 15:29:44 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 09:14:08 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ void	parse_plane(char ***split_line, t_data *data, int i)
 	data->objects[i].vec.x = string_to_float(split_line[0][0]);
 	data->objects[i].vec.y = string_to_float(split_line[0][1]);
 	data->objects[i].vec.z = string_to_float(split_line[0][2]);
-	data->objects[i].vec_x = string_to_float(split_line[1][0]);
-	data->objects[i].vec_y = string_to_float(split_line[1][1]);
-	data->objects[i].vec_z = string_to_float(split_line[1][2]);
+	data->objects[i].vec2.x = string_to_float(split_line[1][0]);
+	data->objects[i].vec2.y = string_to_float(split_line[1][1]);
+	data->objects[i].vec2.z = string_to_float(split_line[1][2]);
 	data->objects[i].color.r = string_to_float(split_line[2][0]);
 	data->objects[i].color.g = string_to_float(split_line[2][1]);
 	data->objects[i].color.b = string_to_float(split_line[2][2]);
@@ -51,9 +51,9 @@ void	parse_cylinder(char ***split_line, t_data *data, int i)
 	data->objects[i].vec.x = string_to_float(split_line[0][0]);
 	data->objects[i].vec.y = string_to_float(split_line[0][1]);
 	data->objects[i].vec.z = string_to_float(split_line[0][2]);
-	data->objects[i].vec_x = string_to_float(split_line[1][0]);
-	data->objects[i].vec_y = string_to_float(split_line[1][1]);
-	data->objects[i].vec_z = string_to_float(split_line[1][2]);
+	data->objects[i].vec2.x = string_to_float(split_line[1][0]);
+	data->objects[i].vec2.y = string_to_float(split_line[1][1]);
+	data->objects[i].vec2.z = string_to_float(split_line[1][2]);
 	data->objects[i].cyl_diameter = string_to_float(split_line[2][0]);
 	data->objects[i].cyl_height = string_to_float(split_line[3][0]);
 	data->objects[i].color.r = string_to_float(split_line[4][0]);

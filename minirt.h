@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/23 16:08:39 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 09:13:44 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,9 @@ typedef struct s_object
 {
 	int		type;
 	t_vec	vec;
-	t_color	color;
+	t_vec	vec2;
 	t_vec	norm;
-	float	vec_x;
-	float	vec_y;
-	float	vec_z;
+	t_color	color;
 	float	sph_diameter;
 	float	cyl_diameter;
 	float	cyl_height;
@@ -145,7 +143,6 @@ void    *null_check(void *check);
 #define MAXT 40//dont know how to define
 
 //yizhang
-
 //vec
 t_vec		add(t_vec v1, t_vec v2);
 t_vec		sub(t_vec v1, t_vec v2);
@@ -156,17 +153,17 @@ t_vec		unit_vector(t_vec v);
 t_vec		t_to_vec(float disc, t_ray ray);
 
 //render && hit
+bool		hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix);
 float		hit_sphere(t_vec center, float radius, t_ray r);
 t_color		ray_color(t_ray r, float t, t_vec oc);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
-t_vec set_vec(float x, float y, float z);
-t_color set_col(float r, float g, float b);
-t_ray set_ray(t_vec orig, t_vec dir);
-t_pixel set_pixel(t_ray ray, int u, int v, uint32_t col);
+t_vec		set_vec(float x, float y, float z);
+t_color		set_col(float r, float g, float b);
+t_ray		set_ray(t_vec orig, t_vec dir);
+t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 //color
 uint32_t	get_rgba(int r, int g, int b, int a);
 
-bool	hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix);
-void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj);
+void		give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj);
 
 #endif
