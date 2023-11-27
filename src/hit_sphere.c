@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 09:25:20 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 14:28:02 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,18 +48,21 @@
 //If  b2−4ac>0
 //then the quadratic equation has two real, distinct roots
 
-float hit_sphere(t_vec center, float radius, t_ray r) 
+bool hit_sphere(t_object *obj, t_ray *r) 
 {
-	t_vec oc = sub(r.orig, center);
-	float a = dot(r.dir, r.dir);
-	float b = 2.0 * dot(oc, r.dir);
+	float	radius;
+
+	radius = obj->sph_diameter / 2;
+	t_vec oc = sub(r->orig, obj->vec);
+	float a = dot(r->dir, r->dir);
+	float b = 2.0 * dot(oc, r->dir);
 	float c = dot(oc, oc) - radius*radius;
 	float discriminant = b*b - 4*a*c;
-	float	t = (-b/2 -sqrt(discriminant)) / a;
+	obj->t = (-b/2 -sqrt(discriminant)) / a;
 	if (discriminant < 0 /* || (t <= MINT || t >= MAXT) */)
-		return (-1);
+		return (false);
 	else
-    	return (t);
+    	return (true);
 	//The intersection of the ray and the sphere results in a quadratic equation of the form:
 	//a*t^2 + b*t + c = 0
 	//This quadratic equation can have two solutions

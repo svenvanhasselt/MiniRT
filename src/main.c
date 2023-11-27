@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/23 16:45:53 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 15:09:23 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ t_data *init(int argc, char **argv)
 	data->viewport = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_vec));
 	data->all_ray = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_ray));
 	data->all_pix = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_pixel));
+	init_pix(data);//print all pix to black
 	return (data);
 }
 
@@ -46,27 +47,15 @@ int main(int argc, char **argv)
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 
 	int v = 0;
+	
 	for(int j = 0; j < data->viewport_high; j++)
 	{
 		for(int i = 0; i <data->viewport_weith; i++)
 		{
 			data->viewport[v] = set_vec(data->viewport_high*-1/2+j, data->viewport_weith/2-i, focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
-			hit_object(data->all_ray[v], data->objects, i, j, data->all_pix[v]);//don' know why
-			/* float t = hit_sphere(data->objects[0].vec, 12.6/2, data->all_ray[v]);
-			float t2 = hit_sphere(data->objects[1].vec, 12.6/2, data->all_ray[v]);//creat a object arr;
-			if (t > 0.0)
-			{
-				t_color color = ray_color(data->all_ray[v],t,data->objects[0].vec);//compute the norm of object and color
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
-			}
-			else if (t2 > 0.0)
-			{
-				t_color color2 = ray_color(data->all_ray[v],t2,data->objects[1].vec);
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color2.r * 255, color2.g * 255, color2.b * 255, 255));
-			}
-			else
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(0, 0, 0, 255)); */
+			hit_object(data, v);
+			give_color(data, i, j, v);
 			if(v >= data->viewport_high * data->viewport_weith-2)
 				break;
 			v++;
@@ -78,7 +67,6 @@ int main(int argc, char **argv)
 	{
 		mlx_put_pixel(data->img, data->all_pix[j].u, data->all_pix[j].v, data->all_pix[j].col);
 	}
-
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
 	mlx_terminate(data->mlx);

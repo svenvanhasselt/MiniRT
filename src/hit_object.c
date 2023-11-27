@@ -6,44 +6,49 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 09:24:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 15:11:05 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 
 //make a object list
-bool	hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix)
+bool	hit_object(t_data *data, int v)
 {
 	int i;
-	float t;
+
 	i = 0;
-	while(obj[i])
+	while (i < data->object_num)
 	{
-		if (obj[i].type == sphere)
+		if (data->objects[i].type == sphere)
 		{
-			t = hit_sphere(obj[i].vec, obj[i].sph_diameter/2, ray);
-			give_color(ray, t, weith, high, pix, obj[i]);
+			hit_sphere(&data->objects[i], &data->all_ray[v]);
 		}
-		else if (obj[i].type == plane /* && hit_plane */)
+		else if (data->objects[i].type == plane /* && hit_plane */)
 			return (true);
-		else if (obj[i].type == cylinder /* && hit_cylinder */)
+		else if (data->objects[i].type == cylinder /* && hit_cylinder */)
 			return (true);
 		i++;
 	}
 	return (false);
 }
 
-void give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj)
+void give_color(t_data *data, int weith, int high, int v)
 {
-	if (t > 0.0)
+	int i;
+
+	i = 0;
+	while (i < data->object_num)
 	{
-		t_color color = ray_color(ray,t,obj.vec);//compute the norm of object and color
-		pix = set_pixel(ray, high, weith, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
+		if (data->objects[i].t > 0.0)
+		{
+			t_color color = ray_color(data->all_ray[v], data->objects[i].t, data->objects[i].vec);
+			data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
+		}
+		//else
+		//	data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(0, 0, 0, 255));
+		i++;
 	}
-	else
-		pix = set_pixel(ray, high, weith, get_rgba(0, 0, 0, 255));
-	
 }
 
 t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outside of sphere
@@ -52,4 +57,23 @@ t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outs
 		return (set_vec(-face.x, -face.y, -face.z));// face = -face
 	else
 		return (face);
+}
+
+void init_pix(t_data *data)
+{
+	int v;
+	int j;
+	int i;
+
+	v = 0;
+	i = 0;
+	j = 0;
+	for(int j = 0; j < data->viewport_high; j++)
+	{
+		for(int i = 0; i <data->viewport_weith; i++)
+		{
+			data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(0, 0, 0, 255));
+			v++;
+		}
+	}
 }
