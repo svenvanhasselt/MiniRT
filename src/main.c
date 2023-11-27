@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 15:09:23 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 16:13:43 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ t_data *init(int argc, char **argv)
 	data->img = mlx_new_image(data->mlx, data->viewport_high, data->viewport_weith);
 	data->viewport = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_vec));
 	data->all_ray = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_ray));
-	data->all_pix = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_pixel));
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -54,8 +53,8 @@ int main(int argc, char **argv)
 		{
 			data->viewport[v] = set_vec(data->viewport_high*-1/2+j, data->viewport_weith/2-i, focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
-			hit_object(data, v);
-			give_color(data, i, j, v);
+			hit_object(data, v);//plane... lenth,order
+			give_color(data, i, j, v);// try ray norm
 			if(v >= data->viewport_high * data->viewport_weith-2)
 				break;
 			v++;

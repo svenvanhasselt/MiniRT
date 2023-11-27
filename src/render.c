@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/23 16:31:33 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 16:30:27 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ t_color ray_color(t_ray r, float t, t_vec oc)
 	float	diffuse_shading;
 	t_vec	intersection_point;
 
-	intersection_point = calc_intersection_point(r, t);
+	intersection_point = unit_vector(calc_intersection_point(r, t));
 	surf_norm = calc_surface_normal(intersection_point, oc);
 	diffuse_shading = calc_diffuse(light_pos, surf_norm, intersection_point, diffuse_intensity);
 	
@@ -78,7 +78,7 @@ t_color ray_color(t_ray r, float t, t_vec oc)
 						//the close point on the sphere, and the center of sphere
 		
 		t_vec u = oc;
-		return set_col((u.x * diffuse_shading*0.05), (u.y * diffuse_shading*0.05), (u.z * diffuse_shading*0.05));//color range base on the unit_vector
+		return set_col((u.x * diffuse_shading), (u.y * diffuse_shading), (u.z * diffuse_shading));//color range base on the unit_vector
 	
 	// {					//the close point on the sphere, and the center of sphere
 	// 	t_vec u = unit_vector(sub(t_to_vec(t, r), oc));

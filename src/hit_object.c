@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 15:11:05 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 16:36:00 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,11 +21,9 @@ bool	hit_object(t_data *data, int v)
 	while (i < data->object_num)
 	{
 		if (data->objects[i].type == sphere)
-		{
 			hit_sphere(&data->objects[i], &data->all_ray[v]);
-		}
-		else if (data->objects[i].type == plane /* && hit_plane */)
-			return (true);
+		else if (data->objects[i].type == plane)
+			hit_plane(&data->objects[i], &data->all_ray[v]);
 		else if (data->objects[i].type == cylinder /* && hit_cylinder */)
 			return (true);
 		i++;
@@ -45,8 +43,6 @@ void give_color(t_data *data, int weith, int high, int v)
 			t_color color = ray_color(data->all_ray[v], data->objects[i].t, data->objects[i].vec);
 			data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
 		}
-		//else
-		//	data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(0, 0, 0, 255));
 		i++;
 	}
 }
@@ -68,6 +64,7 @@ void init_pix(t_data *data)
 	v = 0;
 	i = 0;
 	j = 0;
+	data->all_pix = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_pixel));
 	for(int j = 0; j < data->viewport_high; j++)
 	{
 		for(int i = 0; i <data->viewport_weith; i++)

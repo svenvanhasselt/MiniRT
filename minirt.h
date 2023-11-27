@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 15:03:30 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/27 16:49:28 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_ray
 {
 	t_vec	orig;
 	t_vec	dir;
+	t_vec	norm;
 }t_ray;
 
 typedef struct s_camera
@@ -154,12 +155,15 @@ t_vec		t_to_vec(float disc, t_ray ray);
 //render && hit
 bool		hit_object(t_data *data, int v);
 bool		hit_sphere(t_object *obj, t_ray *r);
+bool		hit_plane(t_object *obj, t_ray *ray);
+bool		hit_cylinder(t_object *obj, t_ray *ray);
 t_color		ray_color(t_ray r, float t, t_vec oc);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);
 t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
+
 //color
 uint32_t	get_rgba(int r, int g, int b, int a);
 
