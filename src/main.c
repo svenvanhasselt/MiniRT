@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 14:38:46 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/27 17:09:21 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,12 +58,12 @@ int main(int argc, char **argv)
 			if (t > 0.0)
 			{
 				t_color color = ray_color(data->all_ray[v],t,data->objects[0].vec);//compute the norm of object and color
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
+				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.r, color.g, color.b, 255));
 			}
 			else if (t2 > 0.0)
 			{
 				t_color color2 = ray_color(data->all_ray[v],t2,data->objects[1].vec);
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color2.r * 255, color2.g * 255, color2.b * 255, 255));
+				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color2.r, color2.g, color2.b, 255));
 			}
 			else
 				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(0, 0, 0, 255));

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 14:38:34 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/27 16:57:11 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ t_color		set_col(float r, float g, float b);
 t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 //color
-uint32_t	get_rgba(int r, int g, int b, int a);
+uint32_t	get_rgba(float r, float g, float b, float a);
 
 void		give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj);
 
