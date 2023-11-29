@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 16:36:00 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 11:45:59 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void init_pix(t_data *data)
 	v = 0;
 	i = 0;
 	j = 0;
-	data->all_pix = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_pixel));
-	for(int j = 0; j < data->viewport_high; j++)
+	data->all_pix = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_pixel));
+	for(int j = 0; j < data->viewport_w; j++)
 	{
-		for(int i = 0; i <data->viewport_weith; i++)
+		for(int i = 0; i <data->viewport_h; i++)
 		{
 			data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(0, 0, 0, 255));
 			v++;

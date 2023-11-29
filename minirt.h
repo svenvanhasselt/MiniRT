@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 16:49:28 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 11:45:59 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,8 +110,8 @@ typedef struct s_data
 	mlx_t		* mlx;
 	mlx_image_t *img;
     int         object_num;
-	int 		viewport_high;
-	int 		viewport_weith;
+	int 		viewport_w;
+	int 		viewport_h;
 	t_vec 		*viewport;
 	t_ray 		*all_ray;
 	t_pixel	 	*all_pix;

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 16:13:43 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 11:47:00 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,12 @@ t_data *init(int argc, char **argv)
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
-	data->viewport_high = 1600;
-	data->viewport_weith = 800;
-	data->mlx = mlx_init(data->viewport_high, data->viewport_weith, "MiniRT", true);
-	data->img = mlx_new_image(data->mlx, data->viewport_high, data->viewport_weith);
-	data->viewport = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_vec));
-	data->all_ray = malloc ((data->viewport_high * data->viewport_weith) * sizeof(t_ray));
+	data->viewport_w = 800;
+	data->viewport_h = 800;
+	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
+	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
+	data->viewport = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_vec));
+	data->all_ray = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_ray));
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -47,22 +47,22 @@ int main(int argc, char **argv)
 
 	int v = 0;
 	
-	for(int j = 0; j < data->viewport_high; j++)
+	for(int j = 0; j < data->viewport_w; j++)
 	{
-		for(int i = 0; i <data->viewport_weith; i++)
+		for(int i = 0; i <data->viewport_h; i++)
 		{
-			data->viewport[v] = set_vec(data->viewport_high*-1/2+j, data->viewport_weith/2-i, focal_length);
+			data->viewport[v] = set_vec(data->viewport_w*-1/2+j, data->viewport_h/2-i, focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);//plane... lenth,order
 			give_color(data, i, j, v);// try ray norm
-			if(v >= data->viewport_high * data->viewport_weith-2)
+			if(v >= data->viewport_w * data->viewport_h-2)
 				break;
 			v++;
 		}
 	}
 	
 	//print image with color
-	for(int j = 0; j < data->viewport_high*data->viewport_weith; j++)
+	for(int j = 0; j < data->viewport_w*data->viewport_h; j++)
 	{
 		mlx_put_pixel(data->img, data->all_pix[j].u, data->all_pix[j].v, data->all_pix[j].col);
 	}
