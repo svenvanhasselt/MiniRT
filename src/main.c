@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 17:36:44 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/29 15:40:41 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,12 +57,12 @@ int main(int argc, char **argv)
 			float t2 = hit_sphere(data->objects[1].vec, 12.6/2, data->all_ray[v]);//creat a object arr;
 			if (t > 0.0)
 			{
-				t_color color = ray_color(data->all_ray[v],t,data->objects[0].vec, data->objects[0], data->light);//compute the norm of object and color
+				t_color color = ray_color(data->all_ray[v],t, data->objects[0], data);//compute the norm of object and color
 				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.r, color.g, color.b, 255));
 			}
 			else if (t2 > 0.0)
 			{
-				t_color color2 = ray_color(data->all_ray[v],t2,data->objects[1].vec, data->objects[1], data->light);
+				t_color color2 = ray_color(data->all_ray[v],t2, data->objects[1], data);
 				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color2.r, color2.g, color2.b, 255));
 			}
 			else

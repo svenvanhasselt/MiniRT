@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 12:57:37 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/10/30 10:15:18 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 15:30:05 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ t_vec unit_vector(t_vec v)
 //O:origin
 //D:deriction
 //reverse inference to derive value
-t_vec t_to_vec(float t, t_ray ray)
+
+t_vec	calc_intersection_point(t_ray r, float t)
 {
-	t_vec	interse;
-	interse.x = ray.orig.x + t * ray.dir.x;
-	interse.y = ray.orig.y + t * ray.dir.y;
-	interse.z = ray.orig.z + t * ray.dir.z;
-	return (interse);
+	t_vec	intersection_point;
+
+	intersection_point.x = r.orig.x + t * r.dir.x;
+	intersection_point.y = r.orig.y + t * r.dir.y;
+	intersection_point.z = r.orig.z + t * r.dir.z;
+	return (intersection_point);
 }

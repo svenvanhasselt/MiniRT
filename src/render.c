@@ -6,37 +6,20 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 18:02:21 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:04:40 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
 #include <math.h>
 
-float	calc_length(t_vec v)
-{
-	return (sqrt(dot(v, v)));
-}
-
-t_vec	normalize(t_vec cti)
-{
-	t_vec norm;
-	float length;
-
-	length = calc_length(cti);
-	if (length != 0)
-	norm.x = cti.x / length;
-	norm.y = cti.y / length;
-	norm.z = cti.z / length;
-	return (norm);
-}
 t_vec	calc_surface_normal(t_vec intersection_point, t_vec oc)
 {
 	t_vec	surf_norm;
 	t_vec	center_to_intersection;
 
 	center_to_intersection = sub(intersection_point, oc);
-	surf_norm = normalize(center_to_intersection);
+	surf_norm = unit_vector(center_to_intersection);
 	return (surf_norm);
 }
 
@@ -45,7 +28,7 @@ float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float di
 	t_vec	norm;
 	float	cos_light_dir;
 
-	norm = normalize(sub(light_pos, inter_point));
+	norm = unit_vector(sub(light_pos, inter_point));
 	cos_light_dir = dot(surf_norm, norm);
 	if (cos_light_dir < 0)
 		cos_light_dir = 0;
@@ -53,40 +36,20 @@ float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float di
 }
 
 
-t_vec	calc_intersection_point(t_ray r, float t)
+t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 {
-	t_vec	intersection_point;
-
-	intersection_point.x = r.orig.x + t * r.dir.x;
-	intersection_point.y = r.orig.y + t * r.dir.y;
-	intersection_point.z = r.orig.z + t * r.dir.z;
-	return (intersection_point);
-}
-t_color ray_color(t_ray r, float t, t_vec oc, t_object object, t_light_s light)
-{
-	
 	t_vec	surf_norm;
-	float	diffuse_intensity = 1.00;
-	float	diffuse_shading;
-	t_vec	intersection_point;
+	float	diffuse;
+	t_vec	intersect_p;
 
-
-	intersection_point = calc_intersection_point(r, t);
-	surf_norm = calc_surface_normal(intersection_point, oc);
-	diffuse_shading = calc_diffuse(light.vec, surf_norm, intersection_point, diffuse_intensity);
-	t_color col = set_col((object.color.r * diffuse_shading * 0.05), (object.color.g * diffuse_shading * 0.05), (object.color.b * diffuse_shading * 0.05));
+	intersect_p = calc_intersection_point(ray, t);
+	surf_norm = calc_surface_normal(intersect_p, object.vec);
+	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
+	//diffuse = clamp(diffuse_shading, 0.0, 1.0);
+	t_color amb;
+	amb.r = data->amb_light.color.r * data->amb_light.ambient;
+	amb.g = data->amb_light.color.g * data->amb_light.ambient;
+	amb.b = data->amb_light.color.b * data->amb_light.ambient;
+	t_color col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
 	return (col);
-	
-	// {					//the close point on the sphere, and the center of sphere
-	// 	t_vec u = unit_vector(sub(t_to_vec(t, r), oc));
-	// 	return set_col(0.5 * (u.x + 1), 0.5 * (u.y + 1), 0.5 * (u.z + 1));//color range base on the unit_vector
-	// }
-	//t_vec unit_direction = unit_vector(r.dir);
-	//float  a = 0.5 * (unit_direction.y + 1.0);
-	//return (set_col((1.0 - a) + a * 0.5, (1.0 - a) + a * 0.7, (1.0 - a) + a * 1.0));
 }
-
-// t_vec random_unit_vec()
-// {
-// 	return 
-// }

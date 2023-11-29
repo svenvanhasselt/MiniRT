@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 17:37:42 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/29 15:41:39 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,12 @@ float		dot(t_vec v1, t_vec v2);
 t_vec		cross(t_vec v1, t_vec v2);
 float		vec_len(t_vec v);
 t_vec		unit_vector(t_vec v);
-t_vec		t_to_vec(float disc, t_ray ray);
+t_vec		calc_intersection_point(t_ray r, float t);
 
 //render && hit
 bool		hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix);
 float		hit_sphere(t_vec center, float radius, t_ray r);
-t_color		ray_color(t_ray r, float t, t_vec oc, t_object object, t_light_s light);
+t_color		ray_color(t_ray ray, float t, t_object object, t_data	*data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);
@@ -163,6 +163,7 @@ t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 //color
 uint32_t	get_rgba(float r, float g, float b, float a);
+float		clamp(float value, float min, float max);
 
 void		give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj);
 
