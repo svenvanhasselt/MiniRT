@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 13:54:09 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/11/27 14:37:36 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:14:50 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ void	parse_camera(char ***split_line, t_data *data)
 	data->camera.vec.x = string_to_float(split_line[0][0]);
 	data->camera.vec.y = string_to_float(split_line[0][1]);
 	data->camera.vec.z = string_to_float(split_line[0][2]);
-	data->camera.ov_x = string_to_float(split_line[1][0]);
-	data->camera.ov_y = string_to_float(split_line[1][1]);
-	data->camera.ov_z = string_to_float(split_line[1][2]);
+	data->camera.ovec.x = string_to_float(split_line[1][0]);
+	data->camera.ovec.y = string_to_float(split_line[1][1]);
+	data->camera.ovec.z = string_to_float(split_line[1][2]);
 	data->camera.fov = string_to_float(split_line[2][0]);
 }
 

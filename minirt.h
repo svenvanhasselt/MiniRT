@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 15:41:39 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:12:51 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_ray
 {
 	t_vec	orig;
 	t_vec	dir;
+	t_vec	norm;
 }t_ray;
 
 typedef struct s_camera
@@ -52,6 +53,7 @@ typedef struct s_object
 	t_vec	vec2;
 	t_vec	norm;
 	t_color	color;
+	float	t;
 	float	sph_diameter;
 	float	cyl_diameter;
 	float	cyl_height;
@@ -88,9 +90,7 @@ typedef struct s_amb_light
 typedef struct s_camera_s
 {
     t_vec   vec;
-    float   ov_x;
-    float   ov_y;
-    float   ov_z;
+    t_vec	ovec;
     float   fov;
 }   t_camera_s;
 
@@ -110,8 +110,8 @@ typedef struct s_data
 	mlx_t		* mlx;
 	mlx_image_t *img;
     int         object_num;
-	int 		viewport_high;
-	int 		viewport_weith;
+	int 		viewport_w;
+	int 		viewport_h;
 	t_vec 		*viewport;
 	t_ray 		*all_ray;
 	t_pixel	 	*all_pix;
@@ -153,18 +153,21 @@ t_vec		unit_vector(t_vec v);
 t_vec		calc_intersection_point(t_ray r, float t);
 
 //render && hit
-bool		hit_object(t_ray ray, t_object *obj,int weith, int high, t_pixel pix);
-float		hit_sphere(t_vec center, float radius, t_ray r);
-t_color		ray_color(t_ray ray, float t, t_object object, t_data	*data);
+bool		hit_object(t_data *data, int v);
+bool		hit_sphere(t_object *obj, t_ray *r);
+bool		hit_plane(t_object *obj, t_ray *ray);
+bool		hit_cylinder(t_object *obj, t_ray *ray);
+t_color		ray_color(t_ray ray, float t, t_object object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);
 t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
+
 //color
 uint32_t	get_rgba(float r, float g, float b, float a);
 float		clamp(float value, float min, float max);
 
-void		give_color(t_ray ray, float t, int weith, int high, t_pixel pix, t_object obj);
-
+void give_color(t_data *data, int weith, int high, int v);
+void init_pix(t_data *data);
 #endif

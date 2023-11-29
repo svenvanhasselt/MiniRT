@@ -6,17 +6,18 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/11/28 12:14:07 by svan-has      ########   odam.nl          #
+#    Updated: 2023/11/29 16:11:43 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-#FLAG = -g -fsanitize=address -Wall -Werror -Wextra
+FLAG = -Wall -Werror -Wextra -g -fsanitize=address
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 LINK := -I include -lglfw -I $(LIBFT)/includes -I $(LIBMLX)/include/MLX42/
+HEADER := minirt.h
 SRC_DIR := src
 OBJ_DIR := obj
 DIR_DUP = mkdir -p $(@D)
@@ -32,8 +33,9 @@ SRC := \
 	color.c \
 	render.c\
 	vector.c\
-	hit_object.c\
-	hit_sphere.c\
+	intersection/hit_object.c\
+	intersection/hit_plane.c\
+	intersection/hit_sphere.c\
 	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
@@ -51,7 +53,7 @@ RESET		= \033[0m
 
 all: $(NAME)
 
-$(NAME): $(OBJ)
+$(NAME): $(OBJ) $(HEADER)
 	@$(MAKE) -C $(LIBFT)
 	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
 	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -lm -o $(NAME)
