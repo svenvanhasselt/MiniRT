@@ -1,19 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   hit_cylinder.c                                     :+:    :+:            */
+/*   hit_plane.c                                        :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 16:50:50 by yizhang       ########   odam.nl         */
+/*   Created: 2023/11/27 09:24:28 by yizhang       #+#    #+#                 */
+/*   Updated: 2023/11/29 11:59:18 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
-bool	hit_cylinder(t_object *obj, t_ray *ray)
+bool	hit_plane(t_object *obj, t_ray *ray)
 {
-	
-    return (true);
+	float   ortho;
+    float   d;
+    float   dis;
+    
+    ortho = dot(obj->vec2, ray->norm);
+    if (ortho == 0)
+        return (false);
+    d = dot(obj->vec, obj->vec2);
+    dis = dot(obj->vec2, ray->orig);
+    obj->t = (d - dis) / ortho;
+	return (true);
 }

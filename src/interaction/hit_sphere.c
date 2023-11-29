@@ -6,11 +6,11 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/27 14:28:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 12:33:00 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
 //	x^2+y^2+z^2 = r^2
 //if a given point P(x,y,z)
@@ -59,7 +59,7 @@ bool hit_sphere(t_object *obj, t_ray *r)
 	float c = dot(oc, oc) - radius*radius;
 	float discriminant = b*b - 4*a*c;
 	obj->t = (-b/2 -sqrt(discriminant)) / a;
-	if (discriminant < 0 /* || (t <= MINT || t >= MAXT) */)
+	if (discriminant < 0)
 		return (false);
 	else
     	return (true);

@@ -6,11 +6,11 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 11:45:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 13:01:02 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
 //make a object list
 bool	hit_object(t_data *data, int v)

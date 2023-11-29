@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/11/27 14:30:41 by yizhang       ########   odam.nl          #
+#    Updated: 2023/11/29 11:58:41 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,9 @@ SRC := \
 	color.c \
 	render.c\
 	vector.c\
-	hit_object.c\
-	hit_plane.c\
-	hit_sphere.c\
+	interaction/hit_object.c\
+	interaction/hit_plane.c\
+	interaction/hit_sphere.c\
 	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
