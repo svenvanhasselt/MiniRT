@@ -6,11 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2023/11/29 15:40:41 by svan-has      ########   odam.nl         */
-=======
-/*   Updated: 2023/11/29 13:26:43 by yizhang       ########   odam.nl         */
->>>>>>> yizhang
+/*   Updated: 2023/11/29 16:53:36 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 

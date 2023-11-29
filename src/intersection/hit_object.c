@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 16:13:49 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/29 16:18:25 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ void give_color(t_data *data, int weith, int high, int v)
 	{
 		if (data->objects[i].t > 0.0)
 		{
-			t_color color = ray_color(data->all_ray[v], data->objects[i].t, data->objects[i].vec);
-			data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(color.r * 255, color.g * 255, color.b * 255, 255));
+			t_color color = ray_color(data->all_ray[v], data->objects[i].t, data->objects[i], data);
+			data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(color.r, color.g, color.b, 255));
 		}
 		i++;
 	}
