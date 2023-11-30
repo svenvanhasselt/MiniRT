@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 17:04:57 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:43:18 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,17 +42,9 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	float	diffuse;
 	t_vec	intersect_p;
 
-	// t_ray light_beam;
-	// light_beam.orig = ray.dir;
-	// light_beam.dir = 
-	// if (hit_sphere(object))
 	intersect_p = calc_intersection_point(ray, t);
 	surf_norm = calc_surface_normal(intersect_p, object.vec);
 	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
-	// t_color amb;
-	// amb.r = data->amb_light.color.r * data->amb_light.ambient;
-	// amb.g = data->amb_light.color.g * data->amb_light.ambient;
-	// amb.b = data->amb_light.color.b * data->amb_light.ambient;
 	t_color col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
 	return (col);
 }
