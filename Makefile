@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/11/29 16:11:43 by svan-has      ########   odam.nl          #
+#    Updated: 2023/11/30 14:47:23 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,6 @@ SRC := \
 	parsing/errors.c \
 	errors.c \
 	color.c \
-	render.c\
 	vector.c\
 	intersection/hit_object.c\
 	intersection/hit_plane.c\

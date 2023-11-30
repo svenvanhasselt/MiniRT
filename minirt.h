@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 16:12:51 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/30 15:46:45 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ t_vec		cross(t_vec v1, t_vec v2);
 float		vec_len(t_vec v);
 t_vec		unit_vector(t_vec v);
 t_vec		calc_intersection_point(t_ray r, float t);
+t_vec		mult_fact(t_vec vec, float fact);
 
 //render && hit
 bool		hit_object(t_data *data, int v);
