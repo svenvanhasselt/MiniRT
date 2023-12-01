@@ -35,7 +35,7 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
     b = 2 * (ray->dir.x * ray->orig.x + ray->dir.y * ray->orig.y);
     c = ray->orig.x * ray->orig.x + ray->orig.y * ray->orig.y - obj->cyl_diameter;
     t = b*b - 4*a*c;
-    obj->t = (-b/2 -sqrt(t)) / a;
+    obj->t = (-b/2 - sqrt(t)) / a;
     if (obj->t < 0)
         return (false);
     return (true);
