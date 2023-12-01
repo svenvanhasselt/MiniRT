@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 16:53:36 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/12/01 09:07:00 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,19 @@ void	free_data(t_data *data)
 {
 	free(data->objects);
 	free(data);
+}
+
+void	print_pix(t_data *data)
+{
+	int	i;
+
+	i = 0;
+	while (i < data->viewport_w*data->viewport_h)
+	{
+		mlx_put_pixel(data->img, data->all_pix[i].u, data->all_pix[i].v, data->all_pix[i].col);
+		i++;
+	}
+	mlx_loop(data->mlx);
 }
 
 t_data *init(int argc, char **argv)
@@ -28,6 +41,8 @@ t_data *init(int argc, char **argv)
 	parse_input(argc, argv, &split_file, data);
 	data->viewport_w = 800;
 	data->viewport_h = 600;
+	data->camera.ratio = 1;
+	data->camera.focal_length = data->camera.ratio/tan(data->camera.fov/2) * data->viewport_h/2/tan(data->camera.fov/2);
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
 	data->viewport = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_vec));
@@ -39,36 +54,31 @@ t_data *init(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data	*data;
+	int		v;
+	int		j;
+	int		i;
 	
+	v = 0;
+	j = 0;
+	i = 0;
 	data = init(argc, argv);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	float fov = 45;
-	float ratio = 1;
-	float focal_length = ratio/tan(fov/2) * data->viewport_h/2/tan(fov/2);
-	printf("lenth: %f\n",focal_length);
-
-	int v = 0;
-	
-	for(int j = 0; j < data->viewport_w; j++)
+	while (j < data->viewport_w)
 	{
-		for(int i = 0; i <data->viewport_h; i++)
+		while (i <data->viewport_h)
 		{
-			data->viewport[v] = set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, focal_length);
+			data->viewport[v] = set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, data->camera->focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);//plane... lenth,order
 			give_color(data, i, j, v);// try ray norm
-			if(v >= data->viewport_w * data->viewport_h-2)
+			if (v >= data->viewport_w * data->viewport_h-2)
 				break;
 			v++;
+			i++;
 		}
+		j++;
 	}
-	
-	//print image with color
-	for(int j = 0; j < data->viewport_w*data->viewport_h; j++)
-	{
-		mlx_put_pixel(data->img, data->all_pix[j].u, data->all_pix[j].v, data->all_pix[j].col);
-	}
-	mlx_loop(data->mlx);
+	print_pix(data);
 	mlx_delete_image(data->mlx, data->img);
 	mlx_terminate(data->mlx);
 	free(data->viewport);
