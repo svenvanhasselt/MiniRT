@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/23 14:57:54 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/11/17 11:03:22 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/11/30 12:39:35 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,11 @@ t_data *data, int obj_index)
 	int	len;
 
 	len = ft_strlen(string);
-	if (!ft_strncmp(string, "A", len))
+	if (!ft_strncmp(string, "A", len) || !ft_strncmp(string, "a", len))
 		parse_amb_light(split_line, data);
-	if (!ft_strncmp(string, "c", len))
+	if (!ft_strncmp(string, "C", len) || !ft_strncmp(string, "c", len))
 		parse_camera(split_line, data);
-	if (!ft_strncmp(string, "l", len))
+	if (!ft_strncmp(string, "L", len) || !ft_strncmp(string, "l", len))
 		parse_light(split_line, data);
 	if (len < 2)
 		len = 2;

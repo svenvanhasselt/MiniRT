@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/11/29 13:36:23 by yizhang       ########   odam.nl          #
+#    Updated: 2023/11/29 16:11:43 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,6 +17,7 @@ LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 LINK := -I include -lglfw -I $(LIBFT)/includes -I $(LIBMLX)/include/MLX42/
+MACLINK := -Iinclude -ldl -lglfw -L"/opt/homebrew/lib/"
 HEADER := minirt.h
 SRC_DIR := src
 OBJ_DIR := obj
@@ -36,6 +37,7 @@ SRC := \
 	intersection/hit_object.c\
 	intersection/hit_plane.c\
 	intersection/hit_sphere.c\
+	intersection/hit_cylinder.c\
 	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
@@ -56,7 +58,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(HEADER)
 	@$(MAKE) -C $(LIBFT)
 	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
-	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -lm -o $(NAME)
+	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(MACLINK) -lm -o $(NAME)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c

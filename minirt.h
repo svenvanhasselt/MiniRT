@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 11:45:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 16:12:51 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,14 +150,14 @@ float		dot(t_vec v1, t_vec v2);
 t_vec		cross(t_vec v1, t_vec v2);
 float		vec_len(t_vec v);
 t_vec		unit_vector(t_vec v);
-t_vec		t_to_vec(float disc, t_ray ray);
+t_vec		calc_intersection_point(t_ray r, float t);
 
 //render && hit
 bool		hit_object(t_data *data, int v);
 bool		hit_sphere(t_object *obj, t_ray *r);
 bool		hit_plane(t_object *obj, t_ray *ray);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
-t_color		ray_color(t_ray r, float t, t_vec oc);
+t_color		ray_color(t_ray ray, float t, t_object object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);
@@ -165,7 +165,8 @@ t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 
 //color
-uint32_t	get_rgba(int r, int g, int b, int a);
+uint32_t	get_rgba(float r, float g, float b, float a);
+float		clamp(float value, float min, float max);
 
 void give_color(t_data *data, int weith, int high, int v);
 void init_pix(t_data *data);
