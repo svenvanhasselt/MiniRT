@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/01 09:11:43 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/01 09:33:48 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,17 +60,17 @@ int main(int argc, char **argv)
 	
 	v = 0;
 	j = 0;
-	i = 0;
 	data = init(argc, argv);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	while (j < data->viewport_w)
 	{
+		i = 0;
 		while (i <data->viewport_h)
 		{
 			data->viewport[v] = set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, data->camera.focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
-			hit_object(data, v);//plane... lenth,order
-			give_color(data, i, j, v);// try ray norm
+			hit_object(data, v);
+			give_color(data, i, j, v);
 			if (v >= data->viewport_w * data->viewport_h-2)
 				break;
 			v++;
