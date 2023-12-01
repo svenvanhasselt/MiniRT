@@ -6,12 +6,18 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:28 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 16:13:53 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/12/01 11:06:49 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
+/* 
+plane equation is :p*n -d = 0
+ray: p(t) = s + tc;
+intersection : (s +tc) * n -d = 0
+t = (d - s*n)/c*n
+ */
 bool	hit_plane(t_object *obj, t_ray *ray)
 {
 	float   ortho;

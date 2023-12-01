@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/01 09:22:20 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/01 14:55:49 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,8 @@ bool	hit_object(t_data *data, int v)
 			hit_sphere(&data->objects[i], &data->all_ray[v]);
 		else if (data->objects[i].type == plane)
 			hit_plane(&data->objects[i], &data->all_ray[v]);
-		//else if (i == 3)
-		//	hit_cylinder(&data->objects[i], &data->all_ray[v]);
+		else if (data->objects[i].type == cylinder)
+			hit_cylinder(&data->objects[i], &data->all_ray[v]);
 		i++;
 	}
 	return (false);

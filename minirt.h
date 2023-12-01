@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/01 09:34:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/01 11:30:20 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,10 @@ typedef struct s_object
 	t_vec	vec;
 	t_vec	vec2;
 	t_vec	norm;
+	t_ray	aixs;
 	t_color	color;
 	float	t;
+	float	t2;
 	float	sph_diameter;
 	float	cyl_diameter;
 	float	cyl_height;
