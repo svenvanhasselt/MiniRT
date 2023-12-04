@@ -24,7 +24,7 @@ bool	hit_object(t_data *data, int v)
 			hit_sphere(&data->objects[i], &data->all_ray[v]);
 		else if (data->objects[i].type == plane)
 			hit_plane(&data->objects[i], &data->all_ray[v]);
-		else if (data->objects[i].type == cylinder)
+		else if (data->objects[i].type == cylinder )
 			hit_cylinder(&data->objects[i], &data->all_ray[v]);
 		i++;
 	}
@@ -42,6 +42,7 @@ void give_color(t_data *data, int weith, int high, int v)
 		{
 			t_color color = ray_color(data->all_ray[v], data->objects[i].t, data->objects[i], data);
 			data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(color.r, color.g, color.b, 255));
+			//data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(255,255,255, 255));
 		}
 		i++;
 	}

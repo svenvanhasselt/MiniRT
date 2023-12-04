@@ -58,7 +58,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(HEADER)
 	@$(MAKE) -C $(LIBFT)
 	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
-	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -lm -o $(NAME)
+	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(MACLINK) -lm -o $(NAME)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c

@@ -45,7 +45,7 @@ typedef struct s_object
 	int		type;
 	t_vec	vec;
 	t_vec	vec2;
-	t_vec	norm;
+	//t_vec	norm;
 	t_ray	aixs;
 	t_color	color;
 	float	t;

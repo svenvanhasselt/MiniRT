@@ -24,6 +24,7 @@ float clamp(float value, float min, float max)
       value = 1.0;
    return (value);
 }
+
 uint32_t get_rgba(float r, float g, float b, float a)
 {
    return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | (uint32_t)a);
