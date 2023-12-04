@@ -29,11 +29,25 @@ b = 2 * (D-V*(D|V))|(X-V*(X|V)) =
 // {
 //     t_vec rotation_axis;
 //     t_vec default_dir;
+//     float angle;
 
 //     default_dir = set_vec(0,1,0);
 //     rotation_axis = cross(dir, default_dir);
 
 
+// }
+
+// int rayCylinderIntersect(double x0, double y0, double z0,
+//                           double dx, double dy, double dz) {
+//     // Calculate the coefficients for the quadratic equation
+//     double a = ray->dir.x * dx + dy * dy - (dx * axisX + dy * axisY) * (dx * axisX + dy * axisY);
+//     double b = 2.0 * ((x0 - cx - axisX * (x0 - cx) - axisY * (y0 - cy)) * dx
+//                       + (y0 - cy - axisX * (x0 - cx) - axisY * (y0 - cy)) * dy
+//                       - (x0 - cx - axisX * (x0 - cx) - axisY * (y0 - cy)) * (dx * axisX + dy * axisY));
+//     double c = (x0 - cx - axisX * (x0 - cx) - axisY * (y0 - cy)) * (x0 - cx - axisX * (x0 - cx) - axisY * (x0 - cx))
+//               + (y0 - cy - axisX * (x0 - cx) - axisY * (y0 - cy)) * (y0 - cy - axisX * (x0 - cx) - axisY * (y0 - cy))
+//               - (diameter / 2.0) * (diameter / 2.0);
+    
 // }
 
 bool	hit_cylinder(t_object *obj, t_ray *ray)
@@ -44,16 +58,18 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
     float   discriminant;
     float   y1;
     float   y2;
-    // t_vec   oc;
+   // t_vec   oc;
 
-    // //calculate the coefficients for the quadratic equation
-    // oc = sub(ray->dir, obj->vec);
-    // a = dot(ray->dir, ray->dir) - pow(dot(ray->dir, obj->vec2), 2);
-    // b = 2 * (dot(ray->dir, oc) \
-    // - dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
-    // c = dot(oc, oc) - pow(dot(oc, obj->vec2), 2)-\
-    // pow(obj->cyl_diameter/2, 2);
-    
+    /* a = ray->dir.x * ray->dir.x + ray->dir.y * ray->dir.y - (ray->dir.x * obj->vec2.x + ray->dir.y * obj->vec2.y) * (ray->dir.x * obj->vec2.x + ray->dir.y * obj->vec2.y);
+    b = 2.0 * ((ray->orig.x - obj->vec.x - obj->vec2.x * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.y - obj->vec.y )) * ray->dir.x\
+                      + (ray->orig.y - obj->vec.y - obj->vec2.x * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.y - obj->vec.y)) * ray->dir.y\
+                      - (ray->orig.x - obj->vec.x - obj->vec2.x * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.y - obj->vec.y)) * (ray->dir.x * obj->vec2.x + ray->dir.y * obj->vec2.y));
+    c = (ray->orig.x - obj->vec.x - obj->vec2.x * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.y - obj->vec.y)) * (ray->orig.x - obj->vec.x - obj->vec2.x * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.x - obj->vec.x))\
+              + (ray->orig.y - obj->vec.y - obj->vec2.x * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.y - obj->vec.y)) * (ray->orig.y - obj->vec.y - obj->vec2.y * (ray->orig.x - obj->vec.x) - obj->vec2.y * (ray->orig.y - obj->vec.y))\
+              - (obj->cyl_diameter / 2.0) * (obj->cyl_diameter / 2.0); */
+
+    //calculate the coefficients for the quadratic equation
+    //rotate the ray.
     a = pow(ray->dir.x, 2) + pow(ray->dir.z, 2);
     b = 2 * (ray->dir.x * ray->orig.x + ray->dir.z * ray->orig.z);
     c = pow(ray->orig.x, 2) + pow(ray->orig.z, 2) - pow(obj->cyl_diameter/2, 2);
