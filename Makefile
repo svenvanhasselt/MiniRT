@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/12/01 09:19:28 by yizhang       ########   odam.nl          #
+#    Updated: 2023/12/05 08:08:08 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -58,7 +58,7 @@ all: $(NAME)
 $(NAME): $(OBJ) $(HEADER)
 	@$(MAKE) -C $(LIBFT)
 	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
-	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(MACLINK) -lm -o $(NAME)
+	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -lm -o $(NAME)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
 $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
