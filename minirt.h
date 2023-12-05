@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/01 11:30:20 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/05 14:00:54 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ typedef struct s_ray
 	t_vec	orig;
 	t_vec	dir;
 	t_vec	norm;
+	float	t;
 }t_ray;
 
 typedef struct s_object
@@ -45,7 +46,6 @@ typedef struct s_object
 	int		type;
 	t_vec	vec;
 	t_vec	vec2;
-	//t_vec	norm;
 	t_ray	aixs;
 	t_color	color;
 	float	t;
