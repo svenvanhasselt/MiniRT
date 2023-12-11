@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/05 14:31:57 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/11 18:17:52 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ b = 2 * (D-V*(D|V))|(X-V*(X|V)) =
 
 //https://stackoverflow.com/questions/73866852/ray-cylinder-intersection-formula
 
-bool	hit_cylinder(t_object *obj, t_ray *ray)
+bool	hit_cylinder_body(t_object *obj, t_ray *ray)
 {
 	float   a;
     float   b;
@@ -60,6 +60,7 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
         obj->t = (-b - sqrt(discriminant)) / (2 * a);
         obj->t2 = (-b + sqrt(discriminant)) /(2 * a);
     }
+    // m is a scalar that determines the closet point on the axis to the hit point.
     float m1 = dot(ray->dir,obj->vec2) * obj->t + dot(sub(ray->orig,obj->vec), obj->vec2);
     float m2 = dot(ray->dir,obj->vec2) * obj->t2 + dot(sub(ray->orig,obj->vec), obj->vec2);
     
@@ -83,8 +84,19 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
     return (true);//not intersects
 }
 
-//
-/* bool    hit_cylinder_cap(t_object *obj, t_ray *ray)
+bool	hit_cylinder(t_object *obj, t_ray *ray)
 {
+	float t;
     
-} */
+	hit_cylinder_caps(obj,ray);
+	t = obj->t;
+	hit_cylinder_body(obj,ray);
+	if (obj->t >= 0 && t >= 0)
+	{
+		if (obj->t > t)
+			obj->t = t;
+	}
+	if (obj->t < 0)
+		obj->t = t;
+   return(false);
+}
