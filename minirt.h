@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 10:10:41 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 10:30:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_color
 	float	r;
 	float	g;
 	float	b;
-}t_color;
+}t_color;//
 
 typedef struct s_vec
 {
