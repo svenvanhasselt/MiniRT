@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 08:19:53 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 10:27:16 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,17 +30,20 @@ b = 2 * (D-V*(D|V))|(X-V*(X|V)) =
 
 //https://stackoverflow.com/questions/73866852/ray-cylinder-intersection-formula
 
-bool	hit_cylinder_body(t_object *obj, t_ray *ray)
+float	hit_cylinder_body(t_object *obj, t_ray *ray)
 {
 	float   a;
     float   b;
     float   c;
     float   discriminant;
     float   r;
+	float	t;
+	float	t2;
     t_vec   oc;
-   
+
+	t = -1;
+	t2 = -1;
     r = obj->cyl_diameter/2;
-    
     oc = sub(ray->orig,obj->vec);//subtract the center of the cylinder from the ray origin to turn the problem into a (0,0,0) coordinate
     a = dot(ray->dir,ray->dir) - pow(dot(ray->dir, obj->vec2),2);
     b = 2*(dot(ray->dir, oc) - dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
@@ -49,53 +52,34 @@ bool	hit_cylinder_body(t_object *obj, t_ray *ray)
     //Calculate the discriminant
     discriminant = b*b - 4*a*c;
     if (discriminant < 0)
-    {
-        obj->t = -1;
-        return (false);
-    }
-    
+        return (-1);
     //Calculate the two possible t values
     if (discriminant >= 0)
     {
-        obj->t = (-b - sqrt(discriminant)) / (2 * a);
-        obj->t2 = (-b + sqrt(discriminant)) /(2 * a);
+        t = (-b - sqrt(discriminant)) / (2 * a);
+        t2 = (-b + sqrt(discriminant)) /(2 * a);
     }
+	
     // m is a scalar that determines the closet point on the axis to the hit point.
-    float m1 = dot(ray->dir,obj->vec2) * obj->t + dot(sub(ray->orig,obj->vec), obj->vec2);
-    float m2 = dot(ray->dir,obj->vec2) * obj->t2 + dot(sub(ray->orig,obj->vec), obj->vec2);
+    float m1 = dot(ray->dir,obj->vec2) * t + dot(sub(ray->orig,obj->vec), obj->vec2);
+    float m2 = dot(ray->dir,obj->vec2) * t2 + dot(sub(ray->orig,obj->vec), obj->vec2);
+	t = compare_t(t, t2);
     
     //Check if the intersection point is within the height on the cylinder
-    if (obj->t > obj->t2)
-    {
-        float t = obj->t;
-        obj->t = obj->t2;
-        obj->t2 = t;
-    }
-    if (obj->t < 0 )
-    {
-        obj->t = -1;
-        return (false);
-    }
-    if( (m1 <= obj->cyl_height && m1 >= -obj->cyl_height) ||(m2 <= obj->cyl_height && m2 >= -obj->cyl_height))
-    {
-       return (true);
-    }
-    obj->t = -1;
-    return (true);//not intersects
+    if( (m1 <= obj->cyl_height / 2 && m1 >= -obj->cyl_height / 2) || (m2 <= obj->cyl_height / 2 && m2 >= -obj->cyl_height / 2 ))
+       return (t);
+    return (-1);//not intersects
 }
 
 bool	hit_cylinder(t_object *obj, t_ray *ray)
 {
-	float t;
+    float	t;
+	float	t2;
     
-	hit_cylinder_caps(obj,ray);
-	t = obj->t;
-	hit_cylinder_body(obj,ray);
-	if (obj->t >= 0 && t >= 0)
-	{
-		if (obj->t > t)
-			obj->t = t;
-	}
-	
-   return(false);
+    t = hit_cylinder_caps(obj,ray);
+	t2 = hit_cylinder_body(obj,ray);
+	obj->t = compare_t(t, t2);
+	if (obj->t > 0)
+		return (true);
+    return(false);
 }

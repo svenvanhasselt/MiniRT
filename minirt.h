@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 08:13:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 10:10:41 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 #include <stdlib.h>
 #include <math.h>
 #include <stdio.h>
+
+#define CYL_TOP 1
+#define CYL_BOTTOM -1
 
 typedef struct s_color
 {
@@ -39,6 +42,7 @@ typedef struct s_ray
 	t_vec	dir;
 	t_vec	norm;
 	float	t;
+	t_color	color;
 }t_ray;
 
 typedef struct s_object
@@ -61,6 +65,7 @@ typedef struct s_pixel
 	uint32_t	col;
 	int			u;
 	int			v;
+	float		t;
 }t_pixel;
 
 typedef struct s_light
@@ -152,8 +157,9 @@ t_vec		calc_intersection_point(t_ray r, float t);
 bool		hit_object(t_data *data, int v);
 bool		hit_sphere(t_object *obj, t_ray *r);
 bool		hit_plane(t_object *obj, t_ray *ray);
-bool		hit_cylinder_body(t_object *obj, t_ray *ray);
-bool		hit_cylinder_caps(t_object *obj, t_ray *ray);
+float		hit_cylinder_body(t_object *obj, t_ray *ray);
+float		hit_cylinder_caps(t_object *obj, t_ray *ray);
+float		compare_t(float t, float t2);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
 t_color		ray_color(t_ray ray, float t, t_object object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
