@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 10:30:14 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 17:10:35 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,21 +36,13 @@ typedef struct s_vec
 	float	z;
 }t_vec;
 
-typedef struct s_ray
-{
-	t_vec	orig;
-	t_vec	dir;
-	t_vec	norm;
-	float	t;
-	t_color	color;
-}t_ray;
-
 typedef struct s_object
 {
 	int		type;
 	t_vec	vec;
 	t_vec	vec2;
-	t_ray	aixs;
+	t_vec	cyl_top;
+	t_vec	cyl_bottom;
 	t_color	color;
 	float	t;
 	float	t2;
@@ -58,6 +50,15 @@ typedef struct s_object
 	float	cyl_diameter;
 	float	cyl_height;
 }t_object;
+
+typedef struct s_ray
+{
+	t_vec		orig;
+	t_vec		dir;
+	t_vec		norm;
+	t_object	*obj;
+	float		t;
+}t_ray;
 
 typedef struct s_pixel
 {
@@ -80,6 +81,7 @@ enum   t_type
     sphere,
     plane,
     cylinder,
+	cap,
 };
 
 typedef struct s_amb_light
@@ -93,7 +95,6 @@ typedef struct s_camera_s
     t_vec   vec;
     t_vec	ovec;
     float   fov;
-	float	ratio;
 	float	focal_length;
 }	t_camera_s;
 
@@ -110,11 +111,12 @@ typedef struct s_data
 	t_alight	amb_light;
 	t_light_s	light;
 	t_camera_s	camera;
-	mlx_t		* mlx;
+	mlx_t		*mlx;
 	mlx_image_t	*img;
 	int			object_num;
 	int			viewport_w;
 	int			viewport_h;
+	int			ray_pix_num;
 	t_vec		*viewport;
 	t_ray		*all_ray;
 	t_pixel		*all_pix;
@@ -160,6 +162,7 @@ bool		hit_plane(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
+void		update_obj(t_ray *ray, t_object *obj);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
 t_color		ray_color(t_ray ray, float t, t_object object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 14:12:54 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 17:36:28 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,17 +41,14 @@ t_data *init(int argc, char **argv)
 	parse_input(argc, argv, &split_file, data);
 	data->viewport_w = 800;
 	data->viewport_h = 600;
-	data->camera.ratio = 1;
-
-	float tand;
-	tand = tan(data->camera.fov/180 * 3.1415926);
-	float tanl = tanf(90/180 * 3.1415926);
+	
 	//printf("tan:%f, tanf: %f\n",tand,tanl);
 	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov/2/180 * 3.1415926));
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
+	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
-	data->viewport = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_vec));
-	data->all_ray = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_ray));
+	data->viewport = malloc (data->ray_pix_num  * sizeof(t_vec));
+	data->all_ray = malloc (data->ray_pix_num * sizeof(t_ray));
 	init_pix(data);//print all pix to black
 	return (data);
 }
