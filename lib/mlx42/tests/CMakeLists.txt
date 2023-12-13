@@ -31,7 +31,7 @@ target_link_libraries(
 	mlx42
 )
 
-set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY CXX_STANDARD 14)
+set_property(TARGET ${TEST_EXECUTABLE_NAME} PROPERTY pbj->vec.xX_STANDARD 14)
 
 # Add tests to CTest
 # Set working directory to the testing folder so that the test can find their test files

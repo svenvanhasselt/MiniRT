@@ -6,17 +6,18 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/11/30 14:47:23 by svan-has      ########   odam.nl          #
+#    Updated: 2023/12/13 10:39:06 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -Wall -Werror -Wextra -g -fsanitize=address
+FLAG = -Wall -Werror -Wextra #-g -fsanitize=address
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
 LINK := -I include -lglfw -I $(LIBFT)/includes -I $(LIBMLX)/include/MLX42/
+MACLINK := -Iinclude -ldl -lglfw -L"/opt/homebrew/lib/"
 HEADER := minirt.h
 SRC_DIR := src
 OBJ_DIR := obj
@@ -35,6 +36,9 @@ SRC := \
 	intersection/hit_object.c\
 	intersection/hit_plane.c\
 	intersection/hit_sphere.c\
+	intersection/hit_cylinder.c\
+	intersection/hit_cylinder_caps.c\
+	intersection/math.c\
 	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
