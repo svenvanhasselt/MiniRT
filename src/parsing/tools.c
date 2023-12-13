@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:04:12 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/11/27 12:47:26 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 15:39:58 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,32 +53,4 @@ float	devide_decimal(float number)
 	if ((int)number != 0)
 		number = devide_decimal(number / 10);
 	return (number);
-}
-
-float	string_to_float(char *string)
-{
-	int		i;
-	bool	decimal_point;
-	float	result;
-	char	*number;
-
-	input_check(string);
-	result = 0;
-	decimal_point = false;
-	i = 0;
-	while (string[i])
-	{
-		if (string[i] == '.')
-		{
-			decimal_point = true;
-			break ;
-		}
-		i++;
-	}
-	if (decimal_point)
-		result = devide_decimal(ft_atof(string + i + 1));
-	number = null_check(ft_substr(string, 0, i));
-	result += ft_atof(number);
-	free(number);
-	return (result);
 }

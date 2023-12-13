@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 10:42:07 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/12/13 17:32:59 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,17 @@ float clamp(float value, float min, float max)
       value = 1.0;
    return (value);
 }
-uint32_t get_rgba(float r, float g, float b, float a)
+uint32_t get_rgba(float r, float g, float b)
 {
-   return ((uint32_t)r << 24 | (uint32_t)g << 16 | (uint32_t)b << 8 | (uint32_t)a);
+	uint32_t r_new;
+	uint32_t g_new;
+	uint32_t b_new;
+
+	r_new = r * 255;
+	g_new = g * 255;
+	b_new = b * 255;
+
+   return (r_new << 24 | g_new << 16 | b_new << 8 | 255);
 }
 
 
@@ -58,13 +66,26 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	float	diffuse;
 	t_vec	intersect_p;
 
-	// t_ray light_beam;
-	// light_beam.orig = ray.dir;
-	// light_beam.dir = 
-	// if (hit_sphere(object))
-	intersect_p = calc_intersection_point(ray, t);
-	surf_norm = calc_surface_normal(intersect_p, object.vec);
-	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
+	if (object.type == sphere)
+	{
+		intersect_p = calc_intersection_point(ray, t);
+		surf_norm = calc_surface_normal(intersect_p, object.vec);
+		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
+	}
+	else if (object.type == plane)
+	{
+		t_vec light_vec;
+		// t_vec normal_vec;
+		// light_vec = sub(data->light.vec, object.vec);
+		// normal_vec = unit_vector(object.vec2);
+		diffuse = calc_diffuse(data->light.vec, object.vec2, object.vec, data->light.brightness);
+	}
+	else
+	{
+		intersect_p = calc_intersection_point(ray, t);
+		surf_norm = calc_surface_normal(intersect_p, object.vec);
+		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
+	}
 	t_color amb;
    t_color col;
 	amb.r = (data->amb_light.color.r * data->amb_light.ambient);
@@ -83,9 +104,6 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
    col.b = clamp(col.b , 0.0,1.0);
 
    // gamma correction?
-   // col.r = pow(col.r, 1 / 2.2);
-   // col.g = pow(col.g, 1 / 2.2);
-   // col.b = pow(col.b, 1 / 2.2);
 
 	return (col);
 }

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 10:40:28 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/12/13 16:13:34 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct s_color
 	float	r;
 	float	g;
 	float	b;
-}t_color;
+}t_color;//
 
 typedef struct s_vec
 {
@@ -131,7 +131,6 @@ void	count_objects(char *file, t_data *data);
 void	free_split(char **split);
 char	*input_check(char *string);
 int		line_check(char ***split_line);
-float	string_to_float(char *string);
 void	parse_sphere(char ***split_line, t_data *data, int i);
 void	parse_plane(char ***split_line, t_data *data, int i);
 void	parse_cylinder(char ***split_line, t_data *data, int i);
@@ -170,7 +169,7 @@ t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 
 //color
-uint32_t	get_rgba(float r, float g, float b, float a);
+uint32_t	get_rgba(float r, float g, float b);
 float		clamp(float value, float min, float max);
 
 void		give_color(t_data *data, int weith, int high, int v);

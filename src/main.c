@@ -6,11 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 12:56:25 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/12/13 15:35:43 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
+#include "../lib/libft/includes/libft.h"
 
 void	free_data(t_data *data)
 {
@@ -42,14 +43,12 @@ t_data *init(int argc, char **argv)
 	data->viewport_w = 800;
 	data->viewport_h = 640;
 	data->camera.ratio = 1;
-	// data->camera.focal_length = 500;//data->camera.ratio/tan(data->camera.fov/2) * data->viewport_h/2/tan(data->camera.fov/2);
 
-	float a = data->viewport_h / 2;
-	float b = data->camera.fov / 2;
-	float c = tan(90);
-	printf("fov: %f a: %f b: %f c: %f\n", data->camera.fov, a, b, c);
-	data->camera.focal_length = (a) / tan(b);
-	printf("fov: %f\n", data->camera.focal_length);
+	float tand;
+	tand = tan(data->camera.fov/180 * 3.1415926);
+	// float tanl = tanf(90/180 * 3.1415926);
+	//printf("tan:%f, tanf: %f\n",tand,tanl);
+	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov/2/180 * 3.1415926));
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
 	data->viewport = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_vec));
