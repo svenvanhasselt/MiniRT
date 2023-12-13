@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/11 18:17:52 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 08:19:53 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ bool	hit_cylinder_body(t_object *obj, t_ray *ray)
     oc = sub(ray->orig,obj->vec);//subtract the center of the cylinder from the ray origin to turn the problem into a (0,0,0) coordinate
     a = dot(ray->dir,ray->dir) - pow(dot(ray->dir, obj->vec2),2);
     b = 2*(dot(ray->dir, oc) - dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
-    c = dot(oc, oc) - pow(dot(oc, obj->vec2), 2) - pow(r / 2, 2);
+    c = dot(oc, oc) - pow(dot(oc, obj->vec2), 2) - pow(r, 2);
     
     //Calculate the discriminant
     discriminant = b*b - 4*a*c;
@@ -96,7 +96,6 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
 		if (obj->t > t)
 			obj->t = t;
 	}
-	if (obj->t < 0)
-		obj->t = t;
+	
    return(false);
 }

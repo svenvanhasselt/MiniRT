@@ -6,7 +6,7 @@
 #    By: yizhang <yizhang@student.codam.nl>           +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/12/11 18:18:10 by yizhang       ########   odam.nl          #
+#    Updated: 2023/12/13 08:15:06 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,7 +38,7 @@ SRC := \
 	intersection/hit_plane.c\
 	intersection/hit_sphere.c\
 	intersection/hit_cylinder.c\
-	intersectopm/hit_caps.c\
+	intersection/hit_cylinder_caps.c\
 	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
