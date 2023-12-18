@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   color.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 17:32:59 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   color.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 10:19:24 by yizhang           #+#    #+#             */
+/*   Updated: 2023/12/18 21:33:28 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	t_vec	surf_norm;
 	float	diffuse;
 	t_vec	intersect_p;
+	float	light_distance;
 
 	if (object.type == sphere)
 	{
@@ -74,17 +75,18 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	}
 	else if (object.type == plane)
 	{
-		t_vec light_vec;
-		// t_vec normal_vec;
-		// light_vec = sub(data->light.vec, object.vec);
-		// normal_vec = unit_vector(object.vec2);
-		diffuse = calc_diffuse(data->light.vec, object.vec2, object.vec, data->light.brightness);
+			intersect_p = calc_intersection_point(ray, t);
+		surf_norm = object.vec2;
+		light_distance = vec_len(sub(data->light.vec, intersect_p));
+		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
+
 	}
 	else
 	{
 		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = calc_surface_normal(intersect_p, object.vec);
-		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
+		surf_norm = calc_surface_normal(intersect_p, object.vec2);
+		light_distance = vec_len(sub(data->light.vec, intersect_p));
+		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
 	}
 	t_color amb;
    t_color col;

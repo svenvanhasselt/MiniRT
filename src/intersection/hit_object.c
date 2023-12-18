@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   hit_object.c                                       :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 16:13:48 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   hit_object.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/26 13:43:59 by yizhang           #+#    #+#             */
+/*   Updated: 2023/12/18 20:58:12 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void init_pix(t_data *data)
 	{
 		while (i <data->viewport_h)
 		{
-			data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(0, 0, 0));
+			data->all_pix[v] = set_pixel(data->all_ray[v], j, i, 255);
 			v++;
 			i++;
 		}

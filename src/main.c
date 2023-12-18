@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:46:14 by yizhang           #+#    #+#             */
-/*   Updated: 2023/12/18 18:32:23 by sven             ###   ########.fr       */
+/*   Updated: 2023/12/18 21:05:10 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,13 @@ t_data *init(int argc, char **argv)
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
 	data->viewport_w = 800;
-	data->viewport_h = 640;
+	data->viewport_h = 600;
 	data->camera.ratio = 1;
+
+	float tand;
+	tand = tan(data->camera.fov/180 * 3.1415926);
+	// float tanl = tanf(90/180 * 3.1415926);
+	//printf("tan:%f, tanf: %f\n",tand,tanl);
 	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov/2/180 * 3.1415926));
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
