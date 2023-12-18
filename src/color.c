@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:19:24 by yizhang           #+#    #+#             */
-/*   Updated: 2023/12/18 21:33:28 by sven             ###   ########.fr       */
+/*   Updated: 2023/12/18 22:10:45 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,12 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	float	diffuse;
 	t_vec	intersect_p;
 	float	light_distance;
+	t_color amb;
+    t_color col;
+
+	amb.r = (data->amb_light.color.r * data->amb_light.ambient);
+	amb.g = (data->amb_light.color.g * data->amb_light.ambient);
+	amb.b = (data->amb_light.color.b * data->amb_light.ambient);
 
 	if (object.type == sphere)
 	{
@@ -84,26 +90,24 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	else
 	{
 		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = calc_surface_normal(intersect_p, object.vec2);
+		surf_norm = calc_surface_normal(intersect_p, object.vec);
 		light_distance = vec_len(sub(data->light.vec, intersect_p));
 		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
 	}
-	t_color amb;
-   t_color col;
-	amb.r = (data->amb_light.color.r * data->amb_light.ambient);
-	amb.g = (data->amb_light.color.g * data->amb_light.ambient);
-	amb.b = (data->amb_light.color.b * data->amb_light.ambient);
 
 
 
-   col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
-   col.r += amb.r;
-   col.g += amb.g;
-   col.b += amb.b;
 
-   col.r = clamp(col.r , 0.0, 1.0);
-   col.g = clamp(col.g , 0.0, 1.0);
-   col.b = clamp(col.b , 0.0,1.0);
+
+    col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
+	
+	col.r += amb.r;
+	col.g += amb.g;
+	col.b += amb.b;
+
+   	col.r = clamp(col.r , 0.0, 1.0);
+   	col.g = clamp(col.g , 0.0, 1.0);
+   	col.b = clamp(col.b , 0.0,1.0);
 
    // gamma correction?
 

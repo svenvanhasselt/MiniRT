@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/26 13:43:59 by yizhang           #+#    #+#             */
-/*   Updated: 2023/12/18 20:58:12 by sven             ###   ########.fr       */
+/*   Updated: 2023/12/18 22:13:39 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,10 +64,10 @@ void init_pix(t_data *data)
 
 	v = 0;
 	j = 0;
-	i = 0;
 	data->all_pix = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_pixel));
 	while (j < data->viewport_w)
 	{
+		i = 0;
 		while (i <data->viewport_h)
 		{
 			data->all_pix[v] = set_pixel(data->all_ray[v], j, i, 255);
