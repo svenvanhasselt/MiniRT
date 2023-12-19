@@ -4,11 +4,11 @@ R	800		600		0					5
 
 #ambient
 #	brightness [0-1]			color
-A	0.1							255,255,255
+A	0.2							255,255,255
 
 #lights (L for single, l for multiple)
 #	origin					brightness [0-1]			color
-L	1.500,11.500,-14.500	0.800000					255,255,255
+L	1.500,5.500,-14.500	0.800000					255,255,255
 
 #camera
 #	origin					orientation					field of view (deg)

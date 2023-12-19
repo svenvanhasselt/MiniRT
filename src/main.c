@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:46:14 by yizhang           #+#    #+#             */
-/*   Updated: 2023/12/18 22:00:45 by sven             ###   ########.fr       */
+/*   Updated: 2023/12/19 09:39:25 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,8 +40,8 @@ t_data *init(int argc, char **argv)
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
-	data->viewport_w = 800;
-	data->viewport_h = 600;
+	data->viewport_w = 1000;
+	data->viewport_h = 700;
 	data->camera.ratio = 1;
 
 	float tand;
