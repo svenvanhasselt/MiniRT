@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 08:10:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 16:58:06 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/13 13:58:05 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,11 @@ static float hit_onedisc(t_vec top_bottom, t_ray *ray, t_object *obj)
 		p = calc_intersection_point(*ray, t);
 		oc = sub(p, top_bottom);
 		d = dot(oc,oc);
-		if (sqrt(d) <= obj->cyl_diameter/2)
+		if (sqrt(d) <= obj->cyl_diameter / 2)
 			return (t);
 	}
 	return (-1);
-	}
+}
 
 static t_vec top_bottom(t_object *obj, int top_bottom)
 {
@@ -63,13 +63,15 @@ static t_vec top_bottom(t_object *obj, int top_bottom)
 
 float hit_cylinder_caps(t_object *obj, t_ray *ray)
 {
+	t_vec	top;
+	t_vec	bottom;
 	float	t;
 	float	t2;
 
-	obj->cyl_top = top_bottom(obj, CYL_TOP);
-	obj->cyl_bottom = top_bottom(obj, CYL_BOTTOM);
-	t = hit_onedisc(obj->cyl_bottom,ray,obj);
-	t2 = hit_onedisc(obj->cyl_top,ray,obj);
+	top = top_bottom(obj, CYL_TOP);
+	bottom = top_bottom(obj, CYL_BOTTOM);
+	t = hit_onedisc(bottom,ray,obj);
+	t2 = hit_onedisc(top,ray,obj);
 	return (compare_t(t, t2));
 }
 

@@ -1,18 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: yizhang <yizhang@student.codam.nl>           +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2023/12/13 09:19:04 by yizhang       ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sven <sven@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/10/06 17:29:14 by yizhang           #+#    #+#              #
+#    Updated: 2023/12/18 20:53:18 by sven             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -Wall -Werror -Wextra #-g -fsanitize=address
+# FLAG = -Wall -Werror -Wextra #-g -fsanitize=address
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
@@ -32,7 +32,6 @@ SRC := \
 	parsing/errors.c \
 	errors.c \
 	color.c \
-	render.c\
 	vector.c\
 	intersection/hit_object.c\
 	intersection/hit_plane.c\

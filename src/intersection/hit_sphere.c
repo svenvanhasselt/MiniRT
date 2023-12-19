@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 17:01:29 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/11/29 16:14:08 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,6 @@ bool hit_sphere(t_object *obj, t_ray *r)
 	float c = dot(oc, oc) - radius*radius;
 	float discriminant = b*b - 4*a*c;
 	obj->t = (-b/2 -sqrt(discriminant)) / a;
-	update_obj(r, obj);
 	if (discriminant < 0)
 		return (false);
 	else
