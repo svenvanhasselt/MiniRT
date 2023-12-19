@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 11:48:23 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 13:47:26 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,21 +19,29 @@ bool	hit_object(t_data *data, int v)
 
 	i = 0;
 	data->all_ray[v].t = -1;
+
 	while (i < data->object_num)
 	{
+		//printf("this is a object in loop:%i\n", data->objects[i].type);	
 		if (data->objects[i].type == sphere)
 		{
 			hit_sphere(&data->objects[i], &data->all_ray[v]);
 			data->all_ray[v].t = compare_t(data->objects[i].t, data->all_ray[v].t);
-			if (data->all_ray[v].t == data->objects[i].t)
+			if (data->all_ray[v].t == data->objects[i].t && data->all_ray[v].t > 0)
+			{
 				*data->all_ray[v].obj = data->objects[i];
+				//printf("this is a sphere:%i\n", data->objects[i].type);	
+			}
 		}
 		else if (data->objects[i].type == plane)
 		{
 			hit_plane(&data->objects[i], &data->all_ray[v]);
 			data->all_ray[v].t = compare_t(data->objects[i].t, data->all_ray[v].t);
-			if (data->all_ray[v].t == data->objects[i].t)
+			if (data->all_ray[v].t == data->objects[i].t && data->all_ray[v].t > 0)
+			{
 				*data->all_ray[v].obj = data->objects[i];
+				//printf("this is a plane:%i,ray:%i\n", data->objects[i].type, data->all_ray[v].obj->type);
+			}
 		}
 		else if (data->objects[i].type == cylinder )
 		{
@@ -47,7 +55,7 @@ bool	hit_object(t_data *data, int v)
 	return (false);
 }
 
-void give_color(t_data *data, int weith, int high, int v)
+/* void give_color(t_data *data, int weith, int high, int v)
 {
 	int i;
 
@@ -62,7 +70,7 @@ void give_color(t_data *data, int weith, int high, int v)
 		}
 		i++;
 	}
-}
+} */
 
 t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outside of sphere
 {

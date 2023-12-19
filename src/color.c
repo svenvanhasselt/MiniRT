@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 11:59:19 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 13:39:01 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float di
 	return (clamp(diffuse_int * light_dir, 0.0, 1.0));
 }
 
-t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
+t_color ray_color(t_ray ray, float t, t_object *object, t_data *data)
 {
 	t_vec	surf_norm;
 	float	diffuse;
@@ -71,19 +71,19 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	amb.r = (data->amb_light.color.r * data->amb_light.ambient);
 	amb.g = (data->amb_light.color.g * data->amb_light.ambient);
 	amb.b = (data->amb_light.color.b * data->amb_light.ambient);
-
-	if (object.type == sphere)
+	//printf("this is a obj:%i\n", object->type);
+	if (object->type == sphere)
 	{
-		printf("this is a sphere\n");
+		//printf("this is a sphere:%i\n", object.type);	
 		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = calc_surface_normal(intersect_p, object.vec);
+		surf_norm = calc_surface_normal(intersect_p, object->vec);
 		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
 	}
-	else if (object.type == plane)
+	if (object->type == plane)
 	{
-		printf("this is a plane\n");
+		//printf("this is a plane:%i\n", object->type);
 		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = object.vec2;
+		surf_norm = object->vec2;
 		light_distance = vec_len(sub(data->light.vec, intersect_p));
 		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
 
@@ -91,7 +91,7 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 	else
 	{
 		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = calc_surface_normal(intersect_p, object.vec);
+		surf_norm = calc_surface_normal(intersect_p, object->vec);
 		light_distance = vec_len(sub(data->light.vec, intersect_p));
 		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
 	}
@@ -100,7 +100,7 @@ t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
 
 
 
-    col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
+    col = set_col((object->color.r * diffuse), (object->color.g * diffuse), (object->color.b * diffuse));
 	
 	col.r += amb.r;
 	col.g += amb.g;

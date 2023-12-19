@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 11:50:56 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 13:21:31 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,14 @@
 
 #define CYL_TOP 1
 #define CYL_BOTTOM -1
+
+enum	t_type
+{
+	none,
+	sphere,
+	plane,
+	cylinder,
+};
 
 typedef struct s_color
 {
@@ -74,13 +82,6 @@ typedef struct s_light
 	t_color	color;
 	float	ratio;
 }t_light;
-
-enum	t_type
-{
-	sphere,
-	plane,
-	cylinder,
-};
 
 typedef struct s_amb_light
 {
@@ -162,7 +163,7 @@ float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
-t_color		ray_color(t_ray ray, float t, t_object object, t_data *data);
+t_color		ray_color(t_ray ray, float t, t_object *object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_color		set_col(float r, float g, float b);
@@ -173,7 +174,7 @@ t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 uint32_t	get_rgba(float r, float g, float b);
 float		clamp(float value, float min, float max);
 
-void		give_color(t_data *data, int weith, int high, int v);
+//void		give_color(t_data *data, int weith, int high, int v);
 void		init_pix(t_data *data);
 void		print_pix(t_data *data);
 #endif
