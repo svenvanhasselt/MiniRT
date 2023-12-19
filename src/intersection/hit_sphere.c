@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 16:14:08 by svan-has      ########   odam.nl         */
+/*   Updated: 2023/12/19 16:28:45 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,9 @@ bool hit_sphere(t_object *obj, t_ray *r)
 	obj->t = (-b/2 -sqrt(discriminant)) / a;
 	if (discriminant < 0)
 		return (false);
-	else
-    	return (true);
+	if (obj->t >= 0)
+		return (true);
+	return (false);
 	//The intersection of the ray and the sphere results in a quadratic equation of the form:
 	//a*t^2 + b*t + c = 0
 	//This quadratic equation can have two solutions

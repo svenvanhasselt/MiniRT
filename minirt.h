@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 13:21:31 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 16:23:05 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct s_camera_s
     t_vec   vec;
     t_vec	ovec;
     float   fov;
-	float	ratio;
 	float	focal_length;
 }	t_camera_s;
 
@@ -161,6 +160,7 @@ bool		hit_sphere(t_object *obj, t_ray *r);
 bool		hit_plane(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
+void		compare_update_t(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
 t_color		ray_color(t_ray ray, float t, t_object *object, t_data *data);

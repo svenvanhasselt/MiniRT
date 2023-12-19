@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 14:10:24 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 16:22:36 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,11 @@ float	compare_t(float t, float t2)
 			return (t2); 
 	}
 	return (-1);
+}
+
+void	compare_update_t(t_object *obj, t_ray *ray)
+{
+	ray->t = compare_t(obj->t, ray->t);
+	if (ray->t == obj->t && ray->t >= 0)
+		ray->obj = obj;
 }

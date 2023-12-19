@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 13:47:26 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 16:25:49 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,33 +23,12 @@ bool	hit_object(t_data *data, int v)
 	while (i < data->object_num)
 	{
 		//printf("this is a object in loop:%i\n", data->objects[i].type);	
-		if (data->objects[i].type == sphere)
-		{
-			hit_sphere(&data->objects[i], &data->all_ray[v]);
-			data->all_ray[v].t = compare_t(data->objects[i].t, data->all_ray[v].t);
-			if (data->all_ray[v].t == data->objects[i].t && data->all_ray[v].t > 0)
-			{
-				*data->all_ray[v].obj = data->objects[i];
-				//printf("this is a sphere:%i\n", data->objects[i].type);	
-			}
-		}
-		else if (data->objects[i].type == plane)
-		{
-			hit_plane(&data->objects[i], &data->all_ray[v]);
-			data->all_ray[v].t = compare_t(data->objects[i].t, data->all_ray[v].t);
-			if (data->all_ray[v].t == data->objects[i].t && data->all_ray[v].t > 0)
-			{
-				*data->all_ray[v].obj = data->objects[i];
-				//printf("this is a plane:%i,ray:%i\n", data->objects[i].type, data->all_ray[v].obj->type);
-			}
-		}
-		else if (data->objects[i].type == cylinder )
-		{
-			hit_cylinder(&data->objects[i], &data->all_ray[v]);
-			data->all_ray[v].t = compare_t(data->objects[i].t, data->all_ray[v].t);
-			if (data->all_ray[v].t == data->objects[i].t)
-				*data->all_ray[v].obj = data->objects[i];
-		}
+		if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], &data->all_ray[v]))
+			compare_update_t(&data->objects[i], &data->all_ray[v]);
+		else if (data->objects[i].type == plane && hit_plane(&data->objects[i], &data->all_ray[v]))
+			compare_update_t(&data->objects[i], &data->all_ray[v]);
+		else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], &data->all_ray[v]))
+			compare_update_t(&data->objects[i], &data->all_ray[v]);
 		i++;
 	}
 	return (false);

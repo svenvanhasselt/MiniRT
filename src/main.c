@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 14:07:06 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 16:15:27 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ t_data *init(int argc, char **argv)
 	t_data	*data;
 	char	**split_file;
 
-	//didn
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
@@ -74,7 +73,7 @@ int main(int argc, char **argv)
 			hit_object(data, v);
 			//printf("this is a obj:%i\n",  data->all_ray[v].obj->type);
 			if (data->all_ray[v].t > 0)
-			{	
+			{	//will not go to other type of object
 				//printf("this is a obj2:%i\n",  data->all_ray[v].obj->type);
 				t_color color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
 				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.r,color.g,color.b));
