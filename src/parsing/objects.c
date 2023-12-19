@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   objects.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/18 13:28:44 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/12/13 15:40:20 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   objects.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/18 13:28:44 by svan-has          #+#    #+#             */
+/*   Updated: 2023/12/19 17:00:08 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ void	parse_sphere(char ***split_line, t_data *data, int i)
 	data->objects[i].vec.y = ft_atof(split_line[0][1]);
 	data->objects[i].vec.z = ft_atof(split_line[0][2]);
 	data->objects[i].sph_diameter = ft_atof(split_line[1][0]);
-	data->objects[i].color.r = ft_atof(split_line[2][0]) / 255;
-	data->objects[i].color.g = ft_atof(split_line[2][1]) / 255;
-	data->objects[i].color.b = ft_atof(split_line[2][2]) / 255;
+	data->objects[i].color.r = ft_atof(split_line[2][0]);
+	data->objects[i].color.g = ft_atof(split_line[2][1]);
+	data->objects[i].color.b = ft_atof(split_line[2][2]);
 }
 
 void	parse_plane(char ***split_line, t_data *data, int i)
