@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   hit_plane.c                                        :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/11/27 09:24:28 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 10:42:33 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   hit_plane.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/27 09:24:28 by yizhang           #+#    #+#             */
+/*   Updated: 2023/12/20 12:25:46 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ bool	hit_plane(t_object *obj, t_ray *ray)
 	t_vec	oc;
 	
 	oc = sub(ray->orig, obj->vec);
-	obj->t = -dot(oc,obj->vec2)/ dot(ray->dir,obj->vec2);
-	return (true);
+	obj->t = -dot(oc,obj->vec2) / dot(ray->dir,obj->vec2);
+	if (obj->t >= 0)
+		return (true);
+	return (false);
 }

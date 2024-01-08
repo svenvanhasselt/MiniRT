@@ -6,13 +6,13 @@
 #    By: sven <sven@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 17:29:14 by yizhang           #+#    #+#              #
-#    Updated: 2023/12/20 12:20:13 by sven             ###   ########.fr        #
+#    Updated: 2024/01/03 12:45:42 by sven             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -g -fsanitize=address #-Wall -Werror -Wextra
+FLAG = #-Wall -Werror -Wextra #-g -fsanitize=address 
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a

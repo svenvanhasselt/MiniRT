@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 17:46:14 by yizhang           #+#    #+#             */
-/*   Updated: 2023/12/19 09:39:25 by sven             ###   ########.fr       */
+/*   Updated: 2024/01/03 13:30:27 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	print_pix(t_data *data)
 	int	i;
 
 	i = 0;
-	while (i < data->viewport_w*data->viewport_h)
+	while (i < data->ray_pix_num)
 	{
 		mlx_put_pixel(data->img, data->all_pix[i].u, data->all_pix[i].v, data->all_pix[i].col);
 		i++;
@@ -40,19 +40,14 @@ t_data *init(int argc, char **argv)
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
-	data->viewport_w = 1000;
-	data->viewport_h = 700;
-	data->camera.ratio = 1;
-
-	float tand;
-	tand = tan(data->camera.fov/180 * 3.1415926);
-	// float tanl = tanf(90/180 * 3.1415926);
-	//printf("tan:%f, tanf: %f\n",tand,tanl);
-	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov/2/180 * 3.1415926));
+	data->viewport_w = 800;
+	data->viewport_h = 600;
+	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov / 2 / 180 * 3.1415926));
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
-	data->viewport = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_vec));
-	data->all_ray = malloc ((data->viewport_w * data->viewport_h) * sizeof(t_ray));
+	data->ray_pix_num = data->viewport_w * data->viewport_h;
+	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
+	data->all_ray = malloc (data->ray_pix_num * sizeof(t_ray));
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -76,8 +71,15 @@ int main(int argc, char **argv)
 			data->viewport[v] = set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, data->camera.focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);
-			give_color(data, i, j, v);
-			if (v >= data->viewport_w * data->viewport_h-2)
+			//printf("this is a obj:%i\n",  data->all_ray[v].obj->type);
+			if (data->all_ray[v].t > 0)
+			{	//will not go to other type of object
+				//printf("this is a obj2:%i\n",  data->all_ray[v].obj->type);
+				t_vec color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
+				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.x,color.y,color.z));
+			}
+			//give_color(data, i, j, v);
+			if (v >= data->ray_pix_num)
 				break;
 			v++;
 			i++;

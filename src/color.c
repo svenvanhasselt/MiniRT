@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/10 10:19:24 by yizhang           #+#    #+#             */
-/*   Updated: 2023/12/19 10:27:31 by sven             ###   ########.fr       */
+/*   Updated: 2024/01/08 10:39:28 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ uint32_t get_rgba(float r, float g, float b)
 	r_new = r * 255;
 	g_new = g * 255;
 	b_new = b * 255;
-
    return (r_new << 24 | g_new << 16 | b_new << 8 | 255);
 }
 
@@ -48,72 +47,71 @@ t_vec	calc_surface_normal(t_vec intersection_point, t_vec oc)
 	return (surf_norm);
 }
 
-float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float diffuse_int)
+float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float brightness)
 {
 	t_vec	norm;
-	float	light_dir;
+	float	diffuse;
+	float	light_dist;
 
 	norm = unit_vector(sub(light_pos, inter_point));
-	light_dir = dot(surf_norm, norm);
-	if (light_dir < 0)
-		light_dir = 0;
-	return (clamp(diffuse_int * light_dir, 0.0, 1.0));
+	light_dist = vec_len(sub(light_pos, inter_point));
+	diffuse = dot(surf_norm, norm);
+	return (clamp((diffuse * brightness) / (light_dist * light_dist), 0.0, 1.0));
 }
 
-t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
+bool	check_obj(t_data *data, t_ray ray)
 {
-	t_vec	surf_norm;
-	float	diffuse;
+	int i;
+
+	i = 0;
+	while (i < data->object_num)
+	{
+		if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], &ray))
+		{
+			printf("hits: %d type: %d\n", i, data->objects[i].type);
+			return (true);
+		}
+		// else if (data->objects[i].type == plane && hit_plane(&data->objects[i], &ray))
+		// {
+		// 	printf("hits: %d type: %d\n", i, data->objects[i].type);
+		// 	return (true);
+		// }
+		else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], &ray))
+			return (true);
+		i++;
+	}
+	return (false);
+}
+
+t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
+{
 	t_vec	intersect_p;
-	float	light_distance;
-	t_color amb;
-    t_color col;
+	t_vec	surf_norm;
+	t_vec	amb;
+    t_vec	col;
+	float	diffuse;
 
-	amb.r = (data->amb_light.color.r * data->amb_light.ambient);
-	amb.g = (data->amb_light.color.g * data->amb_light.ambient);
-	amb.b = (data->amb_light.color.b * data->amb_light.ambient);
-
-	if (object.type == sphere)
-	{
-		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = calc_surface_normal(intersect_p, object.vec);
-		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
-	}
-	else if (object.type == plane)
-	{
-			intersect_p = calc_intersection_point(ray, t);
-		surf_norm = object.vec2;
-		light_distance = vec_len(sub(data->light.vec, intersect_p));
-		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
-
-	}
+	intersect_p = calc_intersection_point(ray, t);
+	if (object->type == plane)
+		surf_norm = object->vec2;
+	else if (object->type == cylinder)
+		surf_norm = object->vec;
 	else
+		surf_norm = calc_surface_normal(intersect_p, object->vec);
+	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
+	col = mult_fact(object->color, diffuse * 80);
+	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
+	if (object->type != plane)
+		col = add(col, amb);
+	col.x = clamp(col.x, 0.0, 1.0);
+   	col.y = clamp(col.y, 0.0, 1.0);
+   	col.z = clamp(col.z, 0.0, 1.0);
+	intersect_p.z += 0.0001. ;/
+	if (object->type == plane && !check_obj(data, set_ray(intersect_p, data->light.vec)))
 	{
-		intersect_p = calc_intersection_point(ray, t);
-		surf_norm = calc_surface_normal(intersect_p, object.vec);
-		light_distance = vec_len(sub(data->light.vec, intersect_p));
-		diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness) / (light_distance * light_distance);
+		printf("object: %d\n", object->type);
+		return (set_vec(230, 240, 0));
 	}
-
-
-   	col.r = clamp(col.r , 0.0, 1.0);
-   	col.g = clamp(col.g , 0.0, 1.0);
-   	col.b = clamp(col.b , 0.0,1.0);
-
-
-    col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
-	    // col += set_col(((object.color.r + amb.r) * diffuse), ((object.color.g + amb.g) * diffuse), ((object.color.b + amb.b) * diffuse));
-
-
-	col.r += amb.r;
-	col.g += amb.g;
-	col.b += amb.b;
-
-   	col.r = clamp(col.r , 0.0, 1.0);
-   	col.g = clamp(col.g , 0.0, 1.0);
-   	col.b = clamp(col.b , 0.0,1.0);
-
    // gamma correction?
-
 	return (col);
 }

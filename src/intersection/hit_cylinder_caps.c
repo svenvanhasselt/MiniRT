@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 08:10:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/13 13:58:05 by yizhang       ########   odam.nl         */
+/*   Updated: 2023/12/19 16:29:29 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ static t_vec top_bottom(t_object *obj, int top_bottom)
 		z = obj->vec.z - obj->vec2.z * obj->cyl_height / 2;
 	}
 	return(set_vec(x,y,z));
-	}
+}
 
 float hit_cylinder_caps(t_object *obj, t_ray *ray)
 {
