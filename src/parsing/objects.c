@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   objects.c                                          :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/18 13:28:44 by svan-has          #+#    #+#             */
-/*   Updated: 2024/01/03 12:07:18 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   objects.c                                          :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/18 13:28:44 by svan-has      #+#    #+#                 */
+/*   Updated: 2024/01/09 16:14:15 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ void	parse_sphere(char ***split_line, t_data *data, int i)
 {
 	if (line_check(split_line) != 7)
 		error_exit("Wrong formatting of sphere data");
+	data->objects[i].id = i;
 	data->objects[i].type = sphere;
 	data->objects[i].vec.x = ft_atof(split_line[0][0]);
 	data->objects[i].vec.y = ft_atof(split_line[0][1]);
@@ -81,6 +82,7 @@ void	parse_plane(char ***split_line, t_data *data, int i)
 {
 	if (line_check(split_line) != 9)
 		error_exit("Wrong formatting of plane data");
+	data->objects[i].id = i;
 	data->objects[i].type = plane;
 	data->objects[i].vec.x = ft_atof(split_line[0][0]);
 	data->objects[i].vec.y = ft_atof(split_line[0][1]);
@@ -95,8 +97,10 @@ void	parse_plane(char ***split_line, t_data *data, int i)
 
 void	parse_cylinder(char ***split_line, t_data *data, int i)
 {
+	printf("c: %d\n", i);
 	if (line_check(split_line) != 11)
 		error_exit("Wrong formatting of cylinder data");
+	data->objects[i].id = i;
 	data->objects[i].type = cylinder;
 	data->objects[i].vec.x = ft_atof(split_line[0][0]);
 	data->objects[i].vec.y = ft_atof(split_line[0][1]);

@@ -8,7 +8,7 @@ A	0.1							255,255,255
 
 #lights (L for single, l for multiple)
 #	origin					brightness [0-1]			color
-L	1.500,5.500,-14.500	0.800000					255,255,255
+L	0.500,5.500,-14.500	0.800000					255,255,255
 
 #camera
 #	origin					orientation					field of view (deg)
@@ -16,8 +16,8 @@ C	-1.000,0.000,-14.000	0.000,0.000,1.000			45
 
 #wrong case 1
 sp	0.000,1.500,-4.500								2.3							0,255,0
-# sp	0.000,1.500,-9.500								2.3							0,255,0
-# sp	0.000,1.500,1.500								2.3							0,255,0
+sp	0.000,1.500,-9.500								2.3							0,255,0
+sp	0.000,1.500,1.500								2.3							0,255,0
 
 #good case 2
 #without sphere inside,everything works fine

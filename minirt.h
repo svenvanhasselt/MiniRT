@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:17:48 by yizhang           #+#    #+#             */
-/*   Updated: 2024/01/03 12:44:54 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minirt.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/01/09 16:47:35 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,18 @@ typedef struct s_vec
 	float	z;
 }t_vec;
 
+typedef struct s_quat{
+    float	a;
+	float	b;
+	float	c;
+	float	d;
+} t_quat;
+
+#ifndef M_PI
+#    define M_PI 3.14159265358979323846
+#endif
+
+
 typedef struct s_ray
 {
 	t_vec	orig;
@@ -49,6 +61,7 @@ typedef struct s_ray
 
 typedef struct s_object
 {
+	int		id;
 	int		type;
 	t_vec	vec;
 	t_vec	vec2;
@@ -105,6 +118,9 @@ typedef struct s_data
 	t_vec		*viewport;
 	t_ray		*all_ray;
 	t_pixel		*all_pix;
+	float		gamma;
+	float		beta;
+	float		alpha;
 }   t_data;
 
 /*  Parsing */
@@ -139,6 +155,7 @@ float		vec_len(t_vec v);
 t_vec		unit_vector(t_vec v);
 t_vec		calc_intersection_point(t_ray r, float t);
 t_vec		mult_fact(t_vec vec, float fact);
+t_vec		mult(t_vec v1, t_vec v2);
 
 //render && hit
 bool		hit_object(t_data *data, int v);
@@ -159,6 +176,9 @@ t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 uint32_t	get_rgba(float r, float g, float b);
 float		clamp(float value, float min, float max);
 
+//rotation
+t_vec		rotate_vector(t_vec vec, t_quat rotation);
+void		key_press(mlx_key_data_t kd, void *param);
 //void		give_color(t_data *data, int weith, int high, int v);
 void		init_pix(t_data *data);
 void		print_pix(t_data *data);

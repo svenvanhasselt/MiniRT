@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 17:46:14 by yizhang           #+#    #+#             */
-/*   Updated: 2024/01/03 13:30:27 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   main.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/01/09 16:59:39 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	print_pix(t_data *data)
 		mlx_put_pixel(data->img, data->all_pix[i].u, data->all_pix[i].v, data->all_pix[i].col);
 		i++;
 	}
-	mlx_loop(data->mlx);
 }
 
 t_data *init(int argc, char **argv)
@@ -48,6 +47,9 @@ t_data *init(int argc, char **argv)
 	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
 	data->all_ray = malloc (data->ray_pix_num * sizeof(t_ray));
+	data->beta = 0;
+	data->gamma = 0;
+	data->alpha = 0;
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -55,12 +57,12 @@ t_data *init(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data	*data;
-	int		v;
-	int		j;
-	int		i;
-	
-	v = 0;
-	j = 0;
+		int		v;
+		int		j;
+		int		i;
+		
+		v = 0;
+		j = 0;
 	data = init(argc, argv);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	while (j < data->viewport_w)
@@ -87,6 +89,8 @@ int main(int argc, char **argv)
 		j++;
 	}
 	print_pix(data);
+	mlx_key_hook(data->mlx, &key_press, data);
+	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
 	mlx_terminate(data->mlx);
 	free(data->viewport);

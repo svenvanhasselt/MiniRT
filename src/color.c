@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 10:19:24 by yizhang           #+#    #+#             */
-/*   Updated: 2024/01/08 10:39:28 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   color.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/01/09 17:00:29 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 //0x  FF FF FF
 //Hex RR GG BB
 //converts a color to a uint32_t RGBA(MLX)
+
 
 float clamp(float value, float min, float max)
 {
@@ -47,36 +48,29 @@ t_vec	calc_surface_normal(t_vec intersection_point, t_vec oc)
 	return (surf_norm);
 }
 
-float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float brightness)
+float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point)
 {
 	t_vec	norm;
 	float	diffuse;
-	float	light_dist;
 
 	norm = unit_vector(sub(light_pos, inter_point));
-	light_dist = vec_len(sub(light_pos, inter_point));
-	diffuse = dot(surf_norm, norm);
-	return (clamp((diffuse * brightness) / (light_dist * light_dist), 0.0, 1.0));
+	diffuse = dot(norm, surf_norm); // check if negative
+	diffuse = clamp(diffuse, 0.0, 1.0);
+	return (diffuse);
 }
 
-bool	check_obj(t_data *data, t_ray ray)
+bool	check_obj(t_data *data, t_ray ray, int id)
 {
 	int i;
 
 	i = 0;
 	while (i < data->object_num)
 	{
-		if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], &ray))
-		{
-			printf("hits: %d type: %d\n", i, data->objects[i].type);
+		if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], &ray) && data->objects[i].id != id)
 			return (true);
-		}
-		// else if (data->objects[i].type == plane && hit_plane(&data->objects[i], &ray))
-		// {
-		// 	printf("hits: %d type: %d\n", i, data->objects[i].type);
-		// 	return (true);
-		// }
-		else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], &ray))
+		else if (data->objects[i].type == plane && hit_plane(&data->objects[i], &ray) && data->objects[i].id != id)
+			return (true);
+		else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], &ray) && data->objects[i].id != id)
 			return (true);
 		i++;
 	}
@@ -89,29 +83,28 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	t_vec	surf_norm;
 	t_vec	amb;
     t_vec	col;
+	t_vec	light;
 	float	diffuse;
 
 	intersect_p = calc_intersection_point(ray, t);
 	if (object->type == plane)
 		surf_norm = object->vec2;
 	else if (object->type == cylinder)
-		surf_norm = object->vec;
+		surf_norm = calc_surface_normal(intersect_p, object->vec);
 	else
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
-	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
-	col = mult_fact(object->color, diffuse * 80);
+	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
+	col = mult_fact(object->color, diffuse);
 	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
-	if (object->type != plane)
-		col = add(col, amb);
+	light = mult_fact(data->light.color, data->light.brightness);
+	col = add(col, mult(amb, light));
 	col.x = clamp(col.x, 0.0, 1.0);
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
-	intersect_p.z += 0.0001. ;/
-	if (object->type == plane && !check_obj(data, set_ray(intersect_p, data->light.vec)))
-	{
-		printf("object: %d\n", object->type);
-		return (set_vec(230, 240, 0));
-	}
+	if (check_obj(data, set_ray(intersect_p, data->light.vec), object->id))
+		return (set_vec(0, 0, 0));
    // gamma correction?
+
+
 	return (col);
 }
