@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 11:00:40 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 14:06:54 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ typedef struct s_object
 	float	t2;
 	float	diameter;
 	float	height;
+	float	angle;
 	float	k;
 }t_object;
 

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:28:44 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/10 11:06:23 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 14:07:59 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ void	parse_cylinder(char ***split_line, t_data *data, int i)
 
 void	parse_cone(char ***split_line, t_data *data, int i)
 {
-	if (line_check(split_line) != 10)
+	if (line_check(split_line) != 12)
 		error_exit("Wrong formatting of cone data");
 	data->objects[i].id = i;
 	data->objects[i].type = cone;
@@ -127,7 +127,9 @@ void	parse_cone(char ***split_line, t_data *data, int i)
 	data->objects[i].vec2.y = ft_atof(split_line[1][1]);
 	data->objects[i].vec2.z = ft_atof(split_line[1][2]);
 	data->objects[i].k = ft_atof(split_line[2][0]);
-	data->objects[i].color.x = ft_atof(split_line[3][0]) / 255;
-	data->objects[i].color.y = ft_atof(split_line[3][1]) / 255;
-	data->objects[i].color.z = ft_atof(split_line[3][2]) / 255;
+	data->objects[i].height = ft_atof(split_line[3][0]);
+	data->objects[i].angle = ft_atof(split_line[4][0]);
+	data->objects[i].color.x = ft_atof(split_line[5][0]) / 255;
+	data->objects[i].color.y = ft_atof(split_line[5][1]) / 255;
+	data->objects[i].color.z = ft_atof(split_line[5][2]) / 255;
 }

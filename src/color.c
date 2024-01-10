@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 12:14:15 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 13:47:12 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,10 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	if (object->type == plane)
 		surf_norm = object->vec2;
 	else if (object->type == cylinder)
-		surf_norm = calc_surface_normal(intersect_p, object->vec);
+	{
+		surf_norm = set_vec(object->diameter * cos(M_PI / 4.0), object->diameter * sin(M_PI / 4.0), 0);
+		// surf_norm = calc_surface_normal(intersect_p, object->vec);
+	}
 	else
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
 	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
