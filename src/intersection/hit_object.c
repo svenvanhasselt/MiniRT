@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:39:58 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 17:12:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,6 @@ bool	hit_object(t_data *data, int v)
 
 	while (i < data->object_num)
 	{
-		//printf("this is a object in loop:%i\n", data->objects[i].type);	
 		if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], &data->all_ray[v]))
 			compare_update_t(&data->objects[i], &data->all_ray[v]);
 		else if (data->objects[i].type == plane && hit_plane(&data->objects[i], &data->all_ray[v]))
@@ -36,27 +35,10 @@ bool	hit_object(t_data *data, int v)
 	return (false);
 }
 
-/* void give_color(t_data *data, int weith, int high, int v)
+t_vec	set_facenorm(t_vec ray_dir, t_vec face)
 {
-	int i;
-
-	i = 0;
-	while (i < data->object_num)
-	{
-		if (data->objects[i].t > 0.0)
-		{
-			t_color color = ray_color(data->all_ray[v], data->objects[i].t, data->objects[i], data);
-			data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(color.r, color.g, color.b));
-			//data->all_pix[v] = set_pixel(data->all_ray[v], high, weith, get_rgba(255,255,255, 255));
-		}
-		i++;
-	}
-} */
-
-t_vec	set_facenorm(t_vec ray_dir, t_vec face)//calculate if the ray hit the outside of sphere
-{
-	if (dot(ray_dir, face) > 0.0)//ray hit inside of sphere
-		return (set_vec(-face.x, -face.y, -face.z));// face = -face
+	if (dot(ray_dir, face) > 0.0)
+		return (set_vec(-face.x, -face.y, -face.z));
 	else
 		return (face);
 }

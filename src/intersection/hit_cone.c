@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/10 10:25:21 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 17:00:49 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 17:39:18 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,28 +20,28 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 	float	discriminant;
 	float	t;
 	float	t2;
-	float	tana;
+	float	k;
 	t_vec	oc;
 
 	t = -1;
 	t2 = -1;
-	oc = sub(ray->orig,obj->vec);//obj->diameter
-	tana = tan( 20.0/ 180.0 * 3.141);
-	a = dot(ray->dir,ray->dir) - (1 + tana * tana)*pow(dot(ray->dir, obj->vec2),2);
-	b = 2*(dot(ray->dir, oc) - (1 + tana * tana)*dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
-	c = dot(oc, oc) - (1 + tana * tana)*pow(dot(oc, obj->vec2), 2) ;
+	oc = sub(ray->orig,obj->vec);
+	k = tan( obj->diameter / 180.0 * 3.141);
+	a = dot(ray->dir,ray->dir) - (1 + k * k)*pow(dot(ray->dir, obj->vec2),2);
+	b = 2*(dot(ray->dir, oc) - (1 + k * k)*dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
+	c = dot(oc, oc) - (1 + k * k)*pow(dot(oc, obj->vec2), 2) ;
 
 	//Calculate the discriminant
-	discriminant = b*b - 4*a*c;
+	discriminant = b * b - 4*a*c;
 	if (discriminant < 0)
 		obj->t = -1;
+
 	//Calculate the two possible t values
 	if (discriminant >= 0)
 	{
 		t = (-b - sqrt(discriminant)) / (2 * a);
 		t2 = (-b + sqrt(discriminant)) /(2 * a);
 	}
-	
 	float m1 = dot(ray->dir,obj->vec2) * t + dot(sub(ray->orig,obj->vec), obj->vec2);
 	float m2 = dot(ray->dir,obj->vec2) * t2 + dot(sub(ray->orig,obj->vec), obj->vec2);
 	obj->t = compare_t(t, t2);
