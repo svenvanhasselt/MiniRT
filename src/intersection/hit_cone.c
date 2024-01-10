@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/10 10:25:21 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:29:09 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 17:00:49 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 
 	t = -1;
 	t2 = -1;
-	oc = sub(ray->orig,obj->vec);
-	tana = tan(45.0/180.0*3.141);
+	oc = sub(ray->orig,obj->vec);//obj->diameter
+	tana = tan( 20.0/ 180.0 * 3.141);
 	a = dot(ray->dir,ray->dir) - (1 + tana * tana)*pow(dot(ray->dir, obj->vec2),2);
 	b = 2*(dot(ray->dir, oc) - (1 + tana * tana)*dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
 	c = dot(oc, oc) - (1 + tana * tana)*pow(dot(oc, obj->vec2), 2) ;
@@ -49,6 +49,7 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 	//Check if the intersection point is within the height on the cylinder
 	if( (m1 <= obj->height / 2 && m1 >= -obj->height / 2) || (m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
 		return (obj->t);
-	obj->t = -1;
+	else
+		obj->t = -1;
 	return (-1);
 }

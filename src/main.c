@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 16:15:27 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 12:05:49 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	print_pix(t_data *data)
 		mlx_put_pixel(data->img, data->all_pix[i].u, data->all_pix[i].v, data->all_pix[i].col);
 		i++;
 	}
-	mlx_loop(data->mlx);
 }
 
 t_data *init(int argc, char **argv)
@@ -40,14 +39,20 @@ t_data *init(int argc, char **argv)
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
-	data->viewport_w = 800;
-	data->viewport_h = 600;
+	if (!data->viewport_w || !data->viewport_h)
+	{
+		data->viewport_w = 800;
+		data->viewport_h = 600;
+	}
 	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov / 2 / 180 * 3.1415926));
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
 	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
 	data->all_ray = malloc (data->ray_pix_num * sizeof(t_ray));
+	data->beta = 0;
+	data->gamma = 0;
+	data->alpha = 0;
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -55,12 +60,12 @@ t_data *init(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data	*data;
-	int		v;
-	int		j;
-	int		i;
-	
-	v = 0;
-	j = 0;
+		int		v;
+		int		j;
+		int		i;
+		
+		v = 0;
+		j = 0;
 	data = init(argc, argv);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	while (j < data->viewport_w)
@@ -75,8 +80,8 @@ int main(int argc, char **argv)
 			if (data->all_ray[v].t > 0)
 			{	//will not go to other type of object
 				//printf("this is a obj2:%i\n",  data->all_ray[v].obj->type);
-				t_color color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.r,color.g,color.b));
+				t_vec color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
+				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.x,color.y,color.z));
 			}
 			//give_color(data, i, j, v);
 			if (v >= data->ray_pix_num)
@@ -86,9 +91,9 @@ int main(int argc, char **argv)
 		}
 		j++;
 	}
-	
-	
 	print_pix(data);
+	mlx_key_hook(data->mlx, &key_press, data);
+	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
 	mlx_terminate(data->mlx);
 	free(data->viewport);

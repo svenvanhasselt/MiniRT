@@ -3,10 +3,10 @@
 /*                                                        ::::::::            */
 /*   hit_cylinder.c                                     :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:29:40 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 11:04:31 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 
 	t = -1;
 	t2 = -1;
+	// printf("x:%f y:%f z:%f\n", obj->vec2.x, obj->vec2.y,obj->vec2.z);//vec don't have negative number
 	oc = sub(ray->orig,obj->vec);//subtract the center of the cylinder from the ray origin to turn the problem into a (0,0,0) coordinate
 	a = dot(ray->dir,ray->dir) - pow(dot(ray->dir, obj->vec2),2);
 	b = 2*(dot(ray->dir, oc) - dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));

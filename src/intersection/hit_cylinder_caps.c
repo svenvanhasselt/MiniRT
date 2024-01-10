@@ -6,9 +6,10 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 08:10:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:29:24 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 11:04:16 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../minirt.h"
 

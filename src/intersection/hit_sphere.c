@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 16:28:45 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 11:03:04 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ bool hit_sphere(t_object *obj, t_ray *r)
 {
 	float	radius;
 
-	radius = obj->sph_diameter / 2;
+	radius = obj->diameter / 2;
 	t_vec oc = sub(r->orig, obj->vec);
 	float a = dot(r->dir, r->dir);
 	float b = 2.0 * dot(oc, r->dir);

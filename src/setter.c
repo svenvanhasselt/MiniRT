@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   setter.c                                           :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/11/23 15:43:33 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/29 16:15:30 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   setter.c                                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/23 15:43:33 by yizhang           #+#    #+#             */
+/*   Updated: 2024/01/03 13:07:57 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,6 @@ t_vec set_vec(float x, float y, float z)
 	new.x = x;
 	new.y = y;
 	new.z = z;
-	return (new);	
-}
-
-t_color set_col(float r, float g, float b)
-{
-	t_color new;
-	new.r = r;
-	new.g = g;
-	new.b = b;
 	return (new);	
 }
 
