@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/09 16:47:35 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 11:00:40 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ enum	t_type
 	sphere,
 	plane,
 	cylinder,
+	cone,
 };
 
 typedef struct s_vec
@@ -69,9 +70,9 @@ typedef struct s_object
 	t_vec	color;
 	float	t;
 	float	t2;
-	float	sph_diameter;
-	float	cyl_diameter;
-	float	cyl_height;
+	float	diameter;
+	float	height;
+	float	k;
 }t_object;
 
 typedef struct s_pixel
@@ -137,6 +138,8 @@ int		line_check(char ***split_line);
 void	parse_sphere(char ***split_line, t_data *data, int i);
 void	parse_plane(char ***split_line, t_data *data, int i);
 void	parse_cylinder(char ***split_line, t_data *data, int i);
+void	parse_cone(char ***split_line, t_data *data, int i);
+void	parse_resolution(char ***split_line, t_data *data);
 void	parse_amb_light(char ***split_line, t_data *data);
 void	parse_camera(char ***split_line, t_data *data);
 void	parse_light(char ***split_line, t_data *data);

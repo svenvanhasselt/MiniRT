@@ -44,9 +44,9 @@ void	key_press(mlx_key_data_t kd, void *param)
         t_quat rotate = {cos(data->alpha), sin(data->alpha), 0, 0};
         data->objects[1].vec2 = rotate_vector(data->objects[1].vec2, rotate);
     }
-    mlx_delete_image(data->mlx, data->img);
-    data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
-    mlx_image_to_window(data->mlx, data->img, 0, 0);
+    // mlx_delete_image(data->mlx, data->img);
+    // data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
+    // mlx_image_to_window(data->mlx, data->img, 0, 0);
 	// data->objects[1].vec2 = rotate_vector(data->objects[1].vec2, rotate);
 	// data->objects[1].vec2 = rotate_vector(data->objects[1].vec2, rotate);
 	while (j < data->viewport_w)

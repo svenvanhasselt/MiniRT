@@ -6,16 +6,11 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/09 17:00:29 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 11:10:00 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../minirt.h"
-
-//0x  FF FF FF
-//Hex RR GG BB
-//converts a color to a uint32_t RGBA(MLX)
-
 
 float clamp(float value, float min, float max)
 {

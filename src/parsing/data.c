@@ -1,18 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   data.c                                             :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/24 13:54:09 by svan-has          #+#    #+#             */
-/*   Updated: 2024/01/03 12:42:20 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   data.c                                             :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/24 13:54:09 by svan-has      #+#    #+#                 */
+/*   Updated: 2024/01/10 10:45:01 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 #include "../../lib/libft/includes/libft.h"
 
+void	parse_resolution(char ***split_line, t_data *data)
+{
+	if (line_check(split_line) < 2)
+		error_exit("Wrong formatting of resolution data");
+	data->viewport_w = ft_atof(split_line[0][0]);
+	data->viewport_h = ft_atof(split_line[1][0]);
+}
 void	parse_amb_light(char ***split_line, t_data *data)
 {
 	if (line_check(split_line) != 4)

@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/23 14:57:54 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/11/30 12:39:35 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 10:42:54 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@ t_data *data, int obj_index)
 		parse_camera(split_line, data);
 	if (!ft_strncmp(string, "L", len) || !ft_strncmp(string, "l", len))
 		parse_light(split_line, data);
+	if (!ft_strncmp(string, "R", len) || !ft_strncmp(string, "r", len))
+		parse_resolution(split_line, data);
 	if (len < 2)
 		len = 2;
 	if (!ft_strncmp(string, "sp", len))
@@ -33,6 +35,8 @@ t_data *data, int obj_index)
 		parse_plane(split_line, data, obj_index);
 	if (!ft_strncmp(string, "cy", len))
 		parse_cylinder(split_line, data, obj_index);
+	if (!ft_strncmp(string, "co", len))
+		parse_cone(split_line, data, obj_index);
 }
 
 int	line_check(char ***split_line)
@@ -59,16 +63,19 @@ int	line_check(char ***split_line)
 bool	line_check_object(char *line)
 {
 	if ((line[0] && line[1]) && (!ft_strncmp(line, "sp", 2) || \
-	!ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2)))
+	!ft_strncmp(line, "pl", 2) || !ft_strncmp(line, "cy", 2) || \
+	!ft_strncmp(line, "co", 2)))
 		return (true);
 	return (false);
 }
 
 bool	line_check_data(char *line)
 {
-	if (line[0] && (line[0] == 'A' || line[0] == 'C' || line[0] == 'L'))
+	if (line[0] && (line[0] == 'A' || line[0] == 'C' || line[0] == 'L' || \
+	line[0] == 'R'))
 		return (true);
-	if (line[0] && (line[0] == 'a' || line[0] == 'c' || line[0] == 'l'))
+	if (line[0] && (line[0] == 'a' || line[0] == 'c' || line[0] == 'l' || \
+	line[0] == 'r'))
 		return (true);
 	return (false);
 }

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/09 16:59:39 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 11:08:18 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,8 +39,11 @@ t_data *init(int argc, char **argv)
 	data = null_check(malloc (1 * sizeof(t_data)));
 	data->object_num = 0;
 	parse_input(argc, argv, &split_file, data);
-	data->viewport_w = 800;
-	data->viewport_h = 600;
+	if (!data->viewport_w || !data->viewport_h)
+	{
+		data->viewport_w = 800;
+		data->viewport_h = 600;
+	}
 	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov / 2 / 180 * 3.1415926));
 	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
@@ -64,6 +67,7 @@ int main(int argc, char **argv)
 		v = 0;
 		j = 0;
 	data = init(argc, argv);
+	printf("co: %f\n", data->objects[3].k);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	while (j < data->viewport_w)
 	{
