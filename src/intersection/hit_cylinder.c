@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 10:21:09 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 14:29:40 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,10 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 
 	t = -1;
 	t2 = -1;
-	// printf("x:%f y:%f z:%f\n", obj->vec2.x, obj->vec2.y,obj->vec2.z);//vec don't have negative number
 	oc = sub(ray->orig,obj->vec);//subtract the center of the cylinder from the ray origin to turn the problem into a (0,0,0) coordinate
 	a = dot(ray->dir,ray->dir) - pow(dot(ray->dir, obj->vec2),2);
 	b = 2*(dot(ray->dir, oc) - dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
-	c = dot(oc, oc) - pow(dot(oc, obj->vec2), 2) - pow(obj->cyl_diameter / 2, 2);
+	c = dot(oc, oc) - pow(dot(oc, obj->vec2), 2) - pow(obj->diameter / 2, 2);
 	
 	//Calculate the discriminant
 	discriminant = b*b - 4*a*c;
@@ -65,7 +64,7 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 	t = compare_t(t, t2);
 
 	//Check if the intersection point is within the height on the cylinder
-	if( (m1 <= obj->cyl_height / 2 && m1 >= -obj->cyl_height / 2) || (m2 <= obj->cyl_height / 2 && m2 >= -obj->cyl_height / 2 ))
+	if( (m1 <= obj->height / 2 && m1 >= -obj->height / 2) || (m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
 		return (t);
 	return (-1);//not intersects
 }
@@ -77,7 +76,7 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
 	
 	t = hit_cylinder_caps(obj,ray);
 	t2 = hit_cylinder_body(obj,ray);
-	obj->t = compare_t(t, t2);
+	obj->t = t2;//compare_t(t, t2);
 	if (obj->t > 0)
 		return (true);
 	return(false);

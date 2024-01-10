@@ -3,24 +3,31 @@
 /*                                                        ::::::::            */
 /*   data.c                                             :+:    :+:            */
 /*                                                     +:+                    */
-/*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 13:54:09 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/12/13 15:40:20 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 10:45:01 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 #include "../../lib/libft/includes/libft.h"
 
+void	parse_resolution(char ***split_line, t_data *data)
+{
+	if (line_check(split_line) < 2)
+		error_exit("Wrong formatting of resolution data");
+	data->viewport_w = ft_atof(split_line[0][0]);
+	data->viewport_h = ft_atof(split_line[1][0]);
+}
 void	parse_amb_light(char ***split_line, t_data *data)
 {
 	if (line_check(split_line) != 4)
 		error_exit("Wrong formatting of ambient light data");
 	data->amb_light.ambient = ft_atof(split_line[0][0]);
-	data->amb_light.color.r = ft_atof(split_line[1][0]) / 255;
-	data->amb_light.color.g = ft_atof(split_line[1][1]) / 255;
-	data->amb_light.color.b = ft_atof(split_line[1][2]) / 255;
+	data->amb_light.color.x = ft_atof(split_line[1][0]) / 255;
+	data->amb_light.color.y = ft_atof(split_line[1][1]) / 255;
+	data->amb_light.color.z = ft_atof(split_line[1][2]) / 255;
 }
 
 void	parse_camera(char ***split_line, t_data *data)
@@ -45,7 +52,7 @@ void	parse_light(char ***split_line, t_data *data)
 	data->light.vec.y = ft_atof(split_line[0][1]);
 	data->light.vec.z = ft_atof(split_line[0][2]);
 	data->light.brightness = ft_atof(split_line[1][0]);
-	data->light.color.r = ft_atof(split_line[2][0]) / 255;
-	data->light.color.g = ft_atof(split_line[2][1]) / 255;
-	data->light.color.b = ft_atof(split_line[2][2]) / 255;
+	data->light.color.x = ft_atof(split_line[2][0]) / 255;
+	data->light.color.y = ft_atof(split_line[2][1]) / 255;
+	data->light.color.z = ft_atof(split_line[2][2]) / 255;
 }

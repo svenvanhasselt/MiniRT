@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/17 17:47:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/11/30 12:43:18 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 10:38:47 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,15 +36,15 @@ float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float di
 }
 
 
-t_color ray_color(t_ray ray, float t, t_object object, t_data *data)
+t_color ray_color(t_ray ray, float t, t_object *object, t_data *data)
 {
 	t_vec	surf_norm;
 	float	diffuse;
 	t_vec	intersect_p;
 
 	intersect_p = calc_intersection_point(ray, t);
-	surf_norm = calc_surface_normal(intersect_p, object.vec);
+	surf_norm = calc_surface_normal(intersect_p, object->vec);
 	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
-	t_color col = set_col((object.color.r * diffuse), (object.color.g * diffuse), (object.color.b * diffuse));
+	t_color col = set_col((object->color.r * diffuse), (object->color.g * diffuse), (object->color.b * diffuse));
 	return (col);
 }

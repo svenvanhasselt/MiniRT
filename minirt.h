@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2023/12/19 16:23:05 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/10 14:30:24 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,14 +28,8 @@ enum	t_type
 	sphere,
 	plane,
 	cylinder,
+	cone,
 };
-
-typedef struct s_color
-{
-	float	r;
-	float	g;
-	float	b;
-}t_color;//change it to xyz
 
 typedef struct s_vec
 {
@@ -44,28 +38,42 @@ typedef struct s_vec
 	float	z;
 }t_vec;
 
+typedef struct s_quat{
+    float	a;
+	float	b;
+	float	c;
+	float	d;
+} t_quat;
+
+#ifndef M_PI
+#    define M_PI 3.14159265358979323846
+#endif
+
+
 typedef struct s_ray
 {
 	t_vec	orig;
 	t_vec	dir;
 	t_vec	norm;
 	float	t;
-	t_color	color;
+	t_vec	color;
 	struct s_object	*obj;
 }t_ray;
 
 typedef struct s_object
 {
+	int		id;
 	int		type;
 	t_vec	vec;
 	t_vec	vec2;
 	t_ray	aixs;
-	t_color	color;
+	t_vec	color;
 	float	t;
 	float	t2;
-	float	sph_diameter;
-	float	cyl_diameter;
-	float	cyl_height;
+	float	diameter;
+	float	height;
+	float	angle;
+	float	k;
 }t_object;
 
 typedef struct s_pixel
@@ -76,40 +84,33 @@ typedef struct s_pixel
 	int			v;
 }t_pixel;
 
-typedef struct s_light
-{
-	t_vec	point;
-	t_color	color;
-	float	ratio;
-}t_light;
-
 typedef struct s_amb_light
 {
     float   ambient;
-    t_color color;
+    t_vec	color;
 } t_alight;
 
-typedef struct s_camera_s
+typedef struct s_camera
 {
     t_vec   vec;
     t_vec	ovec;
     float   fov;
 	float	focal_length;
-}	t_camera_s;
+}	t_camera;
 
-typedef struct s_light_s
+typedef struct s_light
 {
 	t_vec	vec;
 	float	brightness;
-	t_color	color;
-}	t_light_s;
+	t_vec	color;
+}	t_light;
 
 typedef struct s_data
 {
 	t_object	*objects;
 	t_alight	amb_light;
-	t_light_s	light;
-	t_camera_s	camera;
+	t_light		light;
+	t_camera	camera;
 	mlx_t		* mlx;
 	mlx_image_t	*img;
 	int			object_num;
@@ -119,8 +120,10 @@ typedef struct s_data
 	t_vec		*viewport;
 	t_ray		*all_ray;
 	t_pixel		*all_pix;
+	float		gamma;
+	float		beta;
+	float		alpha;
 }   t_data;
-
 /*  Parsing */
 void	parse_input(int argc, char **argv, char ***split_file, t_data *data);
 bool	line_check_data(char *line);
@@ -160,13 +163,14 @@ bool		hit_sphere(t_object *obj, t_ray *r);
 bool		hit_plane(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
+bool		hit_cone(t_object *obj, t_ray *ray);
 void		compare_update_t(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
-t_color		ray_color(t_ray ray, float t, t_object *object, t_data *data);
+t_vec		ray_color(t_ray ray, float t, t_object *object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
-t_color		set_col(float r, float g, float b);
+t_vec		set_col(float r, float g, float b);
 t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
 

@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sven <sven@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/06 17:29:14 by yizhang           #+#    #+#              #
-#    Updated: 2023/12/18 20:53:18 by sven             ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: sven <sven@student.42.fr>                    +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
+#    Updated: 2024/01/10 10:40:32 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRC := \
 	intersection/hit_sphere.c\
 	intersection/hit_cylinder.c\
 	intersection/hit_cylinder_caps.c\
+	intersection/hit_cone.c\
 	intersection/math.c\
 	setter.c\
 
