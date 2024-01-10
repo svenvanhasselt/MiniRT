@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 17:09:53 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 17:54:45 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,12 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		surf_norm = object->vec2;
 	else if (object->type == cylinder)
 	{
-		surf_norm = calc_cyl_normal(intersect_p, object->vec2);
+		// m = D|V*t + X|V
+		float m = dot(ray.dir,object->vec2) * t + dot(sub(ray.orig,object->vec), object->vec2);
+		// N = nrm( P-C-V*m )
+		t_vec c = add(intersect_p, mult_fact(object->vec2, object->height / 2));
+		surf_norm = unit_vector(sub(intersect_p, sub(c, mult_fact(object->vec2, m))));
+		// surf_norm = calc_cyl_normal(intersect_p, object->vec2);
 		// t_vec inter_b = set_vec(0, 0, intersect_p.z);
 		// t_vec inter_c = sub(inter_b, intersect_p);
 		// t_vec ori = unit_vector(object->vec);

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 11:04:31 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 18:01:02 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,12 +60,12 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 	}
 	
 	// m is a scalar that determines the closet point on the axis to the hit point.
-	float m1 = dot(ray->dir,obj->vec2) * t + dot(sub(ray->orig,obj->vec), obj->vec2);
+	//float m1 = dot(ray->dir,obj->vec2) * t + dot(sub(ray->orig,obj->vec), obj->vec2);
 	float m2 = dot(ray->dir,obj->vec2) * t2 + dot(sub(ray->orig,obj->vec), obj->vec2);
 	t = compare_t(t, t2);
 
 	//Check if the intersection point is within the height on the cylinder
-	if( (m1 <= obj->height / 2 && m1 >= -obj->height / 2) || (m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
+	if( /* (m1 <= obj->height / 2 && m1 >= -obj->height / 2) ||  */(m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
 		return (t);
 	return (-1);//not intersects
 }

@@ -8,8 +8,8 @@ A	0.1							255,255,255
 
 #lights (L for single, l for multiple)
 #	origin					brightness [0-1]			color
-L	12.500,3.500,-10.500	0.800000					255,255,255
-cy	-3.500,1.000,-6.50	0,1,0		1.6					2.0		255,0,0
+L	-10.500,1.500,-10.500	0.800000					255,255,255
+cy	-3.500,1.000,-6.50	0,0,1		1.6					2.0		255,0,0
 
 #camera
 #	origin					orientation					field of view (deg)
