@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 11:10:00 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 12:14:15 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,7 +97,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
 	if (check_obj(data, set_ray(intersect_p, data->light.vec), object->id))
-		return (set_vec(0, 0, 0));
+		return (add(set_vec(0, 0, 0), amb));
    // gamma correction?
 
 

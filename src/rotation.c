@@ -25,7 +25,7 @@ void	key_press(mlx_key_data_t kd, void *param)
     value = M_PI / 180;
     if (kd.key == MLX_KEY_A)
     {
-		data->gamma += value;
+		data->gamma = value;
         t_quat rotate = {cos(data->gamma), 0, sin(data->gamma), 0};
         data->objects[1].vec2 = rotate_vector(data->objects[1].vec2, rotate);
     }

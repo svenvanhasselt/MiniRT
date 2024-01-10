@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 11:08:18 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/10 12:05:49 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,6 @@ int main(int argc, char **argv)
 		v = 0;
 		j = 0;
 	data = init(argc, argv);
-	printf("co: %f\n", data->objects[3].k);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
 	while (j < data->viewport_w)
 	{
