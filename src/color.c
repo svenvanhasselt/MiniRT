@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 17:54:45 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/12 16:43:10 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,14 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	float	diffuse;
 
 	intersect_p = calc_intersection_point(ray, t);
-	if (object->type == plane)	
-		surf_norm = object->vec2;
+	if (object->type == plane)
+	{
+		if (t < 0)
+			printf("f\n");
+		surf_norm = unit_vector(object->vec2);
+		if (dot(ray.dir,object->vec2) > 0)
+			surf_norm = mult_fact(surf_norm, -1);
+	}
 	else if (object->type == cylinder)
 	{
 		// m = D|V*t + X|V
@@ -99,14 +105,6 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		// N = nrm( P-C-V*m )
 		t_vec c = add(intersect_p, mult_fact(object->vec2, object->height / 2));
 		surf_norm = unit_vector(sub(intersect_p, sub(c, mult_fact(object->vec2, m))));
-		// surf_norm = calc_cyl_normal(intersect_p, object->vec2);
-		// t_vec inter_b = set_vec(0, 0, intersect_p.z);
-		// t_vec inter_c = sub(inter_b, intersect_p);
-		// t_vec ori = unit_vector(object->vec);
-		// float t = dot(inter_c, ori);
-		// surf_norm = add(inter_b, mult_fact(ori, t));
-		// surf_norm = unit_vector(sub(intersect_p, surf_norm)); 
-		// surf_norm = calc_surface_normal(intersect_p, surf_norm);
 		
 	}
 	else
