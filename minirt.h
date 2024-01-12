@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:40:23 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/12 16:39:36 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,8 @@ typedef struct s_pixel
 {
 	t_ray		ray;
 	uint32_t	col;
-	int			u;
-	int			v;
+	float			u;
+	float			v;
 }t_pixel;
 
 typedef struct s_amb_light
@@ -94,6 +94,8 @@ typedef struct s_camera
 {
     t_vec   vec;
     t_vec	ovec;
+	t_vec	right;
+	t_vec	up;
     float   fov;
 	float	focal_length;
 }	t_camera;
@@ -114,8 +116,8 @@ typedef struct s_data
 	mlx_t		* mlx;
 	mlx_image_t	*img;
 	int			object_num;
-	int			viewport_w;
-	int			viewport_h;
+	float		viewport_w;
+	float		viewport_h;
 	int			ray_pix_num;
 	t_vec		*viewport;
 	t_ray		*all_ray;
@@ -160,7 +162,7 @@ t_vec		unit_vector(t_vec v);
 t_vec		calc_intersection_point(t_ray r, float t);
 t_vec		mult_fact(t_vec vec, float fact);
 t_vec		mult(t_vec v1, t_vec v2);
-
+t_vec	init_camera(t_data *data, float j, float i);
 //render && hit
 bool		hit_object(t_data *data, int v);
 bool		hit_sphere(t_object *obj, t_ray *r);
@@ -175,7 +177,7 @@ t_vec		ray_color(t_ray ray, float t, t_object *object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_ray		set_ray(t_vec orig, t_vec dir);
-t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
+t_pixel		set_pixel(t_ray ray, float u, float v, uint32_t col);
 
 //color
 uint32_t	get_rgba(float r, float g, float b);

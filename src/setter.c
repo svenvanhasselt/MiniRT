@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setter.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:43:33 by yizhang           #+#    #+#             */
-/*   Updated: 2024/01/03 13:07:57 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   setter.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/11/23 15:43:33 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/01/12 16:39:22 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_ray set_ray(t_vec orig, t_vec dir)
 	return (new);
 }
 
-t_pixel set_pixel(t_ray ray, int u, int v, uint32_t col)
+t_pixel set_pixel(t_ray ray, float u, float v, uint32_t col)
 {
 	t_pixel new;
 	new.ray = ray;

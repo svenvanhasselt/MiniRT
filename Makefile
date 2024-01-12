@@ -6,7 +6,7 @@
 #    By: sven <sven@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/01/10 14:40:35 by yizhang       ########   odam.nl          #
+#    Updated: 2024/01/12 16:37:44 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,6 +41,7 @@ SRC := \
 	intersection/hit_cylinder_caps.c\
 	intersection/hit_cone.c\
 	intersection/math.c\
+	camera.c\
 	setter.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
