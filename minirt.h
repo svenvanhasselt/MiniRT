@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:06:54 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/17 16:46:53 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 
 #define CYL_TOP 1
 #define CYL_BOTTOM -1
+
+typedef struct s_data t_data;
 
 enum	t_type
 {
@@ -74,6 +76,9 @@ typedef struct s_object
 	float	height;
 	float	angle;
 	float	k;
+	int		gamma;
+	int		alpha;
+	int		beta;
 }t_object;
 
 typedef struct s_pixel
@@ -105,6 +110,33 @@ typedef struct s_light
 	t_vec	color;
 }	t_light;
 
+enum	t_action
+{
+	translate,
+	rotate,
+};
+
+enum	t_object_type
+{
+	camera,
+	light,
+	object,
+};
+
+enum	t_axis
+{
+	x_axis,
+	y_axis,
+	z_axis,
+};
+
+typedef struct s_rotation
+{
+	int			obj_type;
+	t_object	*object;
+	void    (*action)(t_data *data, int axis, float value);
+} t_rotation;
+
 typedef struct s_data
 {
 	t_object	*objects;
@@ -120,9 +152,7 @@ typedef struct s_data
 	t_vec		*viewport;
 	t_ray		*all_ray;
 	t_pixel		*all_pix;
-	float		gamma;
-	float		beta;
-	float		alpha;
+	t_rotation	rotation;
 }   t_data;
 
 /*  Parsing */
@@ -186,4 +216,6 @@ void		key_press(mlx_key_data_t kd, void *param);
 //void		give_color(t_data *data, int weith, int high, int v);
 void		init_pix(t_data *data);
 void		print_pix(t_data *data);
+void    	calc_viewport(t_data *data);
+void   		translate_object(t_data *data, int axis, float value);
 #endif

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 12:05:49 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/17 15:58:45 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,22 @@ void	print_pix(t_data *data)
 		i++;
 	}
 }
+void	init_rotation(t_data *data)
+{
+	int	i;
 
+	data->rotation.action = translate_object;
+	data->rotation.object = &data->objects[1];
+	data->rotation.obj_type = object;
+	i = 0;
+	while (i < data->object_num)
+	{
+		data->objects[i].gamma = 0;
+		data->objects[i].alpha = 0;
+		data->objects[i].beta = 0;
+		i++;
+	}
+}
 t_data *init(int argc, char **argv)
 {
 	t_data	*data;
@@ -50,9 +65,7 @@ t_data *init(int argc, char **argv)
 	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
 	data->all_ray = malloc (data->ray_pix_num * sizeof(t_ray));
-	data->beta = 0;
-	data->gamma = 0;
-	data->alpha = 0;
+	init_rotation(data);
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -92,6 +105,7 @@ int main(int argc, char **argv)
 		j++;
 	}
 	print_pix(data);
+	// mlx_loop_hook(data->mlx, key_press, data);
 	mlx_key_hook(data->mlx, &key_press, data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
