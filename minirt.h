@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/17 16:46:53 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/18 11:50:31 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -211,7 +211,7 @@ uint32_t	get_rgba(float r, float g, float b);
 float		clamp(float value, float min, float max);
 
 //rotation
-t_vec		rotate_vector(t_vec vec, t_quat rotation);
+t_vec		rotate_vector(t_vec vec, t_quat r);
 void		key_press(mlx_key_data_t kd, void *param);
 //void		give_color(t_data *data, int weith, int high, int v);
 void		init_pix(t_data *data);

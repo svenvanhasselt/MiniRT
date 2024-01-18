@@ -1,4 +1,6 @@
 #include "../minirt.h"
+#include "../lib/libft/includes/libft.h"
+
 
 t_quat  rev_rotate(t_quat q)
 {
@@ -50,24 +52,48 @@ t_quat  set_quat(float a, float b, float c, float d)
     new.d = d;
     return (new);
 }
+
+void reset_pix(t_data *data)
+{
+	int v;
+	int j;
+	int i;
+
+	v = 0;
+	j = 0;
+	while (j < data->viewport_w)
+	{
+		i = 0;
+		while (i <data->viewport_h)
+		{
+			data->all_pix[v] = set_pixel(data->all_ray[v], j, i, 255);
+			v++;
+			i++;
+		}
+		j++;
+	}
+}
 void    rotate_object(t_data *data, int axis, float value)
 {
     t_quat  rotate;
 
     rotate = set_quat(0, 0, 0, 0);
-    if (data->rotation.obj_type == object)
+    if (data->rotation.obj_type == object && (axis == x_axis || axis == y_axis))
     {
         if (axis == x_axis)
-            rotate = set_quat(cos(value), 0, sin(value), 0);
+            rotate = set_quat(cos(value * 3), 0, sin(value * 3), 0);
         else if (axis == y_axis)
             rotate = set_quat(cos(value * 3), sin(value * 3), 0, 0);
-        if (value < 0)
+        if (value > 0)
             rev_rotate(rotate);
         data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
+        reset_pix(data);
+        calc_viewport(data);
+	    print_pix(data);
     }
-    calc_viewport(data);
-	print_pix(data);
 }
+
+
 
 void    translate_object(t_data *data, int axis, float value)
 {
@@ -98,6 +124,7 @@ void    translate_object(t_data *data, int axis, float value)
         else if (axis == z_axis)
             data->rotation.object->vec.z += value;
     }
+    reset_pix(data);
     calc_viewport(data);
 	print_pix(data);
 }
@@ -119,27 +146,63 @@ void    moving_keys(mlx_key_data_t kd, t_data *data)
         data->rotation.action(data, z_axis, 0.1);
 }
 
+void    print_message(t_data *data, char *message)
+{
+    mlx_delete_image(data->mlx, data->img);
+    data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
+	mlx_image_to_window(data->mlx, data->img, 0, 0);
+	print_pix(data);
+    mlx_put_string(data->mlx, message, 0, 0);
+}
+void    change_object(t_data *data, int type, t_object *obj)
+{
+    char    *object;
+    char    *object_id;
+
+    data->rotation.obj_type = type;
+    if (type == camera)
+        print_message(data, "Changed to camera");
+    else if (type == light)
+        print_message(data, "Changed to light");
+    else
+    {
+        if (obj)
+            data->rotation.object = obj;
+        object_id = ft_itoa(data->rotation.object->id + 1);
+        object = ft_strjoin("Changed to object ", object_id);
+        print_message(data, object);
+        free(object);
+        free(object_id);
+    }
+    
+}
 void    control_keys(mlx_key_data_t kd, t_data *data)
 {
     kd.key = 0;
     if (mlx_is_key_down(data->mlx, MLX_KEY_R))
+    {
         data->rotation.action = rotate_object;
+        print_message(data, "Action: Rotation");
+    }
     else if (mlx_is_key_down(data->mlx, MLX_KEY_T))
+    {
         data->rotation.action = translate_object;
+	    print_message(data, "Action: Translation");
+    }
     else if (mlx_is_key_down(data->mlx, MLX_KEY_ESCAPE))
         mlx_close_window(data->mlx);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_C))
-        data->rotation.obj_type = camera;
+        change_object(data, camera, NULL);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_L))
-          data->rotation.obj_type = light;
+        change_object(data, light, NULL);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_O))
     {
         if (data->rotation.obj_type != object)
-            data->rotation.obj_type = object;
+            change_object(data, object, NULL);
         else if (data->rotation.object->id + 1 < data->object_num - 1)
-            data->rotation.object = &data->objects[data->rotation.object->id + 1];
+            change_object(data, object, &data->objects[data->rotation.object->id + 1]);
         else
-            data->rotation.object = &data->objects[0];
+            change_object(data, object, &data->objects[0]);
     }
 }
 void	key_press(mlx_key_data_t kd, void *param)
@@ -165,19 +228,19 @@ t_quat  unit_quat(t_quat q)
     return (q);
 }
 
-t_vec   rotate_vector(t_vec vec, t_quat rotation)
+t_vec   rotate_vector(t_vec vec, t_quat r)
 {
     t_vec   rotated_vector;
-    t_quat  vector_quaternion;
-    t_quat  rotated_quat;
+    t_quat  vec_quat;
+    t_quat  rot_quat;
 
-    vector_quaternion = set_quat(0, vec.x, vec.y, vec.z);
-    rotated_quat = set_quat(
-        rotation.a * vector_quaternion.a - rotation.b * vector_quaternion.b - rotation.c * vector_quaternion.c - rotation.d * vector_quaternion.d,
-        rotation.a * vector_quaternion.b + rotation.b * vector_quaternion.a + rotation.c * vector_quaternion.d - rotation.d * vector_quaternion.c,
-        rotation.a * vector_quaternion.c - rotation.b * vector_quaternion.d + rotation.c * vector_quaternion.a + rotation.d * vector_quaternion.b,
-        rotation.a * vector_quaternion.d + rotation.b * vector_quaternion.c - rotation.c * vector_quaternion.b + rotation.d * vector_quaternion.a
+    vec_quat = set_quat(0, vec.x, vec.y, vec.z);
+    rot_quat = set_quat(
+        r.a * vec_quat.a - r.b * vec_quat.b - r.c * vec_quat.c - r.d * vec_quat.d,
+        r.a * vec_quat.b + r.b * vec_quat.a + r.c * vec_quat.d - r.d * vec_quat.c,
+        r.a * vec_quat.c - r.b * vec_quat.d + r.c * vec_quat.a + r.d * vec_quat.b,
+        r.a * vec_quat.d + r.b * vec_quat.c - r.c * vec_quat.b + r.d * vec_quat.a
     );
-    rotated_vector = set_vec(rotated_quat.b, rotated_quat.c, rotated_quat.d);
+    rotated_vector = set_vec(rot_quat.b, rot_quat.c, rot_quat.d);
     return (rotated_vector);
 }
