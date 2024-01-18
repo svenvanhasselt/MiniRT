@@ -6,7 +6,11 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
+<<<<<<< HEAD
 /*   Updated: 2024/01/18 11:50:31 by svan-has      ########   odam.nl         */
+=======
+/*   Updated: 2024/01/18 11:47:16 by yizhang       ########   odam.nl         */
+>>>>>>> yizhang
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +103,8 @@ typedef struct s_camera
 {
     t_vec   vec;
     t_vec	ovec;
+	t_vec	right;
+	t_vec	up;
     float   fov;
 	float	focal_length;
 }	t_camera;
@@ -211,6 +217,7 @@ uint32_t	get_rgba(float r, float g, float b);
 float		clamp(float value, float min, float max);
 
 //rotation
+t_vec		init_camera(t_data *data, float j, float i);
 t_vec		rotate_vector(t_vec vec, t_quat r);
 void		key_press(mlx_key_data_t kd, void *param);
 //void		give_color(t_data *data, int weith, int high, int v);
