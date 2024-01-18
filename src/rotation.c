@@ -26,7 +26,8 @@ void    calc_viewport(t_data *data)
 		i = 0;
 		while (i <data->viewport_h)
 		{
-			data->viewport[v] = set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, data->camera.focal_length);
+            
+			data->viewport[v] = init_camera(data, j, i);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);
 			if (data->all_ray[v].t > 0)
@@ -77,20 +78,31 @@ void    rotate_object(t_data *data, int axis, float value)
 {
     t_quat  rotate;
 
+    if (data->rotation.obj_type == light)
+        return ;
     rotate = set_quat(0, 0, 0, 0);
     if (data->rotation.obj_type == object && (axis == x_axis || axis == y_axis))
     {
         if (axis == x_axis)
-            rotate = set_quat(cos(value * 3), 0, sin(value * 3), 0);
+            rotate = set_quat(cos(value), 0, sin(value), 0);
         else if (axis == y_axis)
-            rotate = set_quat(cos(value * 3), sin(value * 3), 0, 0);
-        if (value > 0)
-            rev_rotate(rotate);
+            rotate = set_quat(cos(value), sin(value), 0, 0);
+        // if (value > 0)
+        //     rev_rotate(rotate);
         data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
-        reset_pix(data);
-        calc_viewport(data);
-	    print_pix(data);
     }
+    if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
+    {
+        if (axis == x_axis)
+            data->camera.ovec.x += value;
+        if (axis == y_axis)
+            data->camera.ovec.y += value;
+        if (axis == z_axis)
+            data->camera.ovec.z += value;
+    }
+    reset_pix(data);
+    calc_viewport(data);
+	print_pix(data);
 }
 
 
@@ -133,17 +145,17 @@ void    moving_keys(mlx_key_data_t kd, t_data *data)
 {
     kd.key = 0;
     if (mlx_is_key_down(data->mlx, MLX_KEY_A))
-        data->rotation.action(data, x_axis, -0.1);
+        data->rotation.action(data, x_axis, -0.3);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
-        data->rotation.action(data, x_axis, 0.1);
+        data->rotation.action(data, x_axis, 0.3);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_S))
-        data->rotation.action(data, y_axis, -0.1);
+        data->rotation.action(data, y_axis, -0.3);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_W))
-        data->rotation.action(data, y_axis, 0.1);
+        data->rotation.action(data, y_axis, 0.3);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_Q))
-        data->rotation.action(data, z_axis, -0.1);
+        data->rotation.action(data, z_axis, -0.3);
     else if (mlx_is_key_down(data->mlx, MLX_KEY_E))
-        data->rotation.action(data, z_axis, 0.1);
+        data->rotation.action(data, z_axis, 0.3);
 }
 
 void    print_message(t_data *data, char *message)
@@ -212,6 +224,7 @@ void	key_press(mlx_key_data_t kd, void *param)
 	data = param;
     moving_keys(kd, data);
     control_keys(kd,data);
+    printf("obj x: %f y: %f z: %f\n", data->rotation.object->vec2.x, data->rotation.object->vec2.y, data->rotation.object->vec2.z);
 
 }
 

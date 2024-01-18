@@ -6,11 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-<<<<<<< HEAD
-/*   Updated: 2024/01/18 15:10:42 by svan-has      ########   odam.nl         */
-=======
-/*   Updated: 2024/01/15 17:07:10 by svan-has      ########   odam.nl         */
->>>>>>> yizhang
+/*   Updated: 2024/01/18 15:16:03 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,12 +80,9 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
     t_vec	col;
 	t_vec	light;
 	float	diffuse;
-<<<<<<< HEAD
 	bool	face_out;
 
 	face_out = true;
-=======
->>>>>>> yizhang
 
 	intersect_p = calc_intersection_point(ray, t);
 	if (object->type == plane)
