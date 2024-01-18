@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 13:47:12 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/15 17:07:10 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,11 +83,21 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 
 	intersect_p = calc_intersection_point(ray, t);
 	if (object->type == plane)
-		surf_norm = object->vec2;
+	{
+		surf_norm = unit_vector(object->vec2);
+		if (dot(ray.dir,object->vec2) > 0)
+			surf_norm = mult_fact(surf_norm, -1);
+	}
 	else if (object->type == cylinder)
 	{
-		surf_norm = set_vec(object->diameter * cos(M_PI / 4.0), object->diameter * sin(M_PI / 4.0), 0);
-		// surf_norm = calc_surface_normal(intersect_p, object->vec);
+		float t =  dot(sub(intersect_p, object->vec), object->vec2);
+		t_vec pt = add(object->vec, mult_fact(object->vec2, t));
+		surf_norm = unit_vector(sub(intersect_p, pt));
+		// if (dot(sub(intersect_p, object->vec), object->vec2) > 0.0)
+		// {
+		// 	surf_norm = mult_fact(surf_norm, -1.0);
+		// }
+		
 	}
 	else
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
@@ -100,7 +110,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
 	if (check_obj(data, set_ray(intersect_p, data->light.vec), object->id))
-		return (add(set_vec(0, 0, 0), amb));
+		return (mult_fact(add(set_vec(0,0,0), amb), 2));
    // gamma correction?
 
 

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 11:21:34 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/18 11:46:29 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,22 @@ void	print_pix(t_data *data)
 		i++;
 	}
 }
+void	init_rotation(t_data *data)
+{
+	int	i;
 
+	data->rotation.action = translate_object;
+	data->rotation.object = &data->objects[1];
+	data->rotation.obj_type = object;
+	i = 0;
+	while (i < data->object_num)
+	{
+		data->objects[i].gamma = 0;
+		data->objects[i].alpha = 0;
+		data->objects[i].beta = 0;
+		i++;
+	}
+}
 t_data *init(int argc, char **argv)
 {
 	t_data	*data;
@@ -50,9 +65,7 @@ t_data *init(int argc, char **argv)
 	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
 	data->all_ray = malloc (data->ray_pix_num * sizeof(t_ray));
-	data->beta = 0;
-	data->gamma = 0;
-	data->alpha = 0;
+	init_rotation(data);
 	init_pix(data);//print all pix to black
 	return (data);
 }
@@ -60,9 +73,9 @@ t_data *init(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data	*data;
-		int	v;
-		float		j;
-		float		i;
+		int		v;
+		int		j;
+		int		i;
 		
 		v = 0;
 		j = 0;
@@ -73,14 +86,17 @@ int main(int argc, char **argv)
 		i = 0;
 		while (i <data->viewport_h)
 		{
-			data->viewport[v] = init_camera(data, j, i);
+			data->viewport[v] = init_camera(data,  j, i);//set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, data->camera.focal_length);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);
+			//printf("this is a obj:%i\n",  data->all_ray[v].obj->type);
 			if (data->all_ray[v].t > 0)
-			{	
+			{	//will not go to other type of object
+				//printf("this is a obj2:%i\n",  data->all_ray[v].obj->type);
 				t_vec color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
 				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.x,color.y,color.z));
 			}
+			//give_color(data, i, j, v);
 			if (v >= data->ray_pix_num)
 				break;
 			v++;
@@ -89,6 +105,7 @@ int main(int argc, char **argv)
 		j++;
 	}
 	print_pix(data);
+	// mlx_loop_hook(data->mlx, key_press, data);
 	mlx_key_hook(data->mlx, &key_press, data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
