@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 15:13:58 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/18 16:26:26 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	print_pix(t_data *data)
 		mlx_put_pixel(data->img, data->all_pix[i].u, data->all_pix[i].v, data->all_pix[i].col);
 		i++;
 	}
-	mlx_put_string(data->mlx, "Rotation: 'R' | Translation: 'T' | Moving: 'A'+'D', 'S'+'W', 'Q'+'E'", 0, data->viewport_h - 25);
-	mlx_put_string(data->mlx, "Select objects: 'O' | Camera: 'A' | Light: 'L'", 0, data->viewport_h - 50);
+	mlx_put_string(data->mlx, "Rotation: 'R' | Translation: 'T' | Moving: 'A'+'D', 'S'+'W', 'Q'+'E'", 0, data->viewport_h + 25);
+	mlx_put_string(data->mlx, "Select objects: 'O' | Camera: 'A' | Light: 'L'", 0, data->viewport_h);
 }
 void	init_rotation(t_data *data)
 {
@@ -62,7 +62,7 @@ t_data *init(int argc, char **argv)
 		data->viewport_h = 600;
 	}
 	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov / 2 / 180 * 3.1415926));
-	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
+	data->mlx = mlx_init(data->viewport_w, data->viewport_h + 50, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
 	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
