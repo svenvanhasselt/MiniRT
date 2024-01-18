@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/10 10:25:21 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 14:29:09 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/18 17:43:07 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,10 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 	//Calculate the discriminant
 	discriminant = b*b - 4*a*c;
 	if (discriminant < 0)
+	{
 		obj->t = -1;
+		return (false);
+	}
 	//Calculate the two possible t values
 	if (discriminant >= 0)
 	{
@@ -48,7 +51,7 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 
 	//Check if the intersection point is within the height on the cylinder
 	if( (m1 <= obj->height / 2 && m1 >= -obj->height / 2) || (m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
-		return (obj->t);
+		return (true);
 	obj->t = -1;
-	return (-1);
+	return (false);
 }

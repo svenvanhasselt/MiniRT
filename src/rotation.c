@@ -88,7 +88,7 @@ void    rotate_object(t_data *data, int axis, float value)
         else if (axis == y_axis)
             rotate = set_quat(cos(value), sin(value), 0, 0);
         // if (value > 0)
-        //     rev_rotate(rotate);
+        //     rotate = rev_rotate(rotate);
         data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
     }
     if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
@@ -224,8 +224,6 @@ void	key_press(mlx_key_data_t kd, void *param)
 	data = param;
     moving_keys(kd, data);
     control_keys(kd,data);
-    printf("obj x: %f y: %f z: %f\n", data->rotation.object->vec2.x, data->rotation.object->vec2.y, data->rotation.object->vec2.z);
-
 }
 
 
@@ -254,6 +252,7 @@ t_vec   rotate_vector(t_vec vec, t_quat r)
         r.a * vec_quat.c - r.b * vec_quat.d + r.c * vec_quat.a + r.d * vec_quat.b,
         r.a * vec_quat.d + r.b * vec_quat.c - r.c * vec_quat.b + r.d * vec_quat.a
     );
+    rot_quat = unit_quat(rot_quat);
     rotated_vector = set_vec(rot_quat.b, rot_quat.c, rot_quat.d);
     return (rotated_vector);
 }

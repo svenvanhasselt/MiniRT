@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 15:16:03 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/18 17:38:05 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,8 @@ bool	check_obj(t_data *data, t_ray ray, int id)
 			return (true);
 		else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], &ray) && data->objects[i].id != id)
 			return (true);
+		else if (data->objects[i].type == cone && hit_cone(&data->objects[i], &ray) && data->objects[i].id != id)
+			return (true);
 		i++;
 	}
 	return (false);
@@ -78,7 +80,8 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	t_vec	surf_norm;
 	t_vec	amb;
     t_vec	col;
-	t_vec	light;
+	t_vec	shadow_ray;
+	// t_vec	light;
 	float	diffuse;
 	bool	face_out;
 
@@ -108,12 +111,14 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
 	col = mult_fact(object->color, diffuse);
 	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
-	light = mult_fact(data->light.color, data->light.brightness);
-	col = add(col, mult(amb, light));
+	// light = mult_fact(data->light.color, data->light.brightness);
+	col = add(col, amb); // add brightness light
 	col.x = clamp(col.x, 0.0, 1.0);
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
-	if (check_obj(data, set_ray(intersect_p, data->light.vec), object->id))
+
+	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
+	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id))
 		return (mult_fact(add(set_vec(0,0,0), amb), 2));
    // gamma correction?
 
