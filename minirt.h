@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 11:47:16 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/18 17:36:19 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -197,6 +197,7 @@ t_vec		mult(t_vec v1, t_vec v2);
 bool		hit_object(t_data *data, int v);
 bool		hit_sphere(t_object *obj, t_ray *r);
 bool		hit_plane(t_object *obj, t_ray *ray);
+bool		hit_cone(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
 void		compare_update_t(t_object *obj, t_ray *ray);
@@ -214,7 +215,7 @@ float		clamp(float value, float min, float max);
 
 //rotation
 t_vec		init_camera(t_data *data, float j, float i);
-t_vec		rotate_vector(t_vec vec, t_quat rotation);
+t_vec		rotate_vector(t_vec vec, t_quat r);
 void		key_press(mlx_key_data_t kd, void *param);
 //void		give_color(t_data *data, int weith, int high, int v);
 void		init_pix(t_data *data);

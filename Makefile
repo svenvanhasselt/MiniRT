@@ -6,7 +6,7 @@
 #    By: sven <sven@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/01/18 11:46:45 by yizhang       ########   odam.nl          #
+#    Updated: 2024/01/18 17:36:48 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,6 +40,7 @@ SRC := \
 	intersection/hit_sphere.c\
 	intersection/hit_cylinder.c\
 	intersection/hit_cylinder_caps.c\
+	intersection/hit_cone.c\
 	intersection/math.c\
 	setter.c\
 

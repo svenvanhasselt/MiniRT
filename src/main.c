@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 11:46:29 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/18 16:26:26 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,13 +29,15 @@ void	print_pix(t_data *data)
 		mlx_put_pixel(data->img, data->all_pix[i].u, data->all_pix[i].v, data->all_pix[i].col);
 		i++;
 	}
+	mlx_put_string(data->mlx, "Rotation: 'R' | Translation: 'T' | Moving: 'A'+'D', 'S'+'W', 'Q'+'E'", 0, data->viewport_h + 25);
+	mlx_put_string(data->mlx, "Select objects: 'O' | Camera: 'A' | Light: 'L'", 0, data->viewport_h);
 }
 void	init_rotation(t_data *data)
 {
 	int	i;
 
 	data->rotation.action = translate_object;
-	data->rotation.object = &data->objects[1];
+	data->rotation.object = &data->objects[0];
 	data->rotation.obj_type = object;
 	i = 0;
 	while (i < data->object_num)
@@ -60,7 +62,7 @@ t_data *init(int argc, char **argv)
 		data->viewport_h = 600;
 	}
 	data->camera.focal_length = 2 * (data->viewport_h * tanf(data->camera.fov / 2 / 180 * 3.1415926));
-	data->mlx = mlx_init(data->viewport_w, data->viewport_h, "MiniRT", true);
+	data->mlx = mlx_init(data->viewport_w, data->viewport_h + 50, "MiniRT", true);
 	data->img = mlx_new_image(data->mlx, data->viewport_w, data->viewport_h);
 	data->ray_pix_num = data->viewport_w * data->viewport_h;
 	data->viewport = malloc (data->ray_pix_num * sizeof(t_vec));
@@ -73,39 +75,11 @@ t_data *init(int argc, char **argv)
 int main(int argc, char **argv)
 {
 	t_data	*data;
-		int		v;
-		int		j;
-		int		i;
-		
-		v = 0;
-		j = 0;
+
 	data = init(argc, argv);
 	mlx_image_to_window(data->mlx, data->img, 0, 0);
-	while (j < data->viewport_w)
-	{
-		i = 0;
-		while (i <data->viewport_h)
-		{
-			data->viewport[v] = init_camera(data,  j, i);//set_vec(data->camera.vec.x - data->viewport_w/2 + j, data->camera.vec.y + data->viewport_h/2 - i, data->camera.focal_length);
-			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
-			hit_object(data, v);
-			//printf("this is a obj:%i\n",  data->all_ray[v].obj->type);
-			if (data->all_ray[v].t > 0)
-			{	//will not go to other type of object
-				//printf("this is a obj2:%i\n",  data->all_ray[v].obj->type);
-				t_vec color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
-				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.x,color.y,color.z));
-			}
-			//give_color(data, i, j, v);
-			if (v >= data->ray_pix_num)
-				break;
-			v++;
-			i++;
-		}
-		j++;
-	}
+	calc_viewport(data);
 	print_pix(data);
-	// mlx_loop_hook(data->mlx, key_press, data);
 	mlx_key_hook(data->mlx, &key_press, data);
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
