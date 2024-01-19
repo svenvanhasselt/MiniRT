@@ -1,41 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   setter.c                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:43:33 by yizhang           #+#    #+#             */
-/*   Updated: 2024/01/03 13:07:57 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   setter.c                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/11/23 15:43:33 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/01/19 18:21:42 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../minirt.h"
+#include "../minirt.h"
 
-t_vec set_vec(float x, float y, float z)
+t_vec	set_vec(float x, float y, float z)
 {
-	t_vec new;
+	t_vec	new;
+
 	new.x = x;
 	new.y = y;
 	new.z = z;
-	return (new);	
-}
-
-t_ray set_ray(t_vec orig, t_vec dir)
-{
-	t_ray new;
-	new.orig = orig;
-	new.dir = dir;
-	new.norm = unit_vector(sub(orig,dir));
 	return (new);
 }
 
-t_pixel set_pixel(t_ray ray, int u, int v, uint32_t col)
+t_ray	set_ray(t_vec orig, t_vec dir)
 {
-	t_pixel new;
+	t_ray	new;
+
+	new.orig = orig;
+	new.dir = dir;
+	new.norm = unit_vector(sub(orig, dir));
+	return (new);
+}
+
+t_pixel	set_pixel(t_ray ray, int u, int v, uint32_t col)
+{
+	t_pixel	new;
+
 	new.ray = ray;
 	new.u = u;
 	new.v = v;
 	new.col = col;
-	return(new);
+	return (new);
 }

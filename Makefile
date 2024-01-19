@@ -6,7 +6,7 @@
 #    By: sven <sven@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/01/18 17:36:48 by svan-has      ########   odam.nl          #
+#    Updated: 2024/01/19 18:29:27 by yizhang       ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,6 +33,7 @@ SRC := \
 	errors.c \
 	color.c \
 	vector.c\
+	vector_util.c\
 	rotation.c\
 	camera.c\
 	intersection/hit_object.c\

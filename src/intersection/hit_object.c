@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 16:46:59 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/19 18:11:00 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ bool	hit_object(t_data *data, int v)
 			compare_update_t(&data->objects[i], &data->all_ray[v]);
 		i++;
 	}
-	
 	return (false);
 }
 

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 14:24:54 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/19 18:17:02 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 			/ (2 * obj->discrim.a);
 		obj->t2 = (-obj->discrim.b + sqrt(obj->discrim.d))
 			/ (2 * obj->discrim.a);
+		if (obj->t < 0.0f || obj->t2 < 0.0f)
+			ray->inside = true;
 	}
 	obj->m1 = dot(ray->dir, obj->vec2) * obj->t
 		+ dot(sub(ray->orig, obj->vec), obj->vec2);
