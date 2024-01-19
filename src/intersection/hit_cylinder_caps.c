@@ -6,15 +6,12 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 08:10:22 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/10 11:04:16 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/19 13:48:07 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "../../minirt.h"
-
-//ray-Disk Intersection
-//https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection.html
 
 static float hit_onedisc(t_vec top_bottom, t_ray *ray, t_object *obj)
 {

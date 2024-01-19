@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 17:36:19 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/19 14:00:54 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,8 @@ typedef struct s_object
 	t_vec	color;
 	float	t;
 	float	t2;
+	float	m1;
+	float	m2;
 	float	diameter;
 	float	height;
 	float	angle;
