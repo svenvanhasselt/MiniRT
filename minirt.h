@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 14:00:54 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/19 14:25:13 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ typedef struct s_object
 	t_vec	vec2;
 	t_ray	aixs;
 	t_vec	color;
+	t_quat	discrim;
 	float	t;
 	float	t2;
 	float	m1;
@@ -202,6 +203,8 @@ bool		hit_plane(t_object *obj, t_ray *ray);
 bool		hit_cone(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
+bool		calculate_t_and_m(t_object *obj, t_ray *ray);
+float		discriminant(float a, float b, float c);
 void		compare_update_t(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
