@@ -32,7 +32,9 @@ void    calc_viewport(t_data *data)
 			hit_object(data, v);
 			if (data->all_ray[v].t > 0)
 			{
-				t_vec color = ray_color(data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
+				t_vec color = ray_color(&data->all_ray[v], data->all_ray[v].t, data->all_ray[v].obj, data);
+                // if (data->all_ray[v].inside)
+		        //     printf("ok\n");
 				data->all_pix[v] = set_pixel(data->all_ray[v], j, i, get_rgba(color.x,color.y,color.z));
 			}
 			if (v >= data->ray_pix_num)

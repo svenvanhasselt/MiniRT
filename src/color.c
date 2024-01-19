@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 17:38:05 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/19 16:50:45 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,52 +74,75 @@ bool	check_obj(t_data *data, t_ray ray, int id)
 	return (false);
 }
 
-t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
+t_vec ray_color(t_ray *ray, float t, t_object *object, t_data *data)
 {
-	t_vec	intersect_p;
-	t_vec	surf_norm;
-	t_vec	amb;
-    t_vec	col;
-	t_vec	shadow_ray;
-	// t_vec	light;
-	float	diffuse;
-	bool	face_out;
+	// t_vec	intersect_p;
+	// t_vec	surf_norm;
+	// t_vec	amb;
+    t_vec	col = set_vec(0,0,0);
+	// t_vec	shadow_ray;
+	// // t_vec	light;
+	// float	diffuse;
+	// bool	face_out;
 
-	face_out = true;
+	// face_out = true;
+	(void)t;
+	(void)object;
+	(void)data;
 
-	intersect_p = calc_intersection_point(ray, t);
-	if (object->type == plane)
-	{
-		surf_norm = unit_vector(object->vec2);
-		if (dot(ray.dir,object->vec2) > 0)
-			surf_norm = mult_fact(surf_norm, -1);
-	}
-	else if (object->type == cylinder)
-	{
-		float t =  dot(sub(intersect_p, object->vec), object->vec2);
-		t_vec pt = add(object->vec, mult_fact(object->vec2, t));
-		surf_norm = unit_vector(sub(intersect_p, pt));
-		// if (dot(sub(intersect_p, object->vec), object->vec2) > 0.0)
-		// {
-		// 	surf_norm = mult_fact(surf_norm, -1.0);
-		// 	face_out = false;
-		// }
+	if (ray->inside)
+		printf("type: %d\n", object->type);
+	// intersect_p = calc_intersection_point(ray, t);
+	// if (object->type == plane)
+	// {
+	// 	surf_norm = unit_vector(object->vec2);
+	// 	if (dot(ray.dir,object->vec2) > 0)
+	// 		surf_norm = mult_fact(surf_norm, -1);
+	// }
+	// else if (object->type == cylinder)
+	// {
+	// 	float t =  dot(sub(intersect_p, object->vec), object->vec2);
+	// 	t_vec pt = add(object->vec, mult_fact(object->vec2, t));
+	// 	surf_norm = unit_vector(sub(intersect_p, pt));
 		
-	}
-	else
-		surf_norm = calc_surface_normal(intersect_p, object->vec);
-	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
-	col = mult_fact(object->color, diffuse);
-	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
-	// light = mult_fact(data->light.color, data->light.brightness);
-	col = add(col, amb); // add brightness light
-	col.x = clamp(col.x, 0.0, 1.0);
-   	col.y = clamp(col.y, 0.0, 1.0);
-   	col.z = clamp(col.z, 0.0, 1.0);
+	// 	// t_vec	p;
+	// 	// t_vec	closest_point;
+	// 	// t_ray	cyl_ray;
+	// 	// cyl_ray = set_ray(object->vec, object->vec2);
+	// 	// p = add(mult_fact(ray.dir, object->discrim.d), ray.orig);
+	// 	// closest_point =add(mult_fact(ray.dir,  dot(ray.dir, sub(p, ray.orig))), ray.orig);;
+	// 	// p = sub(p, closest_point);
+	// 	// surf_norm = unit_vector(p);
 
-	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
-	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id))
-		return (mult_fact(add(set_vec(0,0,0), amb), 2));
+	// 	// if (ray.inside)
+	// 	// {
+	// 	// 	printf("surf_norm: x:%f, y:%f, z:%f\n", surf_norm.x,surf_norm.y,surf_norm.z);
+
+	// 	// 	surf_norm = mult_fact(surf_norm, -1.0f);
+	// 	// }
+
+		
+	// 	// if (dot(sub(intersect_p, object->vec), object->vec2) > 0.0)
+	// 	// {
+	// 	// 	surf_norm = mult_fact(surf_norm, -1.0);
+	// 	// 	face_out = false;
+	// 	// }
+		
+	// }
+	// else
+	// 	surf_norm = calc_surface_normal(intersect_p, object->vec);
+	// diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
+	// col = mult_fact(object->color, diffuse);
+	// amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
+	// // light = mult_fact(data->light.color, data->light.brightness);
+	// col = add(col, amb); // add brightness light
+	// col.x = clamp(col.x, 0.0, 1.0);
+   	// col.y = clamp(col.y, 0.0, 1.0);
+   	// col.z = clamp(col.z, 0.0, 1.0);
+
+	// shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
+	// if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id))
+	// 	return (mult_fact(add(set_vec(0,0,0), amb), 2));
    // gamma correction?
 
 
