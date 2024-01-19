@@ -211,7 +211,7 @@ void    control_keys(mlx_key_data_t kd, t_data *data)
     {
         if (data->rotation.obj_type != object)
             change_object(data, object, NULL);
-        else if (data->rotation.object->id + 1 < data->object_num - 1)
+        else if ((data->rotation.object->id + 1) < data->object_num)
             change_object(data, object, &data->objects[data->rotation.object->id + 1]);
         else
             change_object(data, object, &data->objects[0]);

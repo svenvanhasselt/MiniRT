@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 17:38:05 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/19 17:29:16 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,15 +96,42 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	}
 	else if (object->type == cylinder)
 	{
-		float t =  dot(sub(intersect_p, object->vec), object->vec2);
+		// t_vec dir1 = sub(intersect_p, object->vec);
+
+		float t =  dot(sub(intersect_p, object->vec), object->vec2) / dot(object->vec2, object->vec2);
 		t_vec pt = add(object->vec, mult_fact(object->vec2, t));
 		surf_norm = unit_vector(sub(intersect_p, pt));
-		// if (dot(sub(intersect_p, object->vec), object->vec2) > 0.0)
+
+		// t_vec 	v_p = sub(intersect_p, object->vec);
+		// surf_norm = unit_vector(v_p);
+		
+		// if (dot(surf_norm, object->vec2) < 0.0)
+		// {
+		// 	surf_norm = mult_fact(surf_norm, -1.0);
+		// }
+
+		// float dotp = dot(dir1, object->vec2);
+	
+		// if (dotp < 0)
 		// {
 		// 	surf_norm = mult_fact(surf_norm, -1.0);
 		// 	face_out = false;
 		// }
 		
+	}
+	else if(object->type == cone)
+	{
+		// float t =  dot(sub(intersect_p, object->vec), object->vec2);
+		// t_vec pt = add(object->vec, mult_fact(object->vec2, t));
+		// float cos_t = dot(unit_vector(pt), unit_vector(object->vec2));
+		// float sin_t = sqrt(1.0 - cos_t * cos_t);
+		
+		// surf_norm = unit_vector(sub(pt , mult_fact(object->vec2, cos_t / sin_t)));
+		// surf_norm.x = (intersect_p.x - object->vec.x) * (object->height / object->diameter);
+		// surf_norm.y = object->height / object->diameter;
+		// surf_norm.z = (intersect_p.z - object->vec.z) * (object->height / object->diameter);
+		surf_norm = sub(intersect_p, object->vec);
+		surf_norm = unit_vector(surf_norm);
 	}
 	else
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
