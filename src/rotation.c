@@ -29,7 +29,6 @@ void    calc_viewport(t_data *data)
 		{
             
 			data->viewport[v] = init_camera(data, j, i);
-            //dir_vec = sub(data->camera.vec ,data->viewport[v]);
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);
 			if (data->all_ray[v].t > 0)

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 17:16:52 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 17:52:20 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,6 @@ void	compare_update_t(t_object *obj, t_ray *ray)
 		ray->obj = obj;
 }
 
-static void	calculate_t_value(t_object *obj)
-{
-	if (obj->discrim.d >= 0)
-	{
-		obj->t = (-obj->discrim.b - sqrt(obj->discrim.d))
-			/ (2 * obj->discrim.a);
-		obj->t2 = (-obj->discrim.b + sqrt(obj->discrim.d))
-			/ (2 * obj->discrim.a);
-	}
-}
-
 bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 {
 	if (obj->discrim.d < 0)
@@ -53,7 +42,10 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 		obj->t = -1;
 		return (false);
 	}
-	calculate_t_value(obj);
+	obj->t = (-obj->discrim.b - sqrt(obj->discrim.d))
+		/ (2 * obj->discrim.a);
+	obj->t2 = (-obj->discrim.b + sqrt(obj->discrim.d))
+		/ (2 * obj->discrim.a);
 	obj->m1 = dot(ray->dir, obj->vec2) * obj->t
 		+ dot(sub(ray->orig, obj->vec), obj->vec2);
 	obj->m2 = dot(ray->dir, obj->vec2) * obj->t2
@@ -62,7 +54,9 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 	if ((obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
 		|| (obj->m2 <= obj->height / 2 && obj->m2 >= -obj->height / 2))
 	{
-		if (obj->m2 <= obj->height / 2 && obj->m2 >= -obj->height / 2)
+		if (obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
+			ray->inside = false;
+		else
 			ray->inside = true;
 		return (true);
 	}

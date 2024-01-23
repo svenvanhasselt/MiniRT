@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 17:13:48 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 17:46:36 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,14 +36,6 @@ bool	hit_object(t_data *data, int v)
 		i++;
 	}
 	return (false);
-}
-
-t_vec	set_facenorm(t_vec ray_dir, t_vec face)
-{
-	if (dot(ray_dir, face) > 0.0)
-		return (set_vec(-face.x, -face.y, -face.z));
-	else
-		return (face);
 }
 
 void	init_pix(t_data *data)

@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:23 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 17:10:11 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 17:50:35 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ bool	hit_sphere(t_object *obj, t_ray *r)
 	obj->t = (-obj->discrim.b - sqrt(obj->discrim.d)) / (2 * obj->discrim.a);
 	if (obj->discrim.d < 0)
 		return (false);
-	if (obj->t > 0)
+	if (obj->t >= 0)
 		return (true);
 	return (false);
 }
