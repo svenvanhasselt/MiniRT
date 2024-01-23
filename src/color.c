@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 17:45:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 17:58:43 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,6 +84,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	t_vec	light;
 	float	diffuse;
 	bool	face_out;
+	 bool inside = false;
 
 	face_out = true;
 	intersect_p = calc_intersection_point(ray, t);
@@ -93,6 +94,15 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		if (dot(ray.dir, object->vec2) > 0)
 			surf_norm = mult_fact(surf_norm, -1);
 	}
+	else if (object->type == sphere)
+    {
+        surf_norm = unit_vector(sub(object->vec, intersect_p));
+        if (dot(ray.dir, surf_norm) > 0)
+		{
+			surf_norm = mult_fact(surf_norm, -1);
+            inside = true;
+		}
+    }
 	else if (object->type == cylinder)
 	{
 		float t =  dot(sub(intersect_p, object->vec), object->vec2);
@@ -112,7 +122,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
 	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
-	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id))
+	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id) && !inside)
 		return (mult_fact(add(set_vec(0,0,0), amb), 2));
    // gamma correction?
 
