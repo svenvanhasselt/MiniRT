@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 17:29:16 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/22 15:24:17 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,27 +96,15 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	}
 	else if (object->type == cylinder)
 	{
-		// t_vec dir1 = sub(intersect_p, object->vec);
-
-		float t =  dot(sub(intersect_p, object->vec), object->vec2) / dot(object->vec2, object->vec2);
+		float t =  dot(sub(intersect_p, object->vec), object->vec2);
 		t_vec pt = add(object->vec, mult_fact(object->vec2, t));
 		surf_norm = unit_vector(sub(intersect_p, pt));
 
-		// t_vec 	v_p = sub(intersect_p, object->vec);
-		// surf_norm = unit_vector(v_p);
-		
-		// if (dot(surf_norm, object->vec2) < 0.0)
-		// {
-		// 	surf_norm = mult_fact(surf_norm, -1.0);
-		// }
 
-		// float dotp = dot(dir1, object->vec2);
-	
-		// if (dotp < 0)
+		// if (dot(surf_norm, object->vec) < 0.0)
 		// {
 		// 	surf_norm = mult_fact(surf_norm, -1.0);
-		// 	face_out = false;
-		// }
+		// }	
 		
 	}
 	else if(object->type == cone)

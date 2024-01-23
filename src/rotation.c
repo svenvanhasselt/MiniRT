@@ -1,6 +1,17 @@
 #include "../minirt.h"
 #include "../lib/libft/includes/libft.h"
 
+t_quat  unit_quat(t_quat q)
+{
+    float   norm;
+    
+    norm = sqrt(q.a * q.a + q.b * q.b + q.c * q.c + q.d * q.d);
+    q.a /= norm;
+    q.b /= norm;
+    q.c /= norm;
+    q.d /= norm;
+    return (q);
+}
 
 t_quat  rev_rotate(t_quat q)
 {
@@ -74,6 +85,49 @@ void reset_pix(t_data *data)
 		j++;
 	}
 }
+
+
+t_quat slerp(t_quat q0, t_quat q1, float t)
+{
+    // Ensure quaternions are normalized
+    q0 = unit_quat(q0);
+    q1 = unit_quat(q1);
+
+    // Calculate dot product and adjust signs if necessary
+    float dot = q0.a * q1.a + q0.b * q1.b + q0.c * q1.c + q0.d * q1.d;
+    if (dot < 0.0f)
+    {
+        q1 = negate_quat(q1);
+        dot = -dot;
+    }
+
+    // Clamp dot product to avoid numerical instability
+    dot = fmaxf(fminf(dot, 1.0f), -1.0f);
+
+    // Calculate angle and spherical interpolation
+    float theta = acosf(dot);
+    float sinTheta = sinf(theta);
+
+    t_quat result;
+    if (sinTheta < 0.001f)
+    {
+        // Linear interpolation if quaternions are close
+        result = add_quat(scale_quat(q0, 1.0f - t), scale_quat(q1, t));
+    }
+    else
+    {
+        // Spherical interpolation
+        float invSinTheta = 1.0f / sinTheta;
+        float coeff0 = sinf((1.0f - t) * theta) * invSinTheta;
+        float coeff1 = sinf(t * theta) * invSinTheta;
+        result.a = coeff0 * q0.a + coeff1 * q1.a;
+        result.b = coeff0 * q0.b + coeff1 * q1.b;
+        result.c = coeff0 * q0.c + coeff1 * q1.c;
+        result.d = coeff0 * q0.d + coeff1 * q1.d;
+    }
+
+    return result;
+}
 void    rotate_object(t_data *data, int axis, float value)
 {
     t_quat  rotate;
@@ -89,7 +143,14 @@ void    rotate_object(t_data *data, int axis, float value)
             rotate = set_quat(cos(value), sin(value), 0, 0);
         // if (value > 0)
         //     rotate = rev_rotate(rotate);
-        data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
+        // data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
+        t_quat er = set_quat(0, data->rotation.object->vec2.x, data->rotation.object->vec2.y, data->rotation.object->vec2.z);
+        t_quat df = slerp(er, rotate, 0.5f);
+
+
+
+        data->rotation.object->vec2 = set_vec(df.b, df.c, df.d);
+
     }
     if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
     {
@@ -226,18 +287,6 @@ void	key_press(mlx_key_data_t kd, void *param)
     control_keys(kd,data);
 }
 
-
-t_quat  unit_quat(t_quat q)
-{
-    float   norm;
-    
-    norm = sqrt(q.a * q.a + q.b * q.b + q.c * q.c + q.d * q.d);
-    q.a /= norm;
-    q.b /= norm;
-    q.c /= norm;
-    q.d /= norm;
-    return (q);
-}
 
 t_vec   rotate_vector(t_vec vec, t_quat r)
 {
