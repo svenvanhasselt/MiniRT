@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/22 15:24:17 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/23 16:41:13 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,13 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		t_vec pt = add(object->vec, mult_fact(object->vec2, t));
 		surf_norm = unit_vector(sub(intersect_p, pt));
 
-
+		if (ray.inside)
+		{
+			surf_norm = mult_fact(surf_norm, -1.0f);
+			//return (set_vec(0,0,0));
+		}
+			//return (set_vec(255,255,255));
+					
 		// if (dot(surf_norm, object->vec) < 0.0)
 		// {
 		// 	surf_norm = mult_fact(surf_norm, -1.0);
@@ -122,7 +128,14 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		surf_norm = unit_vector(surf_norm);
 	}
 	else
+	{
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
+		if (dot(ray.dir, object->vec) < 0.0)
+		{
+			printf("sdf\n");
+			face_out = false;
+		}
+	}
 	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
 	col = mult_fact(object->color, diffuse);
 	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
@@ -133,7 +146,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
    	col.z = clamp(col.z, 0.0, 1.0);
 
 	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
-	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id))
+	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id) && face_out == false)
 		return (mult_fact(add(set_vec(0,0,0), amb), 2));
    // gamma correction?
 

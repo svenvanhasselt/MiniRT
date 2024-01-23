@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/18 17:36:19 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/23 14:05:38 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ typedef struct s_ray
 	float	t;
 	t_vec	color;
 	struct s_object	*obj;
+	bool	inside;
 }t_ray;
 
 typedef struct s_object
@@ -76,9 +77,9 @@ typedef struct s_object
 	float	height;
 	float	angle;
 	float	k;
-	int		gamma;
-	int		alpha;
-	int		beta;
+	float		gamma;
+	float		alpha;
+	float		beta;
 }t_object;
 
 typedef struct s_pixel

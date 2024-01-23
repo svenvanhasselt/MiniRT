@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 17:33:22 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/23 12:19:25 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,13 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 
 	//Check if the intersection point is within the height on the cylinder
 	if((m1 <= obj->height / 2 && m1 >= -obj->height / 2) || (m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
+	{
+		if ((m1 <= obj->height / 2 && m1 >= -obj->height / 2))
+            ray->inside = false;
+        else
+            ray->inside = true;
 		return (t);
+	}
 	return (-1);//not intersects
 }
 

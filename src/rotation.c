@@ -87,69 +87,56 @@ void reset_pix(t_data *data)
 }
 
 
-t_quat slerp(t_quat q0, t_quat q1, float t)
-{
-    // Ensure quaternions are normalized
-    q0 = unit_quat(q0);
-    q1 = unit_quat(q1);
-
-    // Calculate dot product and adjust signs if necessary
-    float dot = q0.a * q1.a + q0.b * q1.b + q0.c * q1.c + q0.d * q1.d;
-    if (dot < 0.0f)
-    {
-        q1 = negate_quat(q1);
-        dot = -dot;
-    }
-
-    // Clamp dot product to avoid numerical instability
-    dot = fmaxf(fminf(dot, 1.0f), -1.0f);
-
-    // Calculate angle and spherical interpolation
-    float theta = acosf(dot);
-    float sinTheta = sinf(theta);
-
-    t_quat result;
-    if (sinTheta < 0.001f)
-    {
-        // Linear interpolation if quaternions are close
-        result = add_quat(scale_quat(q0, 1.0f - t), scale_quat(q1, t));
-    }
-    else
-    {
-        // Spherical interpolation
-        float invSinTheta = 1.0f / sinTheta;
-        float coeff0 = sinf((1.0f - t) * theta) * invSinTheta;
-        float coeff1 = sinf(t * theta) * invSinTheta;
-        result.a = coeff0 * q0.a + coeff1 * q1.a;
-        result.b = coeff0 * q0.b + coeff1 * q1.b;
-        result.c = coeff0 * q0.c + coeff1 * q1.c;
-        result.d = coeff0 * q0.d + coeff1 * q1.d;
-    }
-
-    return result;
-}
 void    rotate_object(t_data *data, int axis, float value)
 {
     t_quat  rotate;
 
+    // if (data->rotation.obj_type == light)
+    //     return ;
+    // if (axis == x_axis)
+    //     data->rotation.object->beta = value;
+    // if (axis == y_axis)
+    //     data->rotation.object->gamma = value;
+    rotate = set_quat(0, 0, 0, 0);
+
     if (data->rotation.obj_type == light)
         return ;
-    rotate = set_quat(0, 0, 0, 0);
+    if (axis == x_axis)
+        rotate = set_quat(cos(value), 0, sin(value), 0);
+    if (axis == y_axis)
+        rotate = set_quat(cos(value), sin(value), 0, 0);
+    // printf("x: %f y: %f\n", data->rotation.object->vec2.x, data->rotation.object->vec2.y);
     if (data->rotation.obj_type == object && (axis == x_axis || axis == y_axis))
     {
-        if (axis == x_axis)
-            rotate = set_quat(cos(value), 0, sin(value), 0);
-        else if (axis == y_axis)
-            rotate = set_quat(cos(value), sin(value), 0, 0);
-        // if (value > 0)
-        //     rotate = rev_rotate(rotate);
-        // data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
-        t_quat er = set_quat(0, data->rotation.object->vec2.x, data->rotation.object->vec2.y, data->rotation.object->vec2.z);
-        t_quat df = slerp(er, rotate, 0.5f);
+        // t_vec y_rot = y_rotation(data->rotation.object->vec2, data->rotation.object->beta);
+        // t_vec z_rot = z_rotation(y_rot, data->rotation.object->alpha);
+        // t_vec x_rot = x_rotation(z_rot, data->rotation.object->gamma);
+        // data->rotation.object->vec2 = x_rot;
+        
+        // if (axis == x_axis)
+        //     rotate = set_quat(cos(value), 0, sin(value), 0);
+        // else if (axis == y_axis)
+        //     rotate = set_quat(cos(value), sin(value), 0, 0);
+        // // if (value > 0)
+        // //     rotate = rev_rotate(rotate);
+
+        // t_vec euler_angles = set_vec(data->rotation.object->gamma, data->rotation.object->alpha, 0);
+        // t_vec axis = unit_vector(euler_angles);
+        // float angle = vec_len(euler_angles);
+
+        // rotate = axis_angle_to_quaternion(axis, angle);
+        // rotate = set_quat(cos(value), 0, sin(value), 0);
+        // t_quat rot2 = rotate = set_quat(cos(data->rotation.object->alpha), sin(data->rotation.object->alpha), 0, 0);
+        // rotate.a += rot2.a;
+        // rotate.b += rot2.b;
+        // rotate.c += rot2.c;
+        // rotate.d += rot2.d;  
+        // t_quat
 
 
-
-        data->rotation.object->vec2 = set_vec(df.b, df.c, df.d);
+        data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
+        // data->rotation.object->vec2 = rotate_vector_yaw_pitch_roll(data->rotation.object->vec2, data->rotation.object->beta, data->rotation.object->alpha, data->rotation.object->gamma);
+      
 
     }
     if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))

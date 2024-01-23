@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/10 10:25:21 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 17:30:55 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/23 12:47:34 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,13 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 
 	//Check if the intersection point is within the height on the cylinder
 	if( (m1 <= obj->height / 2 && m1 >= -obj->height / 2) || (m2 <= obj->height / 2 && m2 >= -obj->height / 2 ))
-		return (true);
+	{
+		if ((m1 <= obj->height / 2 && m1 >= -obj->height / 2))
+            ray->inside = false;
+        else
+            ray->inside = true;
+		return (t);
+	}
 	obj->t = -1;
 	return (false);
 }
