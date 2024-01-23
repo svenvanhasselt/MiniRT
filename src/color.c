@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 11:52:09 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 17:00:02 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,34 +86,35 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	bool	face_out;
 
 	face_out = true;
-
+	bool	inside = false;
+	t_vec real = sub(ray.dir, ray.orig);
 	intersect_p = calc_intersection_point(ray, t);
 	if (object->type == plane)
 	{
 		surf_norm = unit_vector(object->vec2);
-		if (dot(ray.dir,object->vec2) > 0)
+		
+		if (dot(real, object->vec2) > 0)
 			surf_norm = mult_fact(surf_norm, -1);
+	}
+	else if (object->type == sphere)
+	{
+		surf_norm = unit_vector(sub(object->vec, intersect_p));
+		if (dot(ray.dir, surf_norm) > 0)
+		{
+			inside = true;
+			surf_norm = mult_fact(surf_norm, -1);
+		}
 	}
 	else if (object->type == cylinder)
 	{
 		float t =  dot(sub(intersect_p, object->vec), object->vec2);
 		t_vec pt = add(object->vec, mult_fact(object->vec2, t));
 		surf_norm = unit_vector(sub(intersect_p, pt));
-		
-		/* if (ray.inside)
+		if (ray.inside)
 		{
 			printf("surf_norm: x:%f, y:%f, z:%f\n", surf_norm.x,surf_norm.y,surf_norm.z);
 			surf_norm = mult_fact(surf_norm, -1.0f);
-			//return (set_vec(0,0,0));
-		} */
-		//return (set_vec(255,255,255));
-		
-		// if (dot(sub(intersect_p, object->vec), object->vec2) > 0.0)
-		// {
-		// 	surf_norm = mult_fact(surf_norm, -1.0);
-		// 	face_out = false;
-		// }
-		
+		}
 	}
 	else
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
@@ -127,7 +128,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
    	col.z = clamp(col.z, 0.0, 1.0);
 
 	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
-	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id))
+	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id) && !inside)
 		return (mult_fact(add(set_vec(0,0,0), amb), 2));
    // gamma correction?
 

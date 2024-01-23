@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 11:45:07 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 16:06:14 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,6 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 			/ (2 * obj->discrim.a);
 		obj->t2 = (-obj->discrim.b + sqrt(obj->discrim.d))
 			/ (2 * obj->discrim.a);
-		if (obj->t < 0.0f || obj->t2 < 0.0f)
-			ray->inside = true;
 	}
 	obj->m1 = dot(ray->dir, obj->vec2) * obj->t
 		+ dot(sub(ray->orig, obj->vec), obj->vec2);
@@ -57,7 +55,7 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 		+ dot(sub(ray->orig, obj->vec), obj->vec2);
 	obj->t = compare_t(obj->t, obj->t2);
 	if ((obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
-		|| (obj->m2 <= obj->height / 2 && obj->m2 >= -obj->height / 2))
+		 || (obj->m2 <= obj->height / 2 && obj->m2 >= -obj->height / 2))
 		{
 			if (obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
 				ray->inside = false;

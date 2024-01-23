@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 18:11:00 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 15:53:06 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,11 +27,9 @@ bool	hit_object(t_data *data, int v)
 		else if (data->objects[i].type == plane
 			&& hit_plane(&data->objects[i], &data->all_ray[v]))
 			compare_update_t(&data->objects[i], &data->all_ray[v]);
-		else if (data->objects[i].type == cylinder)
-		{
-			hit_cylinder(&data->objects[i], &data->all_ray[v]);
+		else if (data->objects[i].type == cylinder 
+			&& hit_cylinder(&data->objects[i], &data->all_ray[v]))
 			compare_update_t(&data->objects[i], &data->all_ray[v]);
-		}
 		else if (data->objects[i].type == cone
 			&& hit_cone(&data->objects[i], &data->all_ray[v]))
 			compare_update_t(&data->objects[i], &data->all_ray[v]);

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 18:17:41 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 15:51:03 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 		- pow(obj->diameter / 2, 2);
 	obj->discrim.d = discriminant(obj->discrim.a,
 			obj->discrim.b, obj->discrim.c);
-	return (calculate_t_and_m(obj, ray));
+	calculate_t_and_m(obj, ray);
+	return (obj->t);
 }
 
 bool	hit_cylinder(t_object *obj, t_ray *ray)
