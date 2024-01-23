@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 16:41:22 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 11:40:35 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -209,7 +209,7 @@ float		discriminant(float a, float b, float c);
 void		compare_update_t(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
-t_vec		ray_color(t_ray *ray, float t, t_object *object, t_data *data);
+t_vec		ray_color(t_ray ray, float t, t_object *object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_ray		set_ray(t_vec orig, t_vec dir);

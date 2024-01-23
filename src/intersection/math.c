@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 18:17:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 11:45:07 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,13 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 	obj->t = compare_t(obj->t, obj->t2);
 	if ((obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
 		|| (obj->m2 <= obj->height / 2 && obj->m2 >= -obj->height / 2))
-		return (true);
+		{
+			if (obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
+				ray->inside = false;
+			else
+				ray->inside = true;
+			return (true);
+		}
 	obj->t = -1;
 	return (false);
 }
