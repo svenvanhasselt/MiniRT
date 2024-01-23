@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 17:58:43 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 18:01:21 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		if (dot(ray.dir, object->vec2) > 0)
 			surf_norm = mult_fact(surf_norm, -1);
 	}
-	else if (object->type == sphere)
+	else if (object->type == sphere)//cone shadow is also not right
     {
         surf_norm = unit_vector(sub(object->vec, intersect_p));
         if (dot(ray.dir, surf_norm) > 0)
