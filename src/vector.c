@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 12:57:37 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 18:29:07 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/23 17:24:50 by yizhang       ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ t_vec	unit_vector(t_vec v)
 
 	len = vec_len(v);
 	ret = set_vec(v.x / len, v.y / len, v.z / len);
-	return ret;
+	return (ret);
 }
 
 t_vec	calc_intersection_point(t_ray r, float t)
@@ -32,6 +32,7 @@ t_vec	calc_intersection_point(t_ray r, float t)
 	intersection_point.z = r.orig.z + t * r.dir.z;
 	return (intersection_point);
 }
+
 t_vec	mult(t_vec v1, t_vec v2)
 {
 	t_vec	vector;
