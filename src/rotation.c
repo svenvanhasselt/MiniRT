@@ -75,6 +75,7 @@ void reset_pix(t_data *data)
 		j++;
 	}
 }
+
 void    rotate_object(t_data *data, int axis, float value)
 {
     t_quat  rotate;
@@ -82,15 +83,15 @@ void    rotate_object(t_data *data, int axis, float value)
     if (data->rotation.obj_type == light)
         return ;
     rotate = set_quat(0, 0, 0, 0);
-    if (data->rotation.obj_type == object && (axis == x_axis || axis == y_axis))
+    if (data->rotation.obj_type == object)
     {
-        if (axis == x_axis)
-            rotate = set_quat(cos(value), 0, sin(value), 0);
-        else if (axis == y_axis)
-            rotate = set_quat(cos(value), sin(value), 0, 0);
-        // if (value > 0)
-        //     rotate = rev_rotate(rotate);
-        data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
+            if (axis == x_axis)
+                rotate = set_quat(cos(value), 0, sin(value), 0);
+            else if (axis == y_axis)
+                rotate = set_quat(cos(value), sin(value), 0, 0);
+            else if (axis == z_axis)
+                rotate = set_quat(cos(value), 0, 0, sin(value));
+        data->rotation.object->vec2 = unit_vector(rotate_vector(data->rotation.object->vec2, rotate));
     }
     if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
     {
@@ -212,7 +213,7 @@ void    control_keys(mlx_key_data_t kd, t_data *data)
     {
         if (data->rotation.obj_type != object)
             change_object(data, object, NULL);
-        else if (data->rotation.object->id + 1 < data->object_num - 1)
+        else if (data->rotation.object->id + 1 < data->object_num)
             change_object(data, object, &data->objects[data->rotation.object->id + 1]);
         else
             change_object(data, object, &data->objects[0]);
