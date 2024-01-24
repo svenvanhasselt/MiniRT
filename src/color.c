@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/24 12:06:44 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/24 13:09:15 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ t_vec	calc_surface_normal(t_vec intersection_point, t_vec oc)
 	return (surf_norm);
 }
 
-float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point)
+float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float brightness)
 {
 	t_vec	norm;
 	float	diffuse;
@@ -51,7 +51,7 @@ float calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point)
 	norm = unit_vector(sub(light_pos, inter_point));
 	diffuse = dot(norm, surf_norm); // check if negative
 	diffuse = clamp(diffuse, 0.0, 1.0);
-	return (diffuse);
+	return (diffuse * brightness);
 }
 
 bool	check_obj(t_data *data, t_ray ray, int id)
@@ -110,31 +110,26 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	}
 	else if(object->type == cone)
 	{
-		// float t =  dot(sub(intersect_p, object->vec), object->vec2);
-		// t_vec pt = add(object->vec, mult_fact(object->vec2, t));
-		// float cos_t = dot(unit_vector(pt), unit_vector(object->vec2));
-		// float sin_t = sqrt(1.0 - cos_t * cos_t);
-		
-		// surf_norm = unit_vector(sub(pt , mult_fact(object->vec2, cos_t / sin_t)));
-		// surf_norm.x = (intersect_p.x - object->vec.x) * (object->height / object->diameter);
-		// surf_norm.y = object->height / object->diameter;
-		// surf_norm.z = (intersect_p.z - object->vec.z) * (object->height / object->diameter);
 		surf_norm = sub(intersect_p, object->vec);
 		surf_norm = unit_vector(surf_norm);
+		if (ray.inside)
+			surf_norm = mult_fact(surf_norm, -1.0f);
 	}
 	else
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
-	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p);
+	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
 	col = mult_fact(object->color, diffuse);
 	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
-	// light = mult_fact(data->light.color, data->light.brightness);
-	col = add(col, amb); // add brightness light
+	// 	float dist = vec_len(sub(intersect_p, data->light.vec));
+	// float at = 1.0f / (1 * dist * dist);
+	// amb = mult_fact(data->amb_light.color,(data->amb_light.ambient * at));
+	col = add(col, amb);
 	col.x = clamp(col.x, 0.0, 1.0);
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
 	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
 	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id) && !inside)
-		return (mult_fact(add(set_vec(0,0,0), amb), 2));
+		return (mult_fact(add(set_vec(0.0f,0.0f,0.0f), amb), 1.5));
    // gamma correction?
 
 

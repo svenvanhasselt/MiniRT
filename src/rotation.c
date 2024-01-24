@@ -83,48 +83,7 @@ void    rotate_object(t_data *data, int axis, float value)
     if (data->rotation.obj_type == light)
         return ;
     rotate = set_quat(0, 0, 0, 0);
-
-    if (data->rotation.obj_type == light)
-        return ;
-    if (axis == x_axis)
-        rotate = set_quat(cos(value), 0, sin(value), 0);
-    if (axis == y_axis)
-        rotate = set_quat(cos(value), sin(value), 0, 0);
-    // printf("x: %f y: %f\n", data->rotation.object->vec2.x, data->rotation.object->vec2.y);
-    if (data->rotation.obj_type == object && (axis == x_axis || axis == y_axis))
-    {
-        // t_vec y_rot = y_rotation(data->rotation.object->vec2, data->rotation.object->beta);
-        // t_vec z_rot = z_rotation(y_rot, data->rotation.object->alpha);
-        // t_vec x_rot = x_rotation(z_rot, data->rotation.object->gamma);
-        // data->rotation.object->vec2 = x_rot;
-        
-        // if (axis == x_axis)
-        //     rotate = set_quat(cos(value), 0, sin(value), 0);
-        // else if (axis == y_axis)
-        //     rotate = set_quat(cos(value), sin(value), 0, 0);
-        // // if (value > 0)
-        // //     rotate = rev_rotate(rotate);
-
-        // t_vec euler_angles = set_vec(data->rotation.object->gamma, data->rotation.object->alpha, 0);
-        // t_vec axis = unit_vector(euler_angles);
-        // float angle = vec_len(euler_angles);
-
-        // rotate = axis_angle_to_quaternion(axis, angle);
-        // rotate = set_quat(cos(value), 0, sin(value), 0);
-        // t_quat rot2 = rotate = set_quat(cos(data->rotation.object->alpha), sin(data->rotation.object->alpha), 0, 0);
-        // rotate.a += rot2.a;
-        // rotate.b += rot2.b;
-        // rotate.c += rot2.c;
-        // rotate.d += rot2.d;  
-        // t_quat
-
-
-        data->rotation.object->vec2 = rotate_vector(data->rotation.object->vec2, rotate);
-        // data->rotation.object->vec2 = rotate_vector_yaw_pitch_roll(data->rotation.object->vec2, data->rotation.object->beta, data->rotation.object->alpha, data->rotation.object->gamma);
-      
-
-    }
-    if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
+    if (data->rotation.obj_type == object)
     {
             if (axis == x_axis)
                 rotate = set_quat(cos(value), 0, sin(value), 0);
