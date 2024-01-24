@@ -1,17 +1,6 @@
 #include "../minirt.h"
 #include "../lib/libft/includes/libft.h"
 
-t_quat  unit_quat(t_quat q)
-{
-    float   norm;
-    
-    norm = sqrt(q.a * q.a + q.b * q.b + q.c * q.c + q.d * q.d);
-    q.a /= norm;
-    q.b /= norm;
-    q.c /= norm;
-    q.d /= norm;
-    return (q);
-}
 
 t_quat  rev_rotate(t_quat q)
 {
@@ -29,6 +18,7 @@ void    calc_viewport(t_data *data)
     int		v;
 	int		j;
 	int		i;
+    //t_vec   dir_vec;
 
     v = 0;
 	j = 0;
@@ -86,17 +76,12 @@ void reset_pix(t_data *data)
 	}
 }
 
-
 void    rotate_object(t_data *data, int axis, float value)
 {
     t_quat  rotate;
 
-    // if (data->rotation.obj_type == light)
-    //     return ;
-    // if (axis == x_axis)
-    //     data->rotation.object->beta = value;
-    // if (axis == y_axis)
-    //     data->rotation.object->gamma = value;
+    if (data->rotation.obj_type == light)
+        return ;
     rotate = set_quat(0, 0, 0, 0);
 
     if (data->rotation.obj_type == light)
@@ -138,6 +123,16 @@ void    rotate_object(t_data *data, int axis, float value)
         // data->rotation.object->vec2 = rotate_vector_yaw_pitch_roll(data->rotation.object->vec2, data->rotation.object->beta, data->rotation.object->alpha, data->rotation.object->gamma);
       
 
+    }
+    if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
+    {
+            if (axis == x_axis)
+                rotate = set_quat(cos(value), 0, sin(value), 0);
+            else if (axis == y_axis)
+                rotate = set_quat(cos(value), sin(value), 0, 0);
+            else if (axis == z_axis)
+                rotate = set_quat(cos(value), 0, 0, sin(value));
+        data->rotation.object->vec2 = unit_vector(rotate_vector(data->rotation.object->vec2, rotate));
     }
     if (data->rotation.obj_type == camera && (axis == x_axis || axis == y_axis))
     {
@@ -259,7 +254,7 @@ void    control_keys(mlx_key_data_t kd, t_data *data)
     {
         if (data->rotation.obj_type != object)
             change_object(data, object, NULL);
-        else if ((data->rotation.object->id + 1) < data->object_num)
+        else if (data->rotation.object->id + 1 < data->object_num)
             change_object(data, object, &data->objects[data->rotation.object->id + 1]);
         else
             change_object(data, object, &data->objects[0]);
@@ -274,6 +269,18 @@ void	key_press(mlx_key_data_t kd, void *param)
     control_keys(kd,data);
 }
 
+
+t_quat  unit_quat(t_quat q)
+{
+    float   norm;
+    
+    norm = sqrt(q.a * q.a + q.b * q.b + q.c * q.c + q.d * q.d);
+    q.a /= norm;
+    q.b /= norm;
+    q.c /= norm;
+    q.d /= norm;
+    return (q);
+}
 
 t_vec   rotate_vector(t_vec vec, t_quat r)
 {
