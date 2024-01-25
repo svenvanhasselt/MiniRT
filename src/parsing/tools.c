@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:04:12 by svan-has      #+#    #+#                 */
-/*   Updated: 2023/12/13 15:39:58 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:19:47 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,3 +54,11 @@ float	devide_decimal(float number)
 		number = devide_decimal(number / 10);
 	return (number);
 }
+
+float	check_v(float value, float min, float max)
+{
+	if (value < min || value > max)
+		error_exit("Wrong input data");
+	return (value);
+}
+

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/24 12:06:06 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/25 15:19:52 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -163,6 +163,7 @@ typedef struct s_data
 
 /*  Parsing */
 void	parse_input(int argc, char **argv, char ***split_file, t_data *data);
+float	check_v(float value, float min, float max);
 bool	line_check_data(char *line);
 bool	line_check_object(char *line);
 void	check_object_data(char *string,  char ***split_line, t_data *data, int obj_index);

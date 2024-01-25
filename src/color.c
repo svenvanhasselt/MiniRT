@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/24 13:09:15 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/25 16:37:54 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,17 +119,15 @@ t_vec ray_color(t_ray ray, float t, t_object *object, t_data *data)
 		surf_norm = calc_surface_normal(intersect_p, object->vec);
 	diffuse = calc_diffuse(data->light.vec, surf_norm, intersect_p, data->light.brightness);
 	col = mult_fact(object->color, diffuse);
-	amb = mult_fact(data->amb_light.color, data->amb_light.ambient);
-	// 	float dist = vec_len(sub(intersect_p, data->light.vec));
-	// float at = 1.0f / (1 * dist * dist);
-	// amb = mult_fact(data->amb_light.color,(data->amb_light.ambient * at));
+	amb = mult(object->color, data->amb_light.color);
+	amb = mult_fact(amb, data->amb_light.ambient);
 	col = add(col, amb);
 	col.x = clamp(col.x, 0.0, 1.0);
    	col.y = clamp(col.y, 0.0, 1.0);
    	col.z = clamp(col.z, 0.0, 1.0);
 	shadow_ray = unit_vector(sub(data->light.vec, intersect_p));
 	if (check_obj(data, set_ray(intersect_p, shadow_ray), object->id) && !inside)
-		return (mult_fact(add(set_vec(0.0f,0.0f,0.0f), amb), 1.5));
+		return (add(set_vec(0.0f,0.0f,0.0f), amb));
    // gamma correction?
 
 

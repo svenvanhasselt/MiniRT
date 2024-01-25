@@ -1,6 +1,6 @@
 #resolution
 #	width	height	anti-alias [0-5]	# reflections
-R	800		600		0					5
+R	800		600	
 
 #ambient
 #	brightness [0-1]			color
