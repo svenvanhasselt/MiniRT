@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:04:12 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/25 15:19:47 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 12:46:54 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,3 @@ float	check_v(float value, float min, float max)
 		error_exit("Wrong input data");
 	return (value);
 }
-

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/24 12:05:47 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 11:13:08 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,19 +40,9 @@ void	print_pix(t_data *data)
 
 void	init_rotation(t_data *data)
 {
-	int	i;
-
-	data->rotation.action = translate_object;
+	data->rotation.action = translation;
 	data->rotation.object = &data->objects[0];
 	data->rotation.obj_type = object;
-	i = 0;
-	while (i < data->object_num)
-	{
-		data->objects[i].gamma = 0;
-		data->objects[i].alpha = 0;
-		data->objects[i].beta = 0;
-		i++;
-	}
 }
 
 t_data	*init(int argc, char **argv)

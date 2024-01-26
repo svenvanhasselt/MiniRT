@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/25 15:19:52 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 12:37:36 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,6 @@ typedef struct s_object
 	float	height;
 	float	angle;
 	float	k;
-	float		gamma;
-	float		alpha;
-	float		beta;
 }t_object;
 
 typedef struct s_pixel
@@ -215,18 +212,38 @@ t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
 t_ray		set_ray(t_vec orig, t_vec dir);
 t_pixel		set_pixel(t_ray ray, int u, int v, uint32_t col);
+void   		calc_viewport(t_data *data);
 
 //color
 uint32_t	get_rgba(float r, float g, float b);
 float		clamp(float value, float min, float max);
+t_vec		calc_surface_normal(t_vec intersection_point, t_vec oc);
+float		calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, float brightness);
+t_vec		norm_sphere(t_ray ray, t_object *object, bool *inside, t_vec hit_point);
+t_vec		norm_cylinder(t_ray ray, t_object *object, t_vec hit_point);
+t_vec		norm_cone(t_ray ray, t_object *object, t_vec hit_point);
+t_vec		norm_plane(t_ray ray, t_object *object);
+
 
 //rotation
 t_vec		init_camera(t_data *data, float j, float i);
 t_vec		rotate_vector(t_vec vec, t_quat r);
+void    	rotation(t_data *data, int axis, float value);
+void    	translation(t_data *data, int axis, float value);
+void    	change_object(t_data *data, int type, t_object *obj);
 void		key_press(mlx_key_data_t kd, void *param);
-//void		give_color(t_data *data, int weith, int high, int v);
 void		init_pix(t_data *data);
 void		print_pix(t_data *data);
-void    	calc_viewport(t_data *data);
-void   		translate_object(t_data *data, int axis, float value);
+t_quat 		set_quat(float a, float b, float c, float d);
+void		reset_pix(t_data *data);
+t_quat 		unit_quat(t_quat q);
+
+
+void 		print_message(t_data *data, char *message);
+
+// Key controls
+void 		moving_keys(mlx_key_data_t kd, t_data *data);
+void   		control_keys(mlx_key_data_t kd, t_data *data);
+void		key_press(mlx_key_data_t kd, void *param);
+
 #endif

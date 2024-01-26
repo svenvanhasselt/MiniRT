@@ -6,7 +6,7 @@
 #    By: sven <sven@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/01/24 12:00:42 by svan-has      ########   odam.nl          #
+#    Updated: 2024/01/26 12:39:52 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,19 +23,9 @@ SRC_DIR := src
 OBJ_DIR := obj
 DIR_DUP = mkdir -p $(@D)
 SRC := \
-	main.c \
-	parsing/parsing.c \
-	parsing/tools.c \
-	parsing/objects.c \
-	parsing/checks.c \
-	parsing/data.c \
-	parsing/errors.c \
-	errors.c \
-	color.c \
-	vector.c\
-	vector_util.c\
-	rotation.c\
-	camera.c\
+	color/color.c \
+	color/tools.c \
+	color/objects.c \
 	intersection/hit_object.c\
 	intersection/hit_plane.c\
 	intersection/hit_sphere.c\
@@ -43,7 +33,23 @@ SRC := \
 	intersection/hit_cylinder_caps.c\
 	intersection/hit_cone.c\
 	intersection/math.c\
+	parsing/parsing.c \
+	parsing/tools.c \
+	parsing/objects.c \
+	parsing/checks.c \
+	parsing/data.c \
+	parsing/errors.c \
+	rotation/rotation.c\
+	rotation/tools.c\
+	rotation/translation.c\
+	camera.c\
+	errors.c \
+	keys.c\
+	main.c \
 	setter.c\
+	tools.c\
+	vector.c\
+	vector_util.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
