@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 13:04:12 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 12:46:54 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 15:26:09 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,10 @@ void	replace_char(char **string, char a, char b)
 	}
 }
 
-void	count_objects(char *file, t_data *data)
+void	count_objects(t_data *data, int rt_file)
 {
-	int		rt_file;
 	char	*line;
 
-	rt_file = open (file, O_RDONLY);
-	if (rt_file < 0)
-		error_exit("Cannot open file");
 	while (1)
 	{
 		line = get_next_line(rt_file);
@@ -58,6 +54,6 @@ float	devide_decimal(float number)
 float	check_v(float value, float min, float max)
 {
 	if (value < min || value > max)
-		error_exit("Wrong input data");
+		error_exit("Input data outside permitted value");
 	return (value);
 }

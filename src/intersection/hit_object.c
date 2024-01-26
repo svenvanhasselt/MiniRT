@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/26 13:43:59 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/24 12:02:39 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 14:07:05 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,8 @@ bool	hit_object(t_data *data, int v)
 		else if (data->objects[i].type == cone
 			&& hit_cone(&data->objects[i], &data->all_ray[v]))
 			compare_update_t(&data->objects[i], &data->all_ray[v]);
-		else if (data->objects[i].type == cone && hit_cone(&data->objects[i], &data->all_ray[v]))
+		else if (data->objects[i].type == cone && hit_cone(&data->objects[i], \
+		&data->all_ray[v]))
 			compare_update_t(&data->objects[i], &data->all_ray[v]);
 		i++;
 	}

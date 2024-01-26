@@ -6,13 +6,13 @@
 #    By: sven <sven@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/01/26 12:39:52 by svan-has      ########   odam.nl          #
+#    Updated: 2024/01/26 15:05:38 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -Wall -Werror -Wextra #-g -fsanitize=address 
+FLAG = -Wall -Werror -Wextra
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
@@ -42,14 +42,13 @@ SRC := \
 	rotation/rotation.c\
 	rotation/tools.c\
 	rotation/translation.c\
-	camera.c\
-	errors.c \
-	keys.c\
+	tools/errors.c \
+	tools/keys.c\
+	tools/setter.c\
+	tools/tools.c\
+	tools/vector.c\
+	tools/vector_util.c\
 	main.c \
-	setter.c\
-	tools.c\
-	vector.c\
-	vector_util.c\
 
 SRC := $(SRC:%=$(SRC_DIR)/%)
 OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)

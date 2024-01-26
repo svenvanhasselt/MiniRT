@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 10:59:58 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 11:59:35 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 14:06:18 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ void	rotate_object(t_data *data, int axis, float value)
 		rotate = set_quat(cos_value, 0, 0, sin_value);
 	data->rotation.object->vec2 = unit_vector(\
 	rotate_vector(data->rotation.object->vec2, rotate));
-	printf("x: %f y: %f z: %f\n", data->rotation.object->vec2.x, data->rotation.object->vec2.y, data->rotation.object->vec2.z);
 }
 
 void	rotate_camera(t_data *data, int axis, float value)
@@ -60,15 +59,21 @@ t_vec	rotate_vector(t_vec vec, t_quat r)
 	t_vec	rotated_vector;
 	t_quat	vec_quat;
 	t_quat	rot_quat;
+	t_quat	rot_quat1;
 
-	vec_quat = set_quat (0, vec.x, vec.y, vec.z);
-	rot_quat = set_quat (\
+	vec_quat = set_quat(0, vec.x, vec.y, vec.z);
+	rot_quat = set_quat(\
 	r.a * vec_quat.a - r.b * vec_quat.b - r.c * vec_quat.c - r.d * vec_quat.d, \
 	r.a * vec_quat.b + r.b * vec_quat.a + r.c * vec_quat.d - r.d * vec_quat.c, \
 	r.a * vec_quat.c - r.b * vec_quat.d + r.c * vec_quat.a + r.d * vec_quat.b, \
 	r.a * vec_quat.d + r.b * vec_quat.c - r.c * vec_quat.b + r.d * vec_quat.a \
 	);
-	rot_quat = unit_quat(rot_quat);
-	rotated_vector = set_vec(rot_quat.b, rot_quat.c, rot_quat.d);
+	rot_quat1 = set_quat(\
+	r.a * rot_quat.a - r.b * rot_quat.b - r.c * rot_quat.c - r.d * rot_quat.d, \
+	r.a * rot_quat.b + r.b * rot_quat.a + r.c * rot_quat.d - r.d * rot_quat.c, \
+	r.a * rot_quat.c - r.b * rot_quat.d + r.c * rot_quat.a + r.d * rot_quat.b, \
+	r.a * rot_quat.d + r.b * rot_quat.c - r.c * rot_quat.b + r.d * rot_quat.a \
+	);
+	rotated_vector = set_vec(rot_quat1.b, rot_quat1.c, rot_quat1.d);
 	return (rotated_vector);
 }

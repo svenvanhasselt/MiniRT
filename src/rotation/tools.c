@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 10:34:01 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 11:27:47 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 15:37:18 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_quat	unit_quat(t_quat q)
 	return (q);
 }
 
-void	change_object(t_data *data, int type, t_object *obj)
+void	change_type(t_data *data, int type, t_object *obj)
 {
 	char	*object;
 	char	*object_id;
@@ -77,4 +77,11 @@ void	change_object(t_data *data, int type, t_object *obj)
 		free(object);
 		free(object_id);
 	}
+}
+
+void	init_rotation(t_data *data)
+{
+	data->rotation.action = translation;
+	data->rotation.object = &data->objects[0];
+	data->rotation.obj_type = object;
 }

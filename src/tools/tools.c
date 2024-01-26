@@ -6,11 +6,11 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 10:53:12 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 12:51:07 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 15:02:57 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
 void	add_color(t_data *data, int i, int j, int v)
 {

@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/24 12:02:30 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 15:09:09 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool	hit_cylinder(t_object *obj, t_ray *ray)
 
 	t = hit_cylinder_caps(obj, ray);
 	t2 = hit_cylinder_body(obj, ray);
-	obj->t = t2;//compare_t(t, t2);
+	obj->t = t2;
 	if (obj->t > 0)
 		return (true);
 	return (false);

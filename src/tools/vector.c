@@ -6,11 +6,11 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/18 12:57:37 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/23 17:24:50 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/26 15:03:04 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 #include <math.h>
 
 t_vec	unit_vector(t_vec v)

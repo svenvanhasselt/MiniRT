@@ -6,11 +6,11 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/23 15:43:33 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 18:21:42 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/26 15:02:52 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 
 t_vec	set_vec(float x, float y, float z)
 {

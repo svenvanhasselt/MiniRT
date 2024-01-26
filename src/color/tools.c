@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 11:35:54 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 12:43:25 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 16:00:25 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,21 @@ float brightness)
 	return (diffuse * brightness);
 }
 
+t_vec	calc_ambient(t_data *data, t_object *object)
+{
+	t_vec	amb;
+
+	amb = mult(object->color, data->amb_light.color);
+	amb = mult_fact(amb, data->amb_light.ambient);
+	return (amb);
+}
+
 float	clamp(float value, float min, float max)
 {
 	if (value < min)
-		value = 0.0;
+		value = min;
 	if (value > max)
-		value = 1.0;
+		value = max;
 	return (value);
 }
 

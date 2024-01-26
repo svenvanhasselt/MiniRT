@@ -6,11 +6,11 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/19 18:28:13 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/19 18:29:02 by yizhang       ########   odam.nl         */
+/*   Updated: 2024/01/26 15:03:00 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../minirt.h"
+#include "../../minirt.h"
 #include <math.h>
 
 t_vec	add(t_vec v1, t_vec v2)

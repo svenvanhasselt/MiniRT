@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/26 11:13:08 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/26 15:04:10 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,9 @@
 
 void	free_data(t_data *data)
 {
+	free(data->viewport);
+	free(data->all_ray);
+	free(data->all_pix);
 	free(data->objects);
 	free(data);
 }
@@ -38,11 +41,24 @@ void	print_pix(t_data *data)
 		0, data->viewport_h);
 }
 
-void	init_rotation(t_data *data)
+t_vec	init_camera(t_data *data, float j, float i)
 {
-	data->rotation.action = translation;
-	data->rotation.object = &data->objects[0];
-	data->rotation.obj_type = object;
+	t_vec	world_up_vec;
+	t_vec	heart;
+	t_vec	move_left;
+	t_vec	move_up;
+
+	world_up_vec = set_vec(0, 1, 0);
+	data->camera.right = unit_vector(cross(world_up_vec, data->camera.ovec));
+	data->camera.up = unit_vector(cross
+			(data->camera.ovec, data->camera.right));
+	heart = add(data->camera.vec,
+			mult_fact(data->camera.ovec, data->camera.focal_length));
+	move_left = sub(heart, mult_fact
+			(data->camera.right, data->viewport_w / 2 - j));
+	move_up = add(move_left, mult_fact
+			(data->camera.up, data->viewport_h / 2 - i));
+	return (move_up);
 }
 
 t_data	*init(int argc, char **argv)
@@ -83,9 +99,6 @@ int	main(int argc, char **argv)
 	mlx_loop(data->mlx);
 	mlx_delete_image(data->mlx, data->img);
 	mlx_terminate(data->mlx);
-	free(data->viewport);
-	free(data->all_ray);
-	free(data->all_pix);
 	free_data(data);
 	return (0);
 }
