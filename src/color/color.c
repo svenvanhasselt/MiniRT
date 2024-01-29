@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/26 14:00:39 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/29 18:04:40 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,12 @@ bool	check_obj(t_data *data, t_ray ray, int id)
 			return (true);
 		else if (data->objects[i].type == plane && \
 		hit_plane(&data->objects[i], &ray) && data->objects[i].id != id)
+		{
+			// printf("id: %d\n", data->objects[i].id );
+			if (data->objects[i].id != id)
+                return true;
 			return (true);
+		}
 		else if (data->objects[i].type == cylinder && \
 		hit_cylinder(&data->objects[i], &ray) && data->objects[i].id != id)
 			return (true);
@@ -47,6 +52,27 @@ bool inside)
 	return (false);
 }
 
+// t_vec reflect(t_vec incident, t_vec normal) {
+//     float dotProduct = dot(incident, normal);
+//     t_vec reflection = mult_fact(normal, 2.0 * dotProduct);
+//     return reflection;
+// }
+
+// t_vec	add_specular(t_data *data, t_vec hit_point, \
+// t_vec surf_norm)
+// {
+// 	t_vec	view_dir;
+// 	t_vec	reflect_dir;
+// 	float	spec_term;
+
+// 	view_dir = unit_vector(sub(data->camera.vec, hit_point));
+// 	reflect_dir = reflect(view_dir, surf_norm);
+// 	spec_term = pow(fmax(dot(view_dir, reflect_dir), 0.0), 30.0f);
+// 	spec_term = clamp(spec_term, 0, 1);
+// 	t_vec specular = mult_fact(set_vec(1.0f, 1.0f, 1.0f), 30.0f * 0.5f);
+// 	return (specular);
+// }
+
 t_vec	add_shading(t_data *data, t_object *object, t_vec hit_point, \
 t_vec surf_norm)
 {
@@ -57,11 +83,14 @@ t_vec surf_norm)
 	data->light.brightness);
 	col = mult_fact(object->color, diffuse);
 	col = add(col, calc_ambient(data, object));
+	// col = add(col, add_specular(data, hit_point, surf_norm));
 	col.x = clamp(col.x, 0.0, 1.0);
 	col.y = clamp(col.y, 0.0, 1.0);
 	col.z = clamp(col.z, 0.0, 1.0);
 	return (col);
 }
+
+
 
 t_vec	ray_color(t_ray ray, float t, t_object *object, t_data *data)
 {

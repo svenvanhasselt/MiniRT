@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/24 13:54:09 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/25 15:29:23 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/29 11:23:14 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ void	parse_camera(char ***split_line, t_data *data)
 	data->camera.vec.x = ft_atof(split_line[0][0]);
 	data->camera.vec.y = ft_atof(split_line[0][1]);
 	data->camera.vec.z = ft_atof(split_line[0][2]);
-	data->camera.ovec.x = check_v(ft_atof(split_line[1][0]), 0, 1);
-	data->camera.ovec.y = check_v(ft_atof(split_line[1][1]), 0, 1);
-	data->camera.ovec.z = check_v(ft_atof(split_line[1][2]), 0, 1);
+	data->camera.ovec.x = check_v(ft_atof(split_line[1][0]), -1, 1);
+	data->camera.ovec.y = check_v(ft_atof(split_line[1][1]), -1, 1);
+	data->camera.ovec.z = check_v(ft_atof(split_line[1][2]), -1, 1);
 	data->camera.fov = check_v(ft_atof(split_line[2][0]), 0, 180);
 }
 
