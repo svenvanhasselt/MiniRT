@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/26 15:37:28 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/30 17:35:09 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -184,7 +184,7 @@ float		dot(t_vec v1, t_vec v2);
 t_vec		cross(t_vec v1, t_vec v2);
 float		vec_len(t_vec v);
 t_vec		unit_vector(t_vec v);
-t_vec		calc_intersection_point(t_ray r, float t);
+t_vec		calc_hitpoint(t_ray r, float t);
 t_vec		mult_fact(t_vec vec, float fact);
 t_vec		mult(t_vec v1, t_vec v2);
 
@@ -193,13 +193,13 @@ bool		hit_object(t_data *data, int v);
 bool		hit_sphere(t_object *obj, t_ray *r);
 bool		hit_plane(t_object *obj, t_ray *ray);
 bool		hit_cone(t_object *obj, t_ray *ray);
+bool		hit_cylinder(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
 bool		calculate_t_and_m(t_object *obj, t_ray *ray);
 float		discriminant(float a, float b, float c);
 void		compare_update_t(t_object *obj, t_ray *ray);
 float		compare_t(float t, float t2);
-bool		hit_cylinder(t_object *obj, t_ray *ray);
 t_vec		ray_color(t_ray ray, float t, t_object *object, t_data *data);
 t_vec		set_facenorm(t_vec ray_dir, t_vec face);
 t_vec		set_vec(float x, float y, float z);
@@ -218,6 +218,10 @@ t_vec		norm_sphere(t_ray ray, t_object *object, t_vec hit_point);
 t_vec		norm_cylinder(t_ray ray, t_object *object, t_vec hit_point);
 t_vec		norm_cone(t_ray ray, t_object *object, t_vec hit_point);
 t_vec		norm_plane(t_ray ray, t_object *object);
+bool		hit_sphere2(t_object *obj, t_ray *r);
+bool		hit_plane2(t_object *obj, t_ray *ray, t_data *data);
+bool		hit_cone2(t_object *obj, t_ray *ray);
+bool		hit_cylinder2(t_object *obj, t_ray *ray);
 
 /* Rotation & Translation */
 void		init_rotation(t_data *data);

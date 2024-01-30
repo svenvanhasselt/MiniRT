@@ -6,7 +6,7 @@
 #    By: sven <sven@student.42.fr>                    +#+                      #
 #                                                    +#+                       #
 #    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/01/26 15:05:38 by svan-has      ########   odam.nl          #
+#    Updated: 2024/01/30 17:31:44 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRC := \
 	color/color.c \
 	color/tools.c \
 	color/objects.c \
+	color/inter_shadow.c \
 	intersection/hit_object.c\
 	intersection/hit_plane.c\
 	intersection/hit_sphere.c\

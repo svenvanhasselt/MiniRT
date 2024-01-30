@@ -6,36 +6,77 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/29 18:04:40 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/30 17:42:01 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
 
+// float	dist2(t_vec vec)
+// {
+// 	return (sqrt((vec.x * vec.x) + (vec.y * vec.y) + (vec.z * vec.z)));
+// }
+
+float	distance(t_vec a, t_vec b)
+{
+	float	x;
+	float	y;
+	float	z;
+
+	x = a.x - b.x;
+	y = a.y - b.y;
+	z = a.z - b.z;
+	x = pow(x, 2);
+	y = pow(y, 2);
+	z = pow(z, 2);
+	return (sqrt(x + y + z));
+}
+
+
+t_vec	*ray_mul(t_vec *dst, t_ray *r, float t)
+{
+	dst->x = r->orig.x + t * r->dir.x;
+	dst->y = r->orig.y + t * r->dir.y;
+	dst->z = r->orig.z + t * r->dir.z;
+	return (dst);
+}
+
+bool	check_test(t_data *data, t_ray ray)
+{
+	float	len;
+	t_vec	hitpoint;
+	float	max_len;
+
+	hitpoint = calc_hitpoint(ray, ray.t);
+	
+	len = distance(ray.orig, hitpoint);
+	max_len = distance(ray.orig, data->light.vec);
+	// if (len < max_len)
+	// 	return (false);
+
+	return (true);
+}
+
+
 bool	check_obj(t_data *data, t_ray ray, int id)
 {
 	int	i;
-
+	
 	i = 0;
 	while (i < data->object_num)
 	{
 		if (data->objects[i].type == sphere && \
 		hit_sphere(&data->objects[i], &ray) && data->objects[i].id != id)
-			return (true);
+			return (check_test(data, ray));
 		else if (data->objects[i].type == plane && \
-		hit_plane(&data->objects[i], &ray) && data->objects[i].id != id)
-		{
-			// printf("id: %d\n", data->objects[i].id );
-			if (data->objects[i].id != id)
-                return true;
-			return (true);
-		}
+		hit_plane2(&data->objects[i], &ray, data) && data->objects[i].id != id)
+			return (check_test(data, ray));
 		else if (data->objects[i].type == cylinder && \
 		hit_cylinder(&data->objects[i], &ray) && data->objects[i].id != id)
-			return (true);
+			return (check_test(data, ray));
 		else if (data->objects[i].type == cone && \
 		hit_cone(&data->objects[i], &ray) && data->objects[i].id != id)
-			return (true);
+			return (check_test(data, ray));
 		i++;
 	}
 	return (false);
@@ -99,7 +140,7 @@ t_vec	ray_color(t_ray ray, float t, t_object *object, t_data *data)
 	bool	inside;
 
 	inside = false;
-	hit_point = calc_intersection_point(ray, t);
+	hit_point = calc_hitpoint(ray, t);
 	if (object->type == plane)
 		surf_norm = norm_plane(ray, object);
 	else if (object->type == sphere)
