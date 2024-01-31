@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/30 14:50:22 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/31 12:19:32 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,14 @@ float	compare_t(float t, float t2)
 
 void	compare_update_t(t_object *obj, t_ray *ray)
 {
+	if (ray->t == obj->t && ray->t != -1)
+		return ;
 	ray->t = compare_t(obj->t, ray->t);
 	if (ray->t == obj->t && ray->t >= 0)
+	{	
+		ray->inside = obj->inside;
 		ray->obj = obj;
+	}
 }
 
 bool	calculate_t_and_m(t_object *obj, t_ray *ray)
@@ -55,9 +60,9 @@ bool	calculate_t_and_m(t_object *obj, t_ray *ray)
 		|| (obj->m2 <= obj->height / 2 && obj->m2 >= -obj->height / 2))
 	{
 		if (obj->m1 <= obj->height / 2 && obj->m1 >= -obj->height / 2)
-			ray->inside = false;
+			obj->inside = false;
 		else
-			ray->inside = true;
+			obj->inside = true;
 		return (true);
 	}
 	obj->t = -1;

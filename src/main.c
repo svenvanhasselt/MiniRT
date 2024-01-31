@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 17:46:14 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/26 15:04:10 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/31 14:42:48 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	print_pix(t_data *data)
 		"Rotation: 'R' | Translation: 'T'| Moving: 'A'+'D', 'S'+'W', 'Q'+'E'",
 		0, data->viewport_h + 25);
 	mlx_put_string(data->mlx,
-		"Select objects: 'O' | Camera: 'A' | Light: 'L'",
+		"Select objects: 'O' | Camera: 'C' | Light: 'L'",
 		0, data->viewport_h);
 }
 

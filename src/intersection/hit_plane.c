@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/11/27 09:24:28 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/30 17:13:44 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/31 12:08:10 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,11 @@ bool	hit_plane(t_object *obj, t_ray *ray)
 	// hitpoint = calc_hitpoint(*ray, ray->t);
 	// len = vec_len(sub(hitpoint, ray->orig));
 	// printf("len: %f\n", len);
+	
+	if (dot(ray->dir, obj->vec2) > 0)
+		obj->inside = true;
+	else
+		obj->inside = false;
 	if (obj->t >= 0)
 		return (true);
 	return (false);

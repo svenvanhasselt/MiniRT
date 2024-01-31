@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/01/30 17:35:09 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/01/31 13:05:31 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ typedef struct s_object
 	float	height;
 	float	angle;
 	float	k;
+	bool	inside;
 }	t_object;
 
 typedef struct s_pixel
@@ -214,14 +215,14 @@ t_vec		calc_surface_normal(t_vec intersection_point, t_vec oc);
 float		calc_diffuse(t_vec light_pos, t_vec surf_norm, \
 t_vec inter_point, float brightness);
 t_vec		calc_ambient(t_data *data, t_object *object);
-t_vec		norm_sphere(t_ray ray, t_object *object, t_vec hit_point);
+t_vec		norm_sphere(t_ray *ray, t_object *object, t_vec hit_point);
 t_vec		norm_cylinder(t_ray ray, t_object *object, t_vec hit_point);
 t_vec		norm_cone(t_ray ray, t_object *object, t_vec hit_point);
 t_vec		norm_plane(t_ray ray, t_object *object);
-bool		hit_sphere2(t_object *obj, t_ray *r);
+bool		hit_sphere2(t_object *obj, t_ray *ray, t_data *data);
 bool		hit_plane2(t_object *obj, t_ray *ray, t_data *data);
 bool		hit_cone2(t_object *obj, t_ray *ray);
-bool		hit_cylinder2(t_object *obj, t_ray *ray);
+bool		hit_cylinder2(t_object *obj, t_ray *ray, t_data *data);
 
 /* Rotation & Translation */
 void		init_rotation(t_data *data);
