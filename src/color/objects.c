@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 12:35:41 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/31 14:52:48 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/01 17:47:35 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,9 +57,8 @@ t_vec	norm_plane(t_ray ray, t_object *object)
 {
 	t_vec	surf_norm;
 
-	(void)ray;
-	surf_norm = unit_vector(object->vec2);
-	//if (ray.inside)
-	//	surf_norm = mult_fact(surf_norm, -1);
+	surf_norm = unit_vector(object->vec2);	
+	if (ray.inside)
+		surf_norm = mult_fact(surf_norm, -1);
 	return (surf_norm);
 }
