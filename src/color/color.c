@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/02/01 17:56:53 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/02 15:45:30 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ bool    check_obj(t_data *data, t_ray *ray, int id, t_vec hitpoint)
             //return (true);
         }
         else if (data->objects[i].type == plane && \
-        hit_plane(&data->objects[i], ray) && data->objects[i].id != id)
+        hit_plane2(&data->objects[i], ray, data) && data->objects[i].id != id)
         {
             // printf("yes");
             compare_update_t(&data->objects[i], ray);
@@ -105,7 +105,8 @@ bool inside)
     shadow_ray.dir = unit_vector(sub(data->light.vec, hit_point));
     shadow_ray.orig = hit_point;
     distance = vec_len(sub(data->light.vec, hit_point));
-    if (check_obj(data, &shadow_ray, object->id, hit_point) && !inside)
+    (void)inside;
+    if (check_obj(data, &shadow_ray, object->id, hit_point))
     {
         // t_vec hit_object_point = calc_hitpoint(shadow_ray,shadow_ray.t);
         // float dis_form_hitobject = vec_len(sub(hit_object_point, data->light.vec));

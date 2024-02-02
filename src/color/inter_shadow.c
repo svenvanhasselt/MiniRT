@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/30 17:28:57 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/02/01 15:40:28 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/02 14:32:58 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,25 +89,17 @@ bool	hit_plane2(t_object *obj, t_ray *ray, t_data *data)
 	float	len;
 	float	max_len;
 	
-	float denom = dot(obj->vec2, ray->dir);
-	if (denom == 0)
-		return (false);
 	oc = sub(ray->orig, obj->vec);
-	obj->t = dot(oc, obj->vec2) / denom;
-	if (obj->t < 0.001)
-		return (false);
+	obj->t = -dot(oc, obj->vec2) / dot(ray->dir, obj->vec2);
 	if (dot(obj->vec2, ray->dir) > 0)
 		ray->inside = true;
 	hitpoint = calc_hitpoint(*ray, ray->t);
 	len = vec_len(sub(ray->orig, hitpoint));
 	max_len = vec_len(sub(ray->orig, data->light.vec));
-	// if (len < max_len)
-	// 	return (false);
+	if (len < max_len)
+		return (false);
 	if (obj->t >= 0)
-	{
-		printf("y\n");
 		return (true);
-	}
 	return (false);
 }
 
