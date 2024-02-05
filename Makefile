@@ -1,18 +1,18 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         ::::::::             #
-#    Makefile                                           :+:    :+:             #
-#                                                      +:+                     #
-#    By: sven <sven@student.42.fr>                    +#+                      #
-#                                                    +#+                       #
-#    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
-#    Updated: 2024/02/02 16:45:21 by svan-has      ########   odam.nl          #
+#                                                         :::      ::::::::    #
+#    Makefile                                           :+:      :+:    :+:    #
+#                                                     +:+ +:+         +:+      #
+#    By: sven <sven@student.42.fr>                  +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2023/10/06 17:29:14 by yizhang           #+#    #+#              #
+#    Updated: 2024/02/03 14:59:36 by sven             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = MiniRT
 CC = cc
-FLAG = -Wall -Werror -Wextra
+FLAG = #-Wall -Werror -Wextra
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
