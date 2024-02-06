@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 10:19:24 by yizhang           #+#    #+#             */
-/*   Updated: 2024/02/05 16:40:15 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   color.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/02/06 12:21:55 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,15 @@ bool    check_obj(t_data *data, t_ray *ray, t_vec hitpoint)
     i = 0;
     ray->t = -1;
 
-
-    t_object   *tmp_obj;
     while (i < data->object_num)
     {
         if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], ray))
             compare_update_t(&data->objects[i], ray);           
         else if (data->objects[i].type == plane && hit_plane2(&data->objects[i], ray, data))
+        {
+            printf("plane");
             compare_update_t(&data->objects[i], ray);
+        }
         else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], ray))
             compare_update_t(&data->objects[i], ray);
         else if (data->objects[i].type == cone && hit_cone(&data->objects[i], ray))
@@ -36,21 +37,45 @@ bool    check_obj(t_data *data, t_ray *ray, t_vec hitpoint)
         return (true);
     return (false);
 }
+
+// t_vec	specular_light(t_data *data, t_object *object, t_ray *ray, t_vec hitpoint)
+// {
+//     t_vec   surf_norm;
+
+// 	if (object->type == plane)
+//         surf_norm = norm_plane(ray, object);
+//     else if (object->type == cylinder)
+//         surf_norm = norm_cylinder(ray, object, hitpoint);
+//     else if (object->type == sphere)
+//         surf_norm = norm_sphere(&ray, object, hitpoint);
+//     else
+//         surf_norm = norm_cone(ray, object, hitpoint);
+    
+//     t_vec indicent = unit_vector(sub(data->light.vec, hitpoint));
+//     t_vec  view = unit_vector(sub(data->camera.vec, hitpoint));
+
+//     float dotp = dot(surf_norm, indicent);
+//     t_vec scaledNorm =  
+
+//     t_vec reflection =  
+// }
+
 bool    hard_shadow(t_data *data, t_object *object, t_vec hitpoint, \
 bool inside)
 {
     t_ray   shadow_ray;
     float   distance;
-    // hitpoint = mult_fact(hitpoint, 0.001);
     
     shadow_ray.dir = unit_vector(sub(data->light.vec, hitpoint));
     shadow_ray.orig = hitpoint;
     distance = vec_len(sub(data->light.vec, hitpoint));
-    if (check_obj(data, &shadow_ray, hitpoint))
+    if (check_obj(data, &shadow_ray, hitpoint) )
     {
         if (object->type == cone && !inside)
             return (false);
-         if (object->type == sphere && inside)
+        if (object->type == sphere && inside)
+            return (false);
+        if (object->type == cylinder && !inside)
             return (false);
         t_vec hit_object_point = calc_hitpoint(shadow_ray,shadow_ray.t);
         float dis_form_hitobject = vec_len(sub(data->light.vec,hit_object_point));
