@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/30 17:28:57 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/02/02 14:32:58 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/06 18:43:11 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,33 @@ bool	hit_sphere2(t_object *obj, t_ray *ray, t_data *data)
 	return (false);
 }
 
+// bool	hit_plane2(t_object *obj, t_ray *ray, t_data *data)
+// {
+// 	t_vec	oc;
+// 	t_vec	hitpoint;
+// 	float	len;
+// 	float	max_len;
+	
+// 	oc = sub(ray->orig, obj->vec);
+// 	obj->t = -dot(oc, obj->vec2) / dot(ray->dir, obj->vec2);
+// 	if (dot(ray->dir, obj->vec2) > 0)
+// 		obj->inside = true;
+// 	else
+// 		obj->inside = false;
+// 	hitpoint = calc_hitpoint(*ray, ray->t);
+// 	hitpoint = unit_vector(hitpoint);
+// 	len = vec_len(sub(hitpoint, ray->orig));
+// 	max_len = vec_len(sub(data->light.vec, ray->orig));
+// 	// printf("maxlen %f len %f\n", max_len, len);
+// 	// if (len > 500 || max_len > 500)
+// 	// 	return (true);
+// 	if (len >= max_len)
+// 		return (false);
+// 	if (obj->t >= 0)
+// 		return (true);
+// 	return (false);
+// }
+
 bool	hit_plane2(t_object *obj, t_ray *ray, t_data *data)
 {
 	t_vec	oc;
@@ -90,18 +117,22 @@ bool	hit_plane2(t_object *obj, t_ray *ray, t_data *data)
 	float	max_len;
 	
 	oc = sub(ray->orig, obj->vec);
-	obj->t = -dot(oc, obj->vec2) / dot(ray->dir, obj->vec2);
-	if (dot(obj->vec2, ray->dir) > 0)
-		ray->inside = true;
+	float denom = dot(obj->vec2, ray->dir);
+	if (denom == 0)
+		return (false);
+	obj->t = -dot(oc, obj->vec2) / denom;
+	if (obj->t < 0.0001)
+		return (false);
 	hitpoint = calc_hitpoint(*ray, ray->t);
-	len = vec_len(sub(ray->orig, hitpoint));
-	max_len = vec_len(sub(ray->orig, data->light.vec));
-	if (len < max_len)
+	hitpoint = unit_vector(hitpoint);
+	len = vec_len(sub(hitpoint, ray->orig));
+	max_len = vec_len(sub(data->light.vec, ray->orig));
+	// printf("maxlen %f len %f\n", max_len, len);
+	// if (len > 500 || max_len > 500)
+	// 	return (true);
+	if (len >= max_len)
 		return (false);
 	if (obj->t >= 0)
 		return (true);
 	return (false);
 }
-
-
-
