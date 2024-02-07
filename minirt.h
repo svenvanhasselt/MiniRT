@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   minirt.h                                           :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 15:17:48 by yizhang           #+#    #+#             */
-/*   Updated: 2024/02/05 14:24:08 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   minirt.h                                           :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/09 15:17:48 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/02/07 15:09:59 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -196,6 +196,8 @@ bool		hit_plane(t_object *obj, t_ray *ray);
 bool		hit_cone(t_object *obj, t_ray *ray);
 bool		hit_cylinder(t_object *obj, t_ray *ray);
 float		hit_cylinder_body(t_object *obj, t_ray *ray);
+bool		hit_cylinder2(t_object *obj, t_ray *ray, int id);
+float		hit_cylinder_body2(t_object *obj, t_ray *ray, int id);
 float		hit_cylinder_caps(t_object *obj, t_ray *ray);
 bool		calculate_t_and_m(t_object *obj, t_ray *ray);
 float		discriminant(float a, float b, float c);
@@ -222,7 +224,7 @@ t_vec		norm_plane(t_ray ray, t_object *object);
 bool		hit_sphere2(t_object *obj, t_ray *ray, t_data *data);
 bool		hit_plane2(t_object *obj, t_ray *ray, t_data *data);
 bool		hit_cone2(t_object *obj, t_ray *ray);
-bool		hit_cylinder2(t_object *obj, t_ray *ray, t_data *data);
+void		calculate_t(t_object *obj, t_ray *ray);
 
 /* Rotation & Translation */
 void		init_rotation(t_data *data);

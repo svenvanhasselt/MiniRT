@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/30 17:28:57 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/02/06 18:43:11 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/07 15:16:47 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,22 +33,35 @@ bool	hit_cone2(t_object *obj, t_ray *ray)
 	return (calculate_t_and_m(obj, ray));
 }
 
-bool	hit_cylinder2(t_object *obj, t_ray *ray, t_data *data)
+
+
+float	hit_cylinder_body2(t_object *obj, t_ray *ray, int id)
+{
+	t_vec		u;
+	t_vec		v;
+	float		r2;
+
+
+	obj->inside = false;
+	r2 = obj->diameter * obj->diameter * 0.25;
+	u = cross(ray->dir, obj->vec2);
+	v = sub(ray->orig, obj->vec);
+	v = cross(v, obj->vec2);
+	obj->discrim.a = dot(u, u);
+	obj->discrim.b = 2 * dot(u, v);
+	obj->discrim.c = dot(v, v) - r2;
+	obj->discrim.d = discriminant(obj->discrim.a, obj->discrim.b, obj->discrim.c);
+	if (obj->discrim.d < 0)
+		return (-1);
+	calculate_t(obj, ray);
+	return (obj->t);
+}
+
+bool	hit_cylinder2(t_object *obj, t_ray *ray, int id)
 {
 	float	t;
-	float	t2;
-	t_vec	hitpoint;
-	float	len;
-	float	max_len;
 
-	t = hit_cylinder_caps(obj, ray);
-	t2 = hit_cylinder_body(obj, ray);
-	obj->t = t2;
-	hitpoint = calc_hitpoint(*ray, ray->t);
-	len = vec_len(sub(ray->orig, hitpoint));
-	max_len = vec_len(sub(ray->orig, data->light.vec));
-	if (len < max_len)
-		return (false);
+	t = hit_cylinder_body2(obj, ray, id);
 	if (obj->t > 0)
 		return (true);
 	return (false);

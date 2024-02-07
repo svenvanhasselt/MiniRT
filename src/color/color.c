@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   color.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 10:19:24 by yizhang           #+#    #+#             */
-/*   Updated: 2024/02/07 10:15:10 by sven             ###   ########.fr       */
+/*                                                        ::::::::            */
+/*   color.c                                            :+:    :+:            */
+/*                                                     +:+                    */
+/*   By: sven <sven@student.42.fr>                    +#+                     */
+/*                                                   +#+                      */
+/*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
+/*   Updated: 2024/02/07 16:12:38 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,7 @@ bool    check_obj(t_data *data, t_ray *ray, t_vec hitpoint, int id)
 
     t_object   *tmp_obj;
     while (i < data->object_num)
-    {
-        
+    {        
         if (data->objects[i].type == sphere && hit_sphere(&data->objects[i], ray)  )
             compare_update_t(&data->objects[i], ray);         
         else if (data->objects[i].type == plane && hit_plane2(&data->objects[i], ray, data))
@@ -29,11 +28,17 @@ bool    check_obj(t_data *data, t_ray *ray, t_vec hitpoint, int id)
             compare_update_t(&data->objects[i], ray);
         }
         else if (data->objects[i].type == cylinder && hit_cylinder(&data->objects[i], ray))
-            compare_update_t(&data->objects[i], ray);
-        else if (data->objects[i].type == cone && hit_cone(&data->objects[i], ray) )
+        {
+            if (id != data->objects[i].id)
+            {
+                compare_update_t(&data->objects[i], ray);
+            }
+        }
+        else if (data->objects[i].type == cone && hit_cone(&data->objects[i], ray)  && id != data->objects[i].id)
             compare_update_t(&data->objects[i], ray);
         i++;
     }
+
     if (ray->t >= 0)
         return (true);
     return (false);
@@ -50,11 +55,14 @@ bool inside)
     distance = vec_len(sub(data->light.vec, hitpoint));
     if (check_obj(data, &shadow_ray, hitpoint, object->id))
     {
-    
+        // if (object->id == shadow_ray.obj->id)
+        //     return (false);
+        if (object->type == sphere && inside) // Keep
+            return (false);
         if (object->type == cylinder && inside)
             return (true);
-        if (object->id == shadow_ray.obj->id)
-            return (false);
+      
+        
         t_vec hit_object_point = calc_hitpoint(shadow_ray,shadow_ray.t);
         float dis_form_hitobject = vec_len(sub(hitpoint,hit_object_point));
         if (distance >= dis_form_hitobject)

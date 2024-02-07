@@ -50,7 +50,7 @@ void	calculate_t(t_object *obj, t_ray *ray)
 	}
 	hitpoint = calc_hitpoint(*ray, obj->t);
 	if (vec_len(sub(hitpoint, obj->vec)) < max)
-		return (obj->t);
+		return ;
 	else
 		obj->t = -1;
 }
