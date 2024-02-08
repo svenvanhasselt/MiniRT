@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/30 17:28:57 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/02/07 15:16:47 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/08 18:27:18 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,9 +140,6 @@ bool	hit_plane2(t_object *obj, t_ray *ray, t_data *data)
 	hitpoint = unit_vector(hitpoint);
 	len = vec_len(sub(hitpoint, ray->orig));
 	max_len = vec_len(sub(data->light.vec, ray->orig));
-	// printf("maxlen %f len %f\n", max_len, len);
-	// if (len > 500 || max_len > 500)
-	// 	return (true);
 	if (len >= max_len)
 		return (false);
 	if (obj->t >= 0)

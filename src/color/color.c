@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                    +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/10/10 10:19:24 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/02/08 18:22:41 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/08 18:31:40 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,7 @@ t_vec   ray_color(t_ray ray, float t, t_object *object, t_data *data)
 {
     t_vec   hitpoint;
     t_vec   surf_norm;
-    t -= 0.0001;
+    t -= 0.001;
     hitpoint = calc_hitpoint(ray, t);
     if (object->type == plane)
         surf_norm = norm_plane(ray, object);
