@@ -6,7 +6,7 @@
 /*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2024/01/26 10:53:12 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 15:02:57 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/08 18:10:51 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	calc_viewport(t_data *data)
 		i = 0;
 		while (i < data->viewport_h)
 		{
-			data->viewport[v] = init_camera(data, j, i);
+			data->viewport[v] = unit_vector(init_camera(data, j, i));
 			data->all_ray[v] = set_ray(data->camera.vec, data->viewport[v]);
 			hit_object(data, v);
 			add_color(data, i, j, v);
