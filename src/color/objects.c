@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 12:35:41 by svan-has          #+#    #+#             */
-/*   Updated: 2024/02/03 18:03:31 by sven             ###   ########.fr       */
+/*   Updated: 2024/02/10 15:54:11 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ t_vec	norm_plane(t_ray ray, t_object *object)
 {
 	t_vec	surf_norm;
 
-	surf_norm = unit_vector(object->vec2);	
+	surf_norm = unit_vector(object->vec2);
 	if (ray.inside)
 		surf_norm = mult_fact(surf_norm, -1);
 	return (surf_norm);

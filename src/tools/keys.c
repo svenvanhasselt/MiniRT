@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/26 10:59:01 by svan-has          #+#    #+#             */
-/*   Updated: 2024/02/05 14:17:03 by sven             ###   ########.fr       */
+/*   Updated: 2024/02/10 16:40:35 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	change_shape(t_data *data, int axis, float value)
 
 void	moving_keys(mlx_key_data_t kd, t_data *data)
 {
-	kd.key = 0;
+	(void)kd;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_A))
 		data->rotation.action(data, x_axis, -0.3);
 	else if (mlx_is_key_down(data->mlx, MLX_KEY_D))
@@ -67,7 +67,7 @@ void	change_object(t_data *data)
 
 void	control_keys(mlx_key_data_t kd, t_data *data)
 {
-	kd.key = 0;
+	(void)kd;
 	if (mlx_is_key_down(data->mlx, MLX_KEY_R))
 	{
 		data->rotation.action = rotation;

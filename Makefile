@@ -6,13 +6,13 @@
 #    By: sven <sven@student.42.fr>                  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/06 17:29:14 by yizhang           #+#    #+#              #
-#    Updated: 2024/02/03 14:59:36 by sven             ###   ########.fr        #
+#    Updated: 2024/02/10 16:50:09 by sven             ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = MiniRT
+NAME = miniRT
 CC = cc
-FLAG = #-Wall -Werror -Wextra
+FLAG =  -Wall -Werror -Wextra
 LIBFT := lib/libft
 LIBMLX	:= lib/mlx42
 LIBS := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a
@@ -89,7 +89,7 @@ fclean: clean
 
 re:fclean all
 
-.PHONY: clean fclean re
+.PHONY: all clean fclean re
 	
 	
 	

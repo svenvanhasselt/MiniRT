@@ -6,7 +6,7 @@
 /*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 10:25:21 by yizhang           #+#    #+#             */
-/*   Updated: 2024/02/03 23:57:19 by sven             ###   ########.fr       */
+/*   Updated: 2024/02/10 15:59:24 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,5 @@ bool	hit_cone(t_object *obj, t_ray *ray)
 		- (1 + tana * tana) * pow(dot(oc, obj->vec2), 2);
 	obj->discrim.d = obj->discrim.b * obj->discrim.b - 4
 		* obj->discrim.a * obj->discrim.c;
-	
-	
 	return (calculate_t_and_m(obj, ray));
 }

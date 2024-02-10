@@ -1,26 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   tools.c                                            :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2024/01/26 11:35:54 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 16:00:25 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   tools.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 11:35:54 by svan-has          #+#    #+#             */
+/*   Updated: 2024/02/10 15:38:41 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../minirt.h"
-
-t_vec	calc_surface_normal(t_vec intersection_point, t_vec oc)
-{
-	t_vec	surf_norm;
-	t_vec	center_to_intersection;
-
-	center_to_intersection = sub(intersection_point, oc);
-	surf_norm = unit_vector(center_to_intersection);
-	return (surf_norm);
-}
 
 float	calc_diffuse(t_vec light_pos, t_vec surf_norm, t_vec inter_point, \
 float brightness)

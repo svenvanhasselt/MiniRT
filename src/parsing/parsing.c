@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        ::::::::            */
-/*   parsing.c                                          :+:    :+:            */
-/*                                                     +:+                    */
-/*   By: svan-has <svan-has@student.codam.nl>         +#+                     */
-/*                                                   +#+                      */
-/*   Created: 2023/10/10 12:06:04 by svan-has      #+#    #+#                 */
-/*   Updated: 2024/01/26 15:15:25 by svan-has      ########   odam.nl         */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/10/10 12:06:04 by svan-has          #+#    #+#             */
+/*   Updated: 2024/02/10 16:48:43 by sven             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ void	process_split_line(char **split_file, t_data *data, int obj_index)
 	int		i;
 	char	***split_line;
 
-	(void)data;
 	split_line = NULL;
 	i = 0;
 	while (split_file[i])

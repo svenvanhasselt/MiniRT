@@ -1,34 +1,16 @@
-// /* ************************************************************************** */
-// /*                                                                            */
-// /*                                                        ::::::::            */
-// /*   hit_cylinder.c                                     :+:    :+:            */
-// /*                                                     +:+                    */
-// /*   By: sven <sven@student.42.fr>                    +#+                     */
-// /*                                                   +#+                      */
-// /*   Created: 2023/11/27 16:47:30 by yizhang       #+#    #+#                 */
-// /*   Updated: 2024/02/02 17:28:22 by svan-has      ########   odam.nl         */
-// /*                                                                            */
-// /* ************************************************************************** */
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   hit_cylinder.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: sven <sven@student.42.fr>                  +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/27 16:47:30 by yizhang           #+#    #+#             */
+/*   Updated: 2024/02/10 16:41:36 by sven             ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "../../minirt.h"
-
-// float	hit_cylinder_body(t_object *obj, t_ray *ray)
-// {
-// 	t_vec	oc;
-
-// 	oc = sub(ray->orig, obj->vec);
-// 	obj->discrim.a = dot(ray->dir, ray->dir)
-// 		- pow(dot(ray->dir, obj->vec2), 2);
-// 	obj->discrim.b = 2 * (dot(ray->dir, oc)
-// 			- dot(ray->dir, obj->vec2) * dot(oc, obj->vec2));
-// 	obj->discrim.c = dot(oc, oc)
-// 		- pow(dot(oc, obj->vec2), 2)
-// 		- pow(obj->diameter / 2, 2);
-// 	obj->discrim.d = discriminant(obj->discrim.a,
-// 			obj->discrim.b, obj->discrim.c);
-// 	calculate_t_and_m(obj, ray);
-// 	return (obj->t);
-// }
 
 void	calculate_t(t_object *obj, t_ray *ray)
 {
@@ -55,7 +37,6 @@ void	calculate_t(t_object *obj, t_ray *ray)
 		obj->t = -1;
 }
 
-
 float	hit_cylinder_body(t_object *obj, t_ray *ray)
 {
 	t_vec		u;
@@ -70,7 +51,8 @@ float	hit_cylinder_body(t_object *obj, t_ray *ray)
 	obj->discrim.a = dot(u, u);
 	obj->discrim.b = 2 * dot(u, v);
 	obj->discrim.c = dot(v, v) - r2;
-	obj->discrim.d = discriminant(obj->discrim.a, obj->discrim.b, obj->discrim.c);
+	obj->discrim.d = discriminant(obj->discrim.a, \
+	obj->discrim.b, obj->discrim.c);
 	if (obj->discrim.d < 0)
 		return (-1);
 	calculate_t(obj, ray);
