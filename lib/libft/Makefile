@@ -6,7 +6,7 @@
 #    By: svan-has <svan-has@student.42.fr>            +#+                      #
 #                                                    +#+                       #
 #    Created: 2022/10/06 12:06:15 by svan-has      #+#    #+#                  #
-#    Updated: 2023/10/18 16:43:38 by svan-has      ########   odam.nl          #
+#    Updated: 2024/02/12 10:50:01 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,16 +24,26 @@ OBJ := $(SRC:$(SRC_DIR)/%.c=$(OBJ_DIR)/%.o)
 DIR_DUP = mkdir -p $(@D)
 RM = rm -rf
 
+# color 
+BOLD		= \033[1m
+ITALIC		= \033[3m
+UNDER 		= \033[4m
+CYAN		= \033[36;1m
+GREEN		= \033[32;1m
+INDIGO		= \033[38;2;75;0;130m
+CORAL		= \033[38;2;255;127;80m
+RESET		= \033[0m
+
 all: ft_printf $(NAME)
 
 ft_printf:
-	@$(MAKE) -C $(FT_PRINTF)
+	@$(MAKE) -s -C $(FT_PRINTF)
 
 $(NAME): $(OBJ)
 	@cp $(FT_PRINTF)/libftprintf.a ./
 	@mv libftprintf.a libft.a
 	@ar -rc $(NAME) $(OBJ)
-	$(info Libft Compiled)
+	@echo "$(BLOD) $(CYAN) Libft Compiled $(RSET)"
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@$(DIR_DUP)

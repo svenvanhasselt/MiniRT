@@ -6,7 +6,7 @@
 /*   By: yizhang <yizhang@student.codam.nl>           +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2023/12/13 09:10:52 by yizhang       #+#    #+#                 */
-/*   Updated: 2024/02/08 10:24:29 by svan-has      ########   odam.nl         */
+/*   Updated: 2024/02/12 10:55:03 by svan-has      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	compare_update_t(t_object *obj, t_ray *ray)
 		return ;
 	ray->t = compare_t(obj->t, ray->t);
 	if (ray->t == obj->t && ray->t >= 0)
-	{	
+	{
 		ray->inside = obj->inside;
 		ray->obj = obj;
 	}

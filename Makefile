@@ -1,12 +1,12 @@
 # **************************************************************************** #
 #                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: sven <sven@student.42.fr>                  +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/10/06 17:29:14 by yizhang           #+#    #+#              #
-#    Updated: 2024/02/10 16:50:09 by sven             ###   ########.fr        #
+#                                                         ::::::::             #
+#    Makefile                                           :+:    :+:             #
+#                                                      +:+                     #
+#    By: sven <sven@student.42.fr>                    +#+                      #
+#                                                    +#+                       #
+#    Created: 2023/10/06 17:29:14 by yizhang       #+#    #+#                  #
+#    Updated: 2024/02/12 11:13:41 by svan-has      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -67,8 +67,8 @@ RESET		= \033[0m
 all: $(NAME)
 
 $(NAME): $(OBJ) $(HEADER)
-	@$(MAKE) -C $(LIBFT)
-	@cd	$(LIBMLX) && cmake -B build && cmake --build build -j4
+	@$(MAKE) -s -C $(LIBFT)
+	@cd	$(LIBMLX) && cmake -B build > nul && cmake --build build -j4 > nul
 	@$(CC) $(FLAG) $(OBJ) $(LIBS) $(LINK) -lm -o $(NAME)
 	@echo "$(BLOD) $(GREEN) Compilation MiniRT Done $(RSET)"
 
@@ -78,13 +78,13 @@ $(OBJ_DIR)/%.o: ./$(SRC_DIR)/%.c
 
 clean:
 	@rm -rf $(OBJ_DIR)
-	@$(MAKE) -C $(LIBFT) clean
+	@$(MAKE) -s -C $(LIBFT) clean
 	@rm -rf $(LIBMLX)/build
 	@echo "$(BLOD) $(CYAN) Clean objects Done $(RSET)"
 
 fclean: clean
 	@rm -rf $(NAME)
-	@$(MAKE) -C $(LIBFT) fclean
+	@$(MAKE) -s -C $(LIBFT) fclean
 	@echo "$(BLOD) $(CYAN) Clean MiniRT Done $(RSET)"
 
 re:fclean all
