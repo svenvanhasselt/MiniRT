@@ -70,4 +70,4 @@ make fclean
 * [How To Solve Quadratic Equations Using The Quadratic Formula](https://www.youtube.com/watch?v=IlNAJl36-10)
 * [A Complete Guide to the Discriminant of Quadratic](https://mathsathome.com/the-discriminant-quadratic/)
 * [How a vector is reflected at a surface](http://www.sunshine2k.de/articles/coding/vectorreflection/vectorreflection.html#:~:text=Reflection%20in%20a%20nutshell%3A&text=The%20formula%20w%20%3D%20v%20%2D%202,not%20a%20point%20in%20space)
-*[Ray-Plane and Ray-Disk Interseciton](https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection.html)
+* [Ray-Plane and Ray-Disk Interseciton](https://www.scratchapixel.com/lessons/3d-basic-rendering/minimal-ray-tracer-rendering-simple-shapes/ray-plane-and-ray-disk-intersection.html)
