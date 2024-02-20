@@ -50,7 +50,17 @@ make fclean
 ### atom.rt images
 ![WeChat8231ae6fbe42ea2b2b9b6406c22b837a](https://github.com/yixin1230/MiniRT/assets/100164159/1ba88855-388d-4a66-9724-18137500049a)
 ### scene4.rt images
-![WeChat8231ae6fbe42ea2b2b9b6406c22b837a](https://github.com/yixin1230/MiniRT/assets/100164159/dff7491d-2691-4d53-b6a1-a70af6a8753d)
+![WeChat1fd98b0f7e0cf823a659908970556345](https://github.com/yixin1230/MiniRT/assets/100164159/2ff46930-efb2-4b1b-b8ca-04c26d48b7ec)
+### scene5.rt images
+![WeChat29a6352c475b409d6beaedf7a84452ed](https://github.com/yixin1230/MiniRT/assets/100164159/3b919a7e-c711-4164-9cc2-094c90663a69)
+### scene6.rt images
+![WeChatb3bd817fbfe6a57abd71a870065bd298](https://github.com/yixin1230/MiniRT/assets/100164159/fb64536f-b2ed-4245-8cb5-5ea96daa77eb)
+### scene7.rt images
+![WeChat072e23cb6bca10e3d3ad9281a3a1916e](https://github.com/yixin1230/MiniRT/assets/100164159/51732a2b-e6f7-42bc-a4ed-2e5d2e6782a3)
+### scene8.rt images
+![WeChat6faa68c9009287ecf2ef2f46692aa6f0](https://github.com/yixin1230/MiniRT/assets/100164159/36527618-0947-4612-99c4-d0d8b8b56551)
+### test1.rt
+![WeChatb51c425949fd19708099a5d983ad1537](https://github.com/yixin1230/MiniRT/assets/100164159/aa60ceb5-a5f3-4033-a105-83729348fc7a)
 
 ## Resources
 * [Everything You Need to Know About VECTORS](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
