@@ -14,8 +14,6 @@
 
 </p>
 
-## About
-
 
 ## Starting
 ```bash
