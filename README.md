@@ -31,8 +31,8 @@ make fclean
 ```
 
 ## Run
+- example: ./minirt <some.rt file>
 ```
-//example: ./minirt <some .rt file>
 ./minirt scenes/atom.rt
 ```
 ## Run different scenes
