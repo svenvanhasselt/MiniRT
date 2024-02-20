@@ -47,7 +47,10 @@ make fclean
 ./minirt scenes/test2.rt
 ./minirt scenes/room.rt
 ```
-## images
+### atom.rt images
+![WeChat8231ae6fbe42ea2b2b9b6406c22b837a](https://github.com/yixin1230/MiniRT/assets/100164159/1ba88855-388d-4a66-9724-18137500049a)
+### scene4.rt images
+![WeChat8231ae6fbe42ea2b2b9b6406c22b837a](https://github.com/yixin1230/MiniRT/assets/100164159/dff7491d-2691-4d53-b6a1-a70af6a8753d)
 
 ## Resources
 * [Everything You Need to Know About VECTORS](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
