@@ -30,6 +30,25 @@ make clean
 make fclean
 ```
 
+## Run
+```
+//example: ./minirt <some .rt file>
+./minirt scenes/atom.rt
+```
+## Run different scenes
+```
+./minirt scenes/atom.rt
+./minirt scenes/scene4.rt
+./minirt scenes/scene5.rt
+./minirt scenes/scene6.rt
+./minirt scenes/scene7.rt
+./minirt scenes/scene8.rt
+./minirt scenes/test1.rt
+./minirt scenes/test2.rt
+./minirt scenes/room.rt
+```
+## images
+
 ## Resources
 * [Everything You Need to Know About VECTORS](https://www.youtube.com/watch?v=Ej3ZVxljJfo)
 * [Ray Tracing in One Weekend](https://raytracing.github.io/books/RayTracingInOneWeekend.html)
